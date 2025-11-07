@@ -1,0 +1,43 @@
+export type IndiaLocations = Record<string, string[]>;
+
+// Curated popular cities per state/UT. Extend as needed.
+export const INDIA_LOCATIONS: IndiaLocations = {
+  AndhraPradesh: ['Visakhapatnam','Vijayawada','Guntur','Tirupati','Kakinada'],
+  ArunachalPradesh: ['Itanagar','Tawang'],
+  Assam: ['Guwahati','Silchar','Dibrugarh','Jorhat'],
+  Bihar: ['Patna','Gaya','Bhagalpur','Muzaffarpur'],
+  Chhattisgarh: ['Raipur','Bhilai','Bilaspur','Durg'],
+  Goa: ['Panaji','Margao','Vasco da Gama','Mapusa'],
+  Gujarat: ['Ahmedabad','Surat','Vadodara','Rajkot','Bhavnagar'],
+  Haryana: ['Gurugram','Faridabad','Panipat','Karnal','Hisar'],
+  HimachalPradesh: ['Shimla','Manali','Dharamshala','Solan'],
+  Jharkhand: ['Ranchi','Jamshedpur','Dhanbad','Bokaro'],
+  Karnataka: ['Bengaluru','Mysuru','Mangalore','Hubballi','Belagavi'],
+  Kerala: ['Kochi','Thiruvananthapuram','Kozhikode','Thrissur','Kollam'],
+  MadhyaPradesh: ['Indore','Bhopal','Gwalior','Jabalpur','Ujjain'],
+  Maharashtra: ['Mumbai','Pune','Nagpur','Nashik','Navi Mumbai','Thane'],
+  Manipur: ['Imphal'],
+  Meghalaya: ['Shillong'],
+  Mizoram: ['Aizawl'],
+  Nagaland: ['Kohima','Dimapur'],
+  Odisha: ['Bhubaneswar','Cuttack','Rourkela','Sambalpur'],
+  Punjab: ['Ludhiana','Amritsar','Jalandhar','Patiala','Chandigarh'],
+  Rajasthan: ['Jaipur','Udaipur','Jodhpur','Kota','Ajmer'],
+  Sikkim: ['Gangtok'],
+  TamilNadu: ['Chennai','Coimbatore','Madurai','Tiruchirappalli','Salem'],
+  Telangana: ['Hyderabad','Warangal','Nizamabad','Karimnagar'],
+  Tripura: ['Agartala'],
+  UttarPradesh: ['Lucknow','Noida','Ghaziabad','Kanpur','Varanasi','Agra'],
+  Uttarakhand: ['Dehradun','Haridwar','Haldwani','Rishikesh'],
+  WestBengal: ['Kolkata','Howrah','Durgapur','Siliguri'],
+  AndamanAndNicobarIslands: ['Port Blair'],
+  Chandigarh: ['Chandigarh'],
+  DadraAndNagarHaveliAndDamanAndDiu: ['Daman','Silvassa'],
+  Delhi: ['New Delhi'],
+  JammuAndKashmir: ['Srinagar','Jammu'],
+  Ladakh: ['Leh','Kargil'],
+  Lakshadweep: ['Kavaratti'],
+  Puducherry: ['Puducherry','Karaikal'],
+};
+
+
