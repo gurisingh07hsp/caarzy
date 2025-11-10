@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Footer } from '@/components/Footer'
+import { UserProvider } from '@/context/UserContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +20,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
         <main className="min-h-screen">
+          <UserProvider>
           {children}
+          </UserProvider>
         </main>
         <Footer />
       </body>

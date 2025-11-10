@@ -2,7 +2,9 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Car, Search, Menu, X, Heart, User } from 'lucide-react';
+import AuthModal from './AuthModal';
+import { useUser } from '@/context/UserContext';
+import { Car, Search, Menu, X, Heart, User, LogOut } from 'lucide-react';
 
 interface HeaderProps {
   searchTerm: string;
@@ -10,7 +12,9 @@ interface HeaderProps {
 }
 
 export function Header({ searchTerm, onSearchChange }: HeaderProps) {
+  const {isLoggedIn, user, logout} = useUser();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
@@ -59,23 +63,36 @@ export function Header({ searchTerm, onSearchChange }: HeaderProps) {
 
           {/* Right Side Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="p-2 text-gray-600 hover:text-orange-500 transition-colors">
+            {/* <button className="p-2 text-gray-600 hover:text-orange-500 transition-colors">
               <Search className="h-5 w-5" />
-            </button>
-            <button className="p-2 text-gray-600 hover:text-orange-500 transition-colors">
+            </button> */}
+            {/* <button className="p-2 text-gray-600 hover:text-orange-500 transition-colors">
               <Heart className="h-5 w-5" />
+            </button> */}
+            {isLoggedIn ? (
+              <button className='border min-w-44 flex items-center gap-2 py-1 px-2 rounded-lg'>
+                <div className='w-8 h-8 rounded-full border flex justify-center items-center'>
+                  <User className='w-5 h-5'/>
+                </div>
+                <div>
+                  <p>{user?.username}</p>
+                </div>
+              </button>
+            ) : (
+              <button onClick={()=>setIsAuthModalOpen(true)} className="flex items-center space-x-2 text-gray-700">
+                <User className="h-5 w-5" />
+                <span className="font-medium">Register / Login</span>
             </button>
-            <div className="flex items-center space-x-2 text-gray-700">
-              <User className="h-5 w-5" />
-              <span className="font-medium">Register / Login</span>
-            </div>
-            <Link
-              href="/admin"
-              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center"
+            )}
+
+            {isLoggedIn && 
+            <button
+              onClick={logout}
+              className="bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center"
             >
-              <Car className="h-4 w-4 mr-2" />
-              Add Car
-            </Link>
+              Logout
+              <LogOut className="h-4 w-4 ms-1" />
+            </button>}
           </div>
 
           {/* Mobile menu button */}
@@ -125,6 +142,7 @@ export function Header({ searchTerm, onSearchChange }: HeaderProps) {
           </div>
         )}
       </div>
+      {isAuthModalOpen && <AuthModal closeModal={setIsAuthModalOpen}/>}
     </header>
   );
 }
