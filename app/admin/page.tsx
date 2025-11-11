@@ -6,6 +6,7 @@ import { BlogPost } from '@/types/BlogPost';
 import { mockCars } from '@/data/mockCars';
 import { mockBlogs } from '@/data/mockBlogs';
 import { AdminDashboard } from '@/components/AdminDashboard';
+import axios from 'axios';
 
 export default function AdminPage() {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
@@ -40,17 +41,26 @@ export default function AdminPage() {
     localStorage.setItem('carwale-blogs', JSON.stringify(blogs));
   }, [blogs]);
 
-  const handleAddCar = (car: Car) => {
-    setCars(prev => [...prev, car]);
+  const handleAddCar = async(car: Car) => {
+    try{
+      const response = await axios.post('/api/managecars', {car}, {withCredentials: true});
+      if(response.status === 200){
+        console.log('Car added successfully');
+        setCars(prev => [...prev, car]);
+      }
+    }
+    catch(error){
+      console.error('Error adding car: ', error);
+    }
   };
 
   const handleUpdateCar = (updatedCar: Car) => {
-    setCars(prev => prev.map(car => car.id === updatedCar.id ? updatedCar : car));
+    setCars(prev => prev.map(car => car._id === updatedCar._id ? updatedCar : car));
   };
 
   const handleDeleteCar = (id: string) => {
     if (window.confirm('Are you sure you want to delete this car?')) {
-      setCars(prev => prev.filter(car => car.id !== id));
+      setCars(prev => prev.filter(car => car._id !== id));
     }
   };
 

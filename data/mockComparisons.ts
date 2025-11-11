@@ -8,7 +8,7 @@ export interface ComparisonPair {
 export const mockComparisons: ComparisonPair[] = [
   {
     leftCar: {
-      id: 'compare-1-left',
+      _id: 'compare-1-left',
       name: 'Range Rover Evoque',
       brand: 'Land Rover',
       category: 'SUV',
@@ -45,7 +45,7 @@ export const mockComparisons: ComparisonPair[] = [
       launchDate: '2023-06-15'
     },
     rightCar: {
-      id: 'compare-1-right',
+      _id: 'compare-1-right',
       name: 'D-Max',
       brand: 'Isuzu',
       category: 'SUV',
@@ -84,7 +84,7 @@ export const mockComparisons: ComparisonPair[] = [
   },
   {
     leftCar: {
-      id: 'compare-2-left',
+      _id: 'compare-2-left',
       name: 'Aeolus',
       brand: 'Dongfeng',
       category: 'Sedan',
@@ -121,7 +121,7 @@ export const mockComparisons: ComparisonPair[] = [
       launchDate: '2022-08-20'
     },
     rightCar: {
-      id: 'compare-2-right',
+      _id: 'compare-2-right',
       name: 'Camry 2025',
       brand: 'Toyota',
       category: 'Sedan',
@@ -160,7 +160,7 @@ export const mockComparisons: ComparisonPair[] = [
   },
   {
     leftCar: {
-      id: 'compare-3-left',
+      _id: 'compare-3-left',
       name: 'Carnival MPV',
       brand: 'Kia',
       category: 'SUV',
@@ -197,7 +197,7 @@ export const mockComparisons: ComparisonPair[] = [
       launchDate: '2022-11-15'
     },
     rightCar: {
-      id: 'compare-3-right',
+      _id: 'compare-3-right',
       name: 'Kicks 2022',
       brand: 'Nissan',
       category: 'SUV',

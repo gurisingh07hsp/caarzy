@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     if(!user)
     {
         return new Response(
-            JSON.stringify({ message: "Invalid Email or Password" }),
+            JSON.stringify({ message: "Invalid Email" }),
             { status: 401 }
           );
     }
@@ -24,12 +24,11 @@ export async function POST(req: Request) {
     const validPassword = await (User as any).comparePassword(password,user.password);
     
 
-    if(!validPassword)
-    {
-        return new Response(
-            JSON.stringify({ message: "Invalid Email or Password" }),
-            { status: 401 }
-          );
+    if(!validPassword){
+      return new Response(
+          JSON.stringify({ message: "Invalid Password" }),
+          { status: 401 }
+        );
     }
 
     const token = user.generateAuthToken();

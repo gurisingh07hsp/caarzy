@@ -2,14 +2,15 @@
 
 import React from 'react';
 import { Car } from '@/types/Car';
+import { useRouter } from 'next/navigation';
 
 interface CarCardProps {
   car: Car;
-  onClick: (car: Car) => void;
 }
 
-export function CarCard({ car, onClick }: CarCardProps) {
+export function CarCard({ car}: CarCardProps) {
   // Default values for missing fields
+  const router = useRouter();
   const isFeatured = car.isFeatured ?? false;
   const isSold = car.isSold ?? false;
   const year = car.year ?? 2022;
@@ -17,11 +18,11 @@ export function CarCard({ car, onClick }: CarCardProps) {
   const originalPrice = car.originalPrice;
 
     return (
-        <div onClick={() => onClick(car)} className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer">
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer">
       {/* Image Section with Badges */}
       <div className="relative aspect-video w-full bg-gray-100 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={car.images[0]} alt={car.name} className="w-full h-full object-cover" />
+        {/* <img src={car?.images[0]} alt={car.name} className="w-full h-full object-cover" /> */}
         
         {/* Badges */}
         <div className="absolute top-3 left-3 flex gap-2">
@@ -83,7 +84,7 @@ export function CarCard({ car, onClick }: CarCardProps) {
         
         {/* View Button - Full Width */}
             <button
-              onClick={(e) => { e.stopPropagation(); onClick(car); }}
+              onClick={(e) => { e.stopPropagation(); router.push(`/${car.brand.replace(/\s+/g, '-')}/${car.name.replace(/\s+/g, '-')}`)}}
               className="w-full bg-white border border-gray-300 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
             >
               View car

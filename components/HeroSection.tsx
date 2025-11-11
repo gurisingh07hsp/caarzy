@@ -32,7 +32,7 @@ export function HeroSection({ searchTerm, onSearchChange }: HeroSectionProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
             
             {/* Left Side - Search Form */}
-            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md">
+            <div className="bg-white lg:block hidden rounded-2xl shadow-2xl p-8 max-w-md">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Find your right car</h2>
               
               {/* Tab Selection */}
@@ -176,8 +176,8 @@ export function HeroSection({ searchTerm, onSearchChange }: HeroSectionProps) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-12">
-            <h2 className="text-3xl font-bold text-gray-900">Popular Car Makes & Body Types</h2>
-            <div className="flex space-x-6">
+            <h2 className="md:text-3xl text-2xl text-center font-bold text-gray-900">Popular Car Makes & Body Types</h2>
+            {/* <div className="flex space-x-6">
               <button className="text-gray-600 hover:text-orange-500 font-medium transition-colors flex items-center">
                 Car makes
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -190,7 +190,7 @@ export function HeroSection({ searchTerm, onSearchChange }: HeroSectionProps) {
                 View all
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>
-            </div>
+            </div> */}
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">

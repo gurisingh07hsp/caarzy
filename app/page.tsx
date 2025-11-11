@@ -16,25 +16,26 @@ import { BlogSection } from '@/components/BlogSection';
 import { CompareSection } from '@/components/CompareSection';
 import { AdvertisementSection } from '@/components/AdvertisementSection';
 import { UpcomingCars } from '@/components/UpcomingCars';
-import { CarCard } from '@/components/CarCard';
-import { CarDetail } from '@/components/CarDetail';
+import axios from 'axios';
 
 export default function HomePage() {
-  const [cars, setCars] = useState<Car[]>(mockCars);
+  const [cars, setCars] = useState<Car[]>([]);
   const [blogs, setBlogs] = useState<BlogPost[]>(mockBlogs);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCar, setSelectedCar] = useState<Car | null>(null);
 
   // Load cars from localStorage on component mount
+  const getCars = async() => {
+    try{
+      const response = await axios.get('/api/managecars');
+      if(response.status === 200){
+        setCars(response.data.cars);
+      }
+    }catch(error){
+      console.error('Error fetching popular cars: ', error);
+    }
+  };
   useEffect(() => {
-    const savedCars = localStorage.getItem('carwale-cars');
-    if (savedCars) {
-      setCars(JSON.parse(savedCars));
-    }
-    const savedBlogs = localStorage.getItem('carwale-blogs');
-    if (savedBlogs) {
-      setBlogs(JSON.parse(savedBlogs));
-    }
+    getCars();
   }, []);
 
   // Save cars to localStorage whenever cars change
@@ -48,35 +49,22 @@ export default function HomePage() {
   }, [blogs]);
 
 
-  const handleCarClick = (car: Car) => {
-    setSelectedCar(car);
-  };
-
-  const handleBackToList = () => {
-    setSelectedCar(null);
-  };
-
   return (
     <div className="min-h-screen bg-white">
       <Header
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
       />
-
-      {selectedCar ? (
-        <CarDetail car={selectedCar} onBack={handleBackToList} />
-      ) : (
         <div>
           <HeroSection searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-          <PopularCars cars={cars} onCarClick={handleCarClick} />
+          <PopularCars cars={cars}/>
           <CompareSection comparisons={mockComparisons} />
-          <UpcomingCars cars={cars} onCarClick={handleCarClick} />
+          <UpcomingCars cars={cars}/>
           <AdvertisementSection />
           <BrandShowcase brands={mockBrands} />
           <Testimonials />
           <BlogSection blogs={blogs} />
         </div>
-      )}
     </div>
   );
 }

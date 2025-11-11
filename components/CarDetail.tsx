@@ -7,13 +7,13 @@ import { Reviews } from './Reviews';
 import { mockCars } from '@/data/mockCars';
 import { Car } from '@/types/Car';
 import { INDIA_LOCATIONS } from '@/data/indiaLocations';
+import { div } from 'framer-motion/client';
 
 interface CarDetailProps {
-  car: Car;
-  onBack: () => void;
+  car: Car
 }
 
-export function CarDetail({ car, onBack }: CarDetailProps) {
+export function CarDetail({ car}: CarDetailProps) {
   const [selectedFuel, setSelectedFuel] = useState<'All' | 'Petrol' | 'Diesel' | 'Electric' | 'Hybrid' | 'CNG'>('All');
   const [selectedTransmission, setSelectedTransmission] = useState<'All' | 'Manual' | 'Automatic' | 'Automatic (AMT)'>('All');
   const [emiOpen, setEmiOpen] = useState(false);
@@ -99,7 +99,7 @@ export function CarDetail({ car, onBack }: CarDetailProps) {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <button onClick={onBack} className="mb-6 text-orange-600 hover:underline">← Back to list</button>
+      <button className="mb-6 text-orange-600 hover:underline">← Back to list</button>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
@@ -112,11 +112,16 @@ export function CarDetail({ car, onBack }: CarDetailProps) {
               </video>
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={(car.images[activeIndex] || car.images[0])}
-                alt={`${car.name} image ${activeIndex + 1}`}
-                className="w-full h-[360px] md:h-[460px] object-cover"
-              />
+              <>
+              {car?.images?.length !== 0 && (
+                <></>
+                // <img
+                //   src={(car?.images[activeIndex] || car?.images[0])}
+                //   alt={`${car.name} image ${activeIndex + 1}`}
+                //   className="w-full h-[360px] md:h-[460px] object-cover"
+                // />
+              )}
+              </>
             )}
             <div className="absolute bottom-3 left-3 flex gap-3">
               <button onClick={() => setShowVideo(true)} className={`px-3 py-1.5 rounded-lg text-sm shadow ${showVideo ? 'bg-gray-900 text-white' : 'bg-white/90 text-gray-900'}`}>Video</button>
@@ -126,7 +131,7 @@ export function CarDetail({ car, onBack }: CarDetailProps) {
           {/* Thumbnails strip */}
           <div className="mt-3 overflow-x-auto">
             <div className="flex gap-3 w-max">
-              {(showVideo && car.videos && car.videos.length ? car.videos : car.images).map((src, idx) => (
+              {/* {(showVideo && car.videos && car.videos.length ? car.videos : car.images).map((src, idx) => (
                 <button
                   key={src + idx}
                   onClick={() => setActiveIndex(idx)}
@@ -141,7 +146,7 @@ export function CarDetail({ car, onBack }: CarDetailProps) {
                     <img src={src} alt={`thumb ${idx+1}`} className="h-28 w-48 object-cover" />
                   )}
                 </button>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
@@ -265,7 +270,7 @@ export function CarDetail({ car, onBack }: CarDetailProps) {
         </div>
         {(() => {
           const similar = mockCars
-            .filter(c => c.id !== car.id && Math.abs(c.price - car.price) <= car.price * 0.25)
+            .filter(c => c._id !== car._id && Math.abs(c.price - car.price) <= car.price * 0.25)
             .sort((a,b) => a.price - b.price)
             .slice(0, 6);
           return (
@@ -282,7 +287,7 @@ export function CarDetail({ car, onBack }: CarDetailProps) {
                 </thead>
                 <tbody>
                   {similar.map((s) => (
-                    <tr key={s.id} className="border-t">
+                    <tr key={s._id} className="border-t">
                       <td className="px-4 py-3 whitespace-nowrap font-medium text-gray-900">{s.brand} {s.name}</td>
                       <td className="px-4 py-3">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -303,7 +308,7 @@ export function CarDetail({ car, onBack }: CarDetailProps) {
         })()}
       </div>
       {breakupOpen && renderBreakup()}
-      <Reviews carId={car.id} />
+      <Reviews carId={car._id ?? ''} />
       <EmiCalculator open={emiOpen} onClose={() => setEmiOpen(false)} price={car.price} />
     </div>
   );

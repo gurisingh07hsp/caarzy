@@ -61,7 +61,7 @@ const AuthModal = ({closeModal}:PageProps) => {
     };
   return (
     <div onClick={()=> {closeModal(false)}} className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 cursor-pointer">
-        <div onClick={(e)=>e.stopPropagation()} className='bg-white rounded-lg p-6 w-full max-w-96'>
+        <div onClick={(e)=>e.stopPropagation()} className='bg-white rounded-lg p-6 w-[90%] max-w-96'>
             <h2 className='lg:text-lg font font-medium'>Login or Register</h2>
             <div className='bg-gray-100 grid grid-cols-2 rounded-lg mt-4 p-1'>
                 <button onClick={()=> setTab('login')} className={`${tab === 'login' && 'bg-black text-white'} py-2 rounded-lg`}>Login</button>
@@ -71,17 +71,24 @@ const AuthModal = ({closeModal}:PageProps) => {
                 {tab === 'register' && <input type='text'
                  value={form.username}
                  onChange={(e)=> setForm({...form, username: e.target.value})}
+                 required
                  placeholder='Username' className='border w-[90%] px-4 py-2 rounded-lg'></input>}
                 {tab === 'register' && <input type='tel'
                 value={form.phone}
-                onChange={(e)=> setForm({...form, phone: e.target.value })} placeholder='Phone' className='border w-[90%] px-4 py-2 rounded-lg'></input>}
-                <input type='text'
+                onChange={(e)=> setForm({...form, phone: e.target.value })}
+                required
+                placeholder='Phone' className='border w-[90%] px-4 py-2 rounded-lg'></input>}
+                <input type='email'
                  value={form.email}
                  onChange={(e)=> setForm({...form, email: e.target.value})}
+                 required
                  placeholder='Email' className='border w-[90%] px-4 py-2 rounded-lg'></input>
                 <input type='password'
                 value={form.password}
-                onChange={(e)=> setForm({...form, password: e.target.value})} placeholder='Password' className='border w-[90%] px-4 py-2 rounded-lg'></input>
+                onChange={(e)=> setForm({...form, password: e.target.value})}
+                required 
+                placeholder='Password' className='border w-[90%] px-4 py-2 rounded-lg'></input>
+                {message && <p className=''>{message}</p>}
                 <input type='submit' value={`${tab === 'login' ? 'Login' : 'Register'}`} className='bg-orange-500 text-white w-[90%] py-2 rounded-lg cursor-pointer'></input> 
             </form>
             <div className='flex items-center mt-2'>

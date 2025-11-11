@@ -129,7 +129,6 @@ export function AdminDashboard({
           </nav>
 
           <div className="flex items-center space-x-4">
-            <span className="text-gray-700 font-medium">Register / Login</span>
             <button
               onClick={() => setCurrentPage('blogs')}
               className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center"
@@ -240,7 +239,7 @@ function DashboardOverview({ cars, blogs }: { cars: Car[]; blogs: BlogPost[] }) 
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Cars</h3>
           <div className="space-y-4">
             {recentCars.map((car) => (
-              <div key={car.id} className="flex items-center p-3 bg-gray-50 rounded-lg">
+              <div key={car._id} className="flex items-center p-3 bg-gray-50 rounded-lg">
                 <img
                   src={car.images[0]}
                   alt={car.name}

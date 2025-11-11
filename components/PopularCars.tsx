@@ -6,10 +6,9 @@ import { CarCard } from './CarCard';
 
 interface PopularCarsProps {
   cars: Car[];
-  onCarClick: (car: Car) => void;
 }
 
-export function PopularCars({ cars, onCarClick }: PopularCarsProps) {
+export function PopularCars({cars}: PopularCarsProps) {
       // Show a selection of cars (prefer latest, but fallback to all)
       const latestCars = cars.filter((car) => car.isLatest);
       const list = latestCars.length ? latestCars : cars;
@@ -21,7 +20,7 @@ export function PopularCars({ cars, onCarClick }: PopularCarsProps) {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {list.map((car) => (
-          <CarCard key={car.id} car={car} onClick={onCarClick} />
+          <CarCard key={car._id} car={car}/>
         ))}
       </div>
     </section>

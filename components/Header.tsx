@@ -59,6 +59,12 @@ export function Header({ searchTerm, onSearchChange }: HeaderProps) {
             >
               Contact
             </Link>
+            <Link
+              href="/admin"
+              className="text-gray-700 hover:text-orange-500 font-medium transition-colors"
+            >
+              Admin
+            </Link>
           </nav>
 
           {/* Right Side Actions */}
@@ -108,7 +114,7 @@ export function Header({ searchTerm, onSearchChange }: HeaderProps) {
 
         {/* Mobile menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 py-4">
+          <div className="md:hidden min-h-[100vh] border-t border-gray-200 py-4">
             <div className="flex flex-col space-y-2">
               <Link
                 href="/"
@@ -133,11 +139,35 @@ export function Header({ searchTerm, onSearchChange }: HeaderProps) {
               </Link>
               <Link
                 href="/admin"
-                className="px-4 py-2 text-left bg-orange-500 text-white rounded-lg font-medium mx-4"
+                className="px-4 py-2 text-left font-medium text-gray-700 hover:text-orange-500 transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Add Car
+                Admin
               </Link>
+
+              {isLoggedIn ? (
+              <button onClick={()=> setIsMobileMenuOpen(false)} className='w-44 flex items-center gap-2 py-1 px-2 rounded-lg'>
+                <div className='w-8 h-8 rounded-full border flex justify-center items-center'>
+                  <User className='w-5 h-5'/>
+                </div>
+                <div>
+                  <p>{user?.username}</p>
+                </div>
+              </button>
+            ) : (
+              <button onClick={()=>{setIsAuthModalOpen(true); setIsMobileMenuOpen(false)}} className="px-4 py-2 text-left font-medium text-gray-700 hover:text-orange-500 transition-colors">
+                <span className="font-medium">Register / Login</span>
+            </button>
+            )}
+
+              {isLoggedIn && 
+                <button
+                  onClick={()=>{logout(); setIsMobileMenuOpen(false)}}
+                  className="bg-red-600 w-28 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center"
+                >
+                  Logout
+                  <LogOut className="h-4 w-4 ms-1" />
+                </button>}
             </div>
           </div>
         )}

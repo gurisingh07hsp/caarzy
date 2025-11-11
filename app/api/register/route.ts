@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       );
   }
 
-  if(password.lenght < 6)
+  if(password.length < 6)
   {
     return new Response(
         JSON.stringify({ message: "Password should be atlest 6 character long" }),
@@ -27,8 +27,28 @@ export async function POST(req: Request) {
       );
   }
 
+  if(username.length < 3){
+    return new Response(
+      JSON.stringify({ message: "Username should be atlest 3 character long" }),
+      { status: 400 }
+    );
+  }
+
+  if(username.length > 30){
+    return new Response(
+      JSON.stringify({ message: "Username should not exceed 30 character" }),
+      { status: 400 }
+    );
+  }
+
+  if (!/^\d{10}$/.test(phone)) {
+    return new Response(
+      JSON.stringify({ message: "Enter valid phone number" }),
+      { status: 400 }
+    );
+  }
+
   const hashPassword = await (User as any).hashPassword(password);
-  console.log(hashPassword);
 
   const user = await User.create({
       username: username,

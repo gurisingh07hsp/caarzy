@@ -19,36 +19,15 @@ export function AdvertisementSection({ className = '' }: AdvertisementSectionPro
             </div>
             
             {/* Landscape Ad Placeholder */}
-            <div className="relative bg-gradient-to-r from-gray-100 to-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-gradient-to-r from-gray-100 to-gray-200 rounded-lg">
               {/* Desktop Ad - Leaderboard (728x90) */}
               <div className="hidden md:block">
-                <div className="w-full h-[90px] bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+                <div className="w-full h-56 bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
                   <div className="text-white text-center">
-                    <div className="text-lg font-bold mb-1">728 × 90</div>
+                    <div className="text-2xl font-bold">Your Ad Here</div>
+                    <div className="text-sm opacity-90">Perfect for car dealerships, insurance, financing</div>
+                    <div className="text-lg font-bold">728 × 90</div>
                     <div className="text-sm opacity-90">Leaderboard Ad Space</div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Mobile Ad - Mobile Leaderboard (320x50) */}
-              <div className="md:hidden">
-                <div className="w-full h-[50px] bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-                  <div className="text-white text-center">
-                    <div className="text-sm font-bold mb-1">320 × 50</div>
-                    <div className="text-xs opacity-90">Mobile Ad</div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Ad Content Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <div className="text-2xl font-bold mb-2">Your Ad Here</div>
-                  <div className="text-sm opacity-90">Perfect for car dealerships, insurance, financing</div>
-                  <div className="mt-3">
-                    <button className="bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                      Learn More
-                    </button>
                   </div>
                 </div>
               </div>

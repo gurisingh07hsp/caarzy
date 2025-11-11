@@ -5,10 +5,9 @@ import { Car } from '@/types/Car';
 
 interface UpcomingCarsProps {
   cars: Car[];
-  onCarClick: (car: Car) => void;
 }
 
-export function UpcomingCars({ cars, onCarClick }: UpcomingCarsProps) {
+export function UpcomingCars({ cars}: UpcomingCarsProps) {
   const upcoming = cars
     .filter((c) => {
       const d = new Date(c.launchDate).getTime();
@@ -28,9 +27,8 @@ export function UpcomingCars({ cars, onCarClick }: UpcomingCarsProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {upcoming.map((car) => (
           <div
-            key={car.id}
+            key={car._id}
             className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer"
-            onClick={() => onCarClick(car)}
           >
             <div className="relative aspect-video w-full bg-gray-100 overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -50,7 +48,7 @@ export function UpcomingCars({ cars, onCarClick }: UpcomingCarsProps) {
                 <span className="text-gray-900 font-semibold">Expected: ₹{(car.price/100000).toFixed(2)}L</span>
                 <button
                   className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 hover:bg-gray-50"
-                  onClick={(e) => { e.stopPropagation(); onCarClick(car); }}
+                  onClick={(e) => { e.stopPropagation(); }}
                 >
                   View
                 </button>

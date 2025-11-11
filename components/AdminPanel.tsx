@@ -38,7 +38,7 @@ export function AdminPanel({ cars, blogs, onAddCar }: AdminPanelProps) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {cars.map((car) => (
-          <div key={car.id} className="p-4 bg-white rounded-lg border">
+          <div key={car._id} className="p-4 bg-white rounded-lg border">
             <div className="flex items-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={car.images[0]} alt={car.name} className="w-16 h-16 rounded object-cover mr-4" />
@@ -73,17 +73,17 @@ export function AdminPanel({ cars, blogs, onAddCar }: AdminPanelProps) {
 }
 
 function AddCarForm({ onSubmit }: { onSubmit: (car: Car) => void }) {
-  const [name, setName] = useState('');
-  const [brand, setBrand] = useState('');
+  const [name, setName] = useState('i20');
+  const [brand, setBrand] = useState('hundai');
   const [category, setCategory] = useState<Car['category']>('SUV');
-  const [price, setPrice] = useState('');
-  const [mileage, setMileage] = useState('0');
+  const [price, setPrice] = useState('900000');
+  const [mileage, setMileage] = useState('18');
   const [fuelType, setFuelType] = useState<Car['fuelType']>('Petrol');
   const [transmission, setTransmission] = useState<Car['transmission']>('Manual');
   const [seatingCapacity, setSeatingCapacity] = useState('5');
-  const [engineCapacity, setEngineCapacity] = useState('');
+  const [engineCapacity, setEngineCapacity] = useState('1200cc');
   const [images, setImages] = useState<string>('');
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState('klfjdkljfafjdf');
   const [keyFeatures, setKeyFeatures] = useState<string>('');
   const [colors, setColors] = useState<string[]>([]);
   const [newColor, setNewColor] = useState('#ff6b00');
@@ -91,10 +91,10 @@ function AddCarForm({ onSubmit }: { onSubmit: (car: Car) => void }) {
   const [launchDate, setLaunchDate] = useState('');
   const [variants, setVariants] = useState<Car['variants']>([]);
   // Price breakup fields
-  const [exShowroom, setExShowroom] = useState<string>('');
-  const [registration, setRegistration] = useState<string>('');
-  const [insurance, setInsurance] = useState<string>('');
-  const [otherCharges, setOtherCharges] = useState<string>('');
+  const [exShowroom, setExShowroom] = useState<string>('100000');
+  const [registration, setRegistration] = useState<string>('100000');
+  const [insurance, setInsurance] = useState<string>('50000');
+  const [otherCharges, setOtherCharges] = useState<string>('50000');
 
   const imageList = useMemo(() => images.split(/\s*,\s*/).filter(Boolean), [images]);
   const featuresList = useMemo(() => keyFeatures.split(/\s*\n\s*|\s*,\s*/).filter(Boolean), [keyFeatures]);
@@ -110,7 +110,6 @@ function AddCarForm({ onSubmit }: { onSubmit: (car: Car) => void }) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const car: Car = {
-      id: `${Date.now()}`,
       name,
       brand,
       category,
@@ -120,7 +119,7 @@ function AddCarForm({ onSubmit }: { onSubmit: (car: Car) => void }) {
       transmission,
       seatingCapacity: Number(seatingCapacity) || 5,
       engineCapacity,
-      images: imageList.length ? imageList : ['https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg'],
+      images: imageList.length ? imageList : [''],
       description,
       keyFeatures: featuresList,
       specifications: {
@@ -176,11 +175,11 @@ function AddCarForm({ onSubmit }: { onSubmit: (car: Car) => void }) {
           ))}
         </select>
         <select value={transmission} onChange={(e) => setTransmission(e.target.value as Car['transmission'])} className="border rounded-lg px-3 py-2">
-          {['Manual','Automatic'].map((t) => (
+          {['Manual','Automatic','Automatic (AMT)'].map((t) => (
             <option key={t} value={t as Car['transmission']}>{t}</option>
           ))}
         </select>
-        <input value={seatingCapacity} onChange={(e) => setSeatingCapacity(e.target.value)} placeholder="Seating" type="number" className="border rounded-lg px-3 py-2" />
+        <input value={seatingCapacity} onChange={(e) => setSeatingCapacity(e.target.value)} placeholder="Seating Capacity" type="number" className="border rounded-lg px-3 py-2" />
       </div>
 
       {/* Price Breakup */}
@@ -238,7 +237,7 @@ function AddCarForm({ onSubmit }: { onSubmit: (car: Car) => void }) {
           <h3 className="font-semibold">Variants / Trims</h3>
           <button
             type="button"
-            onClick={() => setVariants((v) => [...(v || []), { name: '', fuel: 'Petrol', transmission: 'Manual', price: 0 }])}
+            onClick={() => setVariants((v) => [...(v || []), { name: '', fuel: 'Petrol', transmission: 'Manual', price: parseInt('')}])}
             className="px-3 py-1.5 rounded bg-gray-900 text-white hover:bg-gray-800"
           >
             Add Variant

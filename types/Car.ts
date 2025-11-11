@@ -1,5 +1,5 @@
 export interface Car {
-  id: string;
+  _id?: string;
   name: string;
   brand: string;
   category: 'SUV' | 'Hatchback' | 'Sedan' | 'Coupe' | 'Convertible' | 'Wagon';

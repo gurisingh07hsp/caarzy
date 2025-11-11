@@ -2,7 +2,7 @@ import { Car } from '@/types/Car';
 
 export const mockCars: Car[] = [
   {
-    id: '1',
+    _id: '1',
     name: 'Creta',
     brand: 'Hyundai',
     category: 'SUV',
@@ -40,7 +40,7 @@ export const mockCars: Car[] = [
     launchDate: '2024-01-15'
   },
   {
-    id: '2',
+    _id: '2',
     name: 'Swift',
     brand: 'Maruti Suzuki',
     category: 'Hatchback',
@@ -78,7 +78,7 @@ export const mockCars: Car[] = [
     launchDate: '2023-08-10'
   },
   {
-    id: '3',
+    _id: '3',
     name: 'City',
     brand: 'Honda',
     category: 'Sedan',
@@ -115,7 +115,7 @@ export const mockCars: Car[] = [
     launchDate: '2024-02-20'
   },
   {
-    id: '4',
+    _id: '4',
     name: 'Fortuner',
     brand: 'Toyota',
     category: 'SUV',
