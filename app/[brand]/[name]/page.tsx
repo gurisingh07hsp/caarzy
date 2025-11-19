@@ -1,30 +1,26 @@
 'use client';
+import React, { useEffect, useState } from 'react'
 import { CarDetail } from '@/components/CarDetail'
 import axios from 'axios';
-import { Car } from '@/types/Car';
-import React, { useEffect, useState } from 'react'
-import { useParams } from "next/navigation";
+import { Model } from '@/types/Car';
 
 const CarDetails = () => {
-  const [car, setCar] = useState<Car>({} as Car);
-  const { brand, name } = useParams();
-
-    useEffect(()=> {
-        const getCar = async() => {
-            try{
-              const response = await axios.get(`/api/getcarbybrandandname/${brand?.toString().replace(/-/g, ' ')}/${name?.toString().replace(/-/g, ' ')}`);
-              if(response.status === 200){
-                setCar(response.data.car);
-              }
-            }catch(error){
-                console.error('Error fetching car details : ', error);
-            }
-        }
-        getCar();
-    },[])
+  // const [car, setCar] = useState<Model | null>(null);
+  //   const getCars = async()=> {
+  //   console.log('run');
+  //     const response = await axios.get(`/api/managemodels/${'hyundai'?.toString().replace(/-/g, ' ')}/${'creta'?.toString().replace(/-/g, ' ')}`);
+  //     if(response.status === 200){
+  //       setCar(response.data.car);
+  //       console.log(response.data.car);
+  //     }
+  // }
+  // useEffect(() => {
+  //   getCars();
+  //   console.log(car);
+  // },[]);
   return (
     <div>
-      <CarDetail car={car} />
+      <CarDetail/>
     </div>
   )
 }

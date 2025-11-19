@@ -1,17 +1,17 @@
 'use client';
 
 import React from 'react';
-import { Car } from '@/types/Car';
+import { Model } from '@/types/Car';
 import { CarCard } from './CarCard';
 
 interface PopularCarsProps {
-  cars: Car[];
+  cars: Model[];
 }
 
 export function PopularCars({cars}: PopularCarsProps) {
       // Show a selection of cars (prefer latest, but fallback to all)
-      const latestCars = cars.filter((car) => car.isLatest);
-      const list = latestCars.length ? latestCars : cars;
+      const popularCars = cars.filter((car) => car.category === 'Popular Cars');
+      const list = popularCars.length ? popularCars : cars;
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Car } from '@/types/Car';
+import { Car, Model } from '@/types/Car';
 import { BlogPost } from '@/types/BlogPost';
 import { mockCars } from '@/data/mockCars';
 import { mockBlogs } from '@/data/mockBlogs';
@@ -10,7 +10,7 @@ import axios from 'axios';
 
 export default function AdminPage() {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  const [cars, setCars] = useState<Car[]>(mockCars);
+  const [cars, setCars] = useState<Model[]>([]);
   const [blogs, setBlogs] = useState<BlogPost[]>(mockBlogs);
 
   // Load data from localStorage on component mount
@@ -46,7 +46,7 @@ export default function AdminPage() {
       const response = await axios.post('/api/managecars', {car}, {withCredentials: true});
       if(response.status === 200){
         console.log('Car added successfully');
-        setCars(prev => [...prev, car]);
+        // setCars(prev => [...prev, car]);
       }
     }
     catch(error){
@@ -55,7 +55,7 @@ export default function AdminPage() {
   };
 
   const handleUpdateCar = (updatedCar: Car) => {
-    setCars(prev => prev.map(car => car._id === updatedCar._id ? updatedCar : car));
+    // setCars(prev => prev.map(car => car._id === updatedCar._id ? updatedCar : car));
   };
 
   const handleDeleteCar = (id: string) => {

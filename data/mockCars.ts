@@ -1,6 +1,6 @@
 import { Car } from '@/types/Car';
 
-export const mockCars: Car[] = [
+export const mockCars: any[] = [
   {
     _id: '1',
     name: 'Creta',

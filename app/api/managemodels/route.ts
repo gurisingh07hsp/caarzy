@@ -1,23 +1,22 @@
-import { dbConnect } from "@/lib/dbConnect";
-import Car from "@/models/car";
 import Model from "@/models/model";
+import { dbConnect } from "@/lib/dbConnect";
 import {authUser} from '@/middleware/authMiddleware';
 
 
 export async function GET(){
     await dbConnect();
     try{
-        const cars = await Car.find({});
-        if(cars){
+        const models = await Model.find({});
+        if(models){
             return new Response(
-            JSON.stringify({ success: true, cars}),
+            JSON.stringify({ success: true, models}),
             {
                 status: 200,
             })
         }
-        if(!cars){
+        if(!models){
             return new Response(
-            JSON.stringify({ success: false, message: 'no cars found'}),
+            JSON.stringify({ success: false, message: 'no models found'}),
             {
                 status: 400,
             })
@@ -33,10 +32,11 @@ export async function POST(req: Request) {
 
   const body = await req.json();
 
-  const {carForm} = body;
+  const {form} = body;
+  const modelName = form.modelName;
+  const brand = form.brand;
 
-  console.log(carForm);
-
+  try{
     const { user, error } = await authUser(req);
     if (error) return error;
 
@@ -48,16 +48,20 @@ export async function POST(req: Request) {
         })
     }
 
-  const newCar = await Car.create(carForm);
+    const isexist = await Model.findOne({modelName, brand});
+    if(isexist){
+        return new Response(JSON.stringify({success: false, message: 'Model already exist'}),
+        {status: 400});
+    }
 
-  const model = await Model.findById(carForm.model);
-  model.variant.push(newCar._id);
-
-  await model.save();
+  const newModel = await Model.create(form);
 
     return new Response(
-    JSON.stringify({ success: true, message: 'Car Added successfully'}),
+    JSON.stringify({ success: true, message: 'Car Model added successfully'}),
     {
     status: 200,
   })
+  }catch(error){
+    console.error(error);
+  }
 }

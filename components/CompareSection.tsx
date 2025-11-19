@@ -29,20 +29,20 @@ export function CompareSection({ comparisons }: CompareSectionProps) {
             <div className="relative aspect-video bg-gray-100">
               {/* Left Car Image */}
               <div className="absolute inset-0 w-1/2">
-                <img
+                {/* <img
                   src={comparison.leftCar.images[0]}
                   alt={comparison.leftCar.name}
                   className="w-full h-full object-cover"
-                />
+                /> */}
               </div>
               
               {/* Right Car Image */}
               <div className="absolute inset-0 right-0 w-1/2">
-                <img
+                {/* <img
                   src={comparison.rightCar.images[0]}
                   alt={comparison.rightCar.name}
                   className="w-full h-full object-cover"
-                />
+                /> */}
               </div>
               
               {/* VS Badge */}
@@ -58,23 +58,23 @@ export function CompareSection({ comparisons }: CompareSectionProps) {
               <div className="grid grid-cols-2 gap-6">
                 {/* Left Car Details */}
                 <div>
-                  <p className="text-sm text-gray-500 mb-1">{comparison.leftCar.brand}</p>
+                  {/* <p className="text-sm text-gray-500 mb-1">{comparison.leftCar.brand}</p> */}
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    {comparison.leftCar.brand} {comparison.leftCar.name}
+                    {/* {comparison.leftCar.brand} {comparison.leftCar.name} */}
                   </h3>
                   <p className="text-lg font-semibold text-gray-900">
-                    ₹{(comparison.leftCar.price / 100000).toFixed(2)}L
+                    {/* ₹{(comparison.leftCar.price / 100000).toFixed(2)}L */}
                   </p>
                 </div>
 
                 {/* Right Car Details */}
                 <div>
-                  <p className="text-sm text-gray-500 mb-1">{comparison.rightCar.brand}</p>
+                  {/* <p className="text-sm text-gray-500 mb-1">{comparison.rightCar.brand}</p> */}
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    {comparison.rightCar.brand} {comparison.rightCar.name}
+                    {/* {comparison.rightCar.brand} {comparison.rightCar.name} */}
                   </h3>
                   <p className="text-lg font-semibold text-gray-900">
-                    ₹{(comparison.rightCar.price / 100000).toFixed(2)}L
+                    {/* ₹{(comparison.rightCar.price / 100000).toFixed(2)}L */}
                   </p>
                 </div>
               </div>

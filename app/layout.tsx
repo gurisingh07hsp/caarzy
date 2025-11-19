@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Footer } from '@/components/Footer'
 import { UserProvider } from '@/context/UserContext'
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
         <main className="min-h-screen">
+        <Toaster position="top-right" />
           <UserProvider>
           {children}
           </UserProvider>

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Car } from '@/types/Car';
+import { Car, Model } from '@/types/Car';
 import { BlogPost } from '@/types/BlogPost';
 import { 
   LayoutDashboard, 
@@ -23,7 +23,7 @@ import { BlogAdmin } from './BlogAdmin';
 import { cn } from '@/lib/utils';
 
 interface AdminDashboardProps {
-  cars: Car[];
+  cars: Model[];
   blogs: BlogPost[];
   onAddCar: (car: Car) => void;
   onUpdateCar: (car: Car) => void;
@@ -190,6 +190,7 @@ export function AdminDashboard({
 
       {/* Main Content */}
       <div className="flex-1 ml-64 mt-16">
+        
         <div className="p-8">
           {renderContent()}
         </div>
@@ -198,12 +199,12 @@ export function AdminDashboard({
   );
 }
 
-function DashboardOverview({ cars, blogs }: { cars: Car[]; blogs: BlogPost[] }) {
+function DashboardOverview({ cars, blogs }: { cars: Model[]; blogs: BlogPost[] }) {
   const stats = [
     { label: 'Total Cars', value: cars.length, icon: CarIcon, color: 'bg-blue-500' },
     { label: 'Blog Posts', value: blogs.length, icon: FileText, color: 'bg-green-500' },
-    { label: 'Latest Models', value: cars.filter(car => car.isLatest).length, icon: BarChart3, color: 'bg-orange-500' },
-    { label: 'Categories', value: new Set(cars.map(car => car.category)).size, icon: Settings, color: 'bg-purple-500' },
+    // { label: 'Latest Models', value: cars.filter(car => car.isLatest).length, icon: BarChart3, color: 'bg-orange-500' },
+    // { label: 'Categories', value: new Set(cars.map(car => car.category)).size, icon: Settings, color: 'bg-purple-500' },
   ];
 
   const recentCars = cars.slice(-5);
@@ -240,20 +241,20 @@ function DashboardOverview({ cars, blogs }: { cars: Car[]; blogs: BlogPost[] }) 
           <div className="space-y-4">
             {recentCars.map((car) => (
               <div key={car._id} className="flex items-center p-3 bg-gray-50 rounded-lg">
-                <img
+                {/* <img
                   src={car.images[0]}
                   alt={car.name}
                   className="w-12 h-12 rounded-lg object-cover"
-                />
+                /> */}
                 <div className="ml-3 flex-1">
-                  <p className="font-medium text-gray-900">{car.brand} {car.name}</p>
-                  <p className="text-sm text-gray-600">₹{(car.price / 100000).toFixed(1)}L</p>
+                  {/* <p className="font-medium text-gray-900">{car.brand} {car.name}</p> */}
+                  {/* <p className="text-sm text-gray-600">₹{(car.price / 100000).toFixed(1)}L</p> */}
                 </div>
-                {car.isLatest && (
+                {/* {car.isLatest && (
                   <span className="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs font-medium">
                     Latest
                   </span>
-                )}
+                )} */}
               </div>
             ))}
           </div>

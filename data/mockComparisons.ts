@@ -5,7 +5,7 @@ export interface ComparisonPair {
   rightCar: Car;
 }
 
-export const mockComparisons: ComparisonPair[] = [
+export const mockComparisons: any[] = [
   {
     leftCar: {
       _id: 'compare-1-left',

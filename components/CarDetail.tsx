@@ -1,39 +1,54 @@
 'use client';
-
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { VariantFilter } from './VariantFilter';
 import { EmiCalculator } from './EmiCalculator';
 import { Reviews } from './Reviews';
-import { mockCars } from '@/data/mockCars';
-import { Car } from '@/types/Car';
-import { INDIA_LOCATIONS } from '@/data/indiaLocations';
-import { div } from 'framer-motion/client';
+import { Model } from '@/types/Car';
+import { CarIcon } from 'lucide-react';
+import axios from 'axios';
+import { useEffect} from 'react'
+import { useParams } from "next/navigation";
 
-interface CarDetailProps {
-  car: Car
-}
-
-export function CarDetail({ car}: CarDetailProps) {
+export function CarDetail() {
   const [selectedFuel, setSelectedFuel] = useState<'All' | 'Petrol' | 'Diesel' | 'Electric' | 'Hybrid' | 'CNG'>('All');
   const [selectedTransmission, setSelectedTransmission] = useState<'All' | 'Manual' | 'Automatic' | 'Automatic (AMT)'>('All');
   const [emiOpen, setEmiOpen] = useState(false);
-  const [selectedVariant, setSelectedVariant] = useState<string>('');
-  const [quickFuel, setQuickFuel] = useState<'All' | 'Petrol' | 'Diesel' | 'Electric' | 'Hybrid' | 'CNG'>('All');
-  const [selectedCity, setSelectedCity] = useState<string>('');
-
-  const variants = useMemo(() => {
-    const base = car.variants && car.variants.length > 0 ? car.variants : [
-      { name: `${car.name} Sigma MT`, fuel: car.fuelType as any, transmission: 'Manual' as const, price: car.price * 0.95, specs: `${car.engineCapacity}, ${car.fuelType}, Manual` },
-      { name: `${car.name} Delta MT`, fuel: car.fuelType as any, transmission: 'Manual' as const, price: car.price * 1.07, specs: `${car.engineCapacity}, ${car.fuelType}, Manual` },
-      { name: `${car.name} Delta AGS`, fuel: car.fuelType as any, transmission: 'Automatic' as const, price: car.price * 1.2, specs: `${car.engineCapacity}, ${car.fuelType}, Automatic` },
-      { name: `${car.name} Delta MT CNG`, fuel: 'CNG' as const, transmission: 'Manual' as const, price: car.price * 1.25, specs: `${car.engineCapacity}, CNG, Manual` },
-    ];
-    return base.filter(v => (selectedFuel === 'All' || v.fuel === selectedFuel) && (selectedTransmission === 'All' || v.transmission === selectedTransmission));
-  }, [car, selectedFuel, selectedTransmission]);
+  const [index, setIndex] = useState(0);
+  const [variants, setVariants] = useState<any>([]);
+  const [car, setCar] = useState<any>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [showVideo, setShowVideo] = useState(false);
   const [breakupOpen, setBreakupOpen] = useState(false);
   const [breakupFor, setBreakupFor] = useState<{name: string; price: number} | null>(null);
+  const [loading, setLoading] = useState(true);
+  const { brand, name } = useParams();
+  const getCars = async()=> {
+    console.log('run');
+      const response = await axios.get(`/api/managemodels/${brand?.toString().replace(/-/g, ' ')}/${name?.toString().replace(/-/g, ' ')}`);
+      if(response.status === 200){
+        setCar(response.data.car);
+        setLoading(false);
+        console.log(response.data.car);
+      }
+  }
+  useEffect(() => {
+    getCars();
+    console.log(car);
+  }, []);
+  
+
+  useEffect(()=> {
+    let filterVariats = car?.variant;
+    if(selectedFuel != 'All'){
+      filterVariats = car.variant.filter((v:any)=> v.fuelAndPerformance.fuelType === selectedFuel);
+    }
+    if(selectedTransmission != 'All'){
+      filterVariats = filterVariats.filter((v: any)=> v.engineAndTransmission.transmissionType === selectedTransmission);
+    }
+    setVariants(filterVariats);
+    console.log("variants : ",filterVariats);
+    
+  },[car, selectedFuel, selectedTransmission]);
 
   function openBreakup(name: string, price: number) {
     setBreakupFor({ name, price });
@@ -49,12 +64,14 @@ export function CarDetail({ car}: CarDetailProps) {
     let registration = Math.round(price * 0.08);
     let insurance = Math.round(price * 0.05);
     let other = Math.max(0, price - exShowroom - registration - insurance);
-    if (car.priceBreakup) {
-      const baseTotal = car.priceBreakup.exShowroom + car.priceBreakup.registration + car.priceBreakup.insurance + car.priceBreakup.other;
+    const variant = car.variant.find((v:any)=> v.name == breakupFor.name);
+    if (variant.priceBreakup) {
+      const baseTotal = variant.priceBreakup.exShowroom + variant.priceBreakup.registration + variant.priceBreakup.insurance + variant.priceBreakup.other;
+      console.log('baseTotal : ', baseTotal);
       const ratio = baseTotal > 0 ? (price / baseTotal) : 1;
-      exShowroom = Math.round((car.priceBreakup.exShowroom) * ratio);
-      registration = Math.round((car.priceBreakup.registration) * ratio);
-      insurance = Math.round((car.priceBreakup.insurance) * ratio);
+      exShowroom = Math.round((variant.priceBreakup.exShowroom) * ratio);
+      registration = Math.round((variant.priceBreakup.registration) * ratio);
+      insurance = Math.round((variant.priceBreakup.insurance) * ratio);
       other = Math.max(0, price - exShowroom - registration - insurance);
     }
     const rows = [
@@ -63,6 +80,15 @@ export function CarDetail({ car}: CarDetailProps) {
       { label: 'Insurance', value: insurance },
       { label: 'Other Charges', value: other },
     ];
+
+
+    if(loading){
+      return (
+        <div>
+          Loading....
+        </div>
+      )
+    }
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center">
         <div className="absolute inset-0 bg-black/40" onClick={() => setBreakupOpen(false)} />
@@ -98,40 +124,44 @@ export function CarDetail({ car}: CarDetailProps) {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <button className="mb-6 text-orange-600 hover:underline">← Back to list</button>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-7">
+      {loading ? (
+        <div className='h-[100vh] w-[100%] flex justify-center items-center'>Loading...</div>
+      ) : (
+        <div>
+          {car == null ? (
+            <div>Car no found</div>
+          ) : (
+            <div>
+                    {/* <button className="mb-6 text-orange-600 hover:underline">← Back to list</button> */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
         {/* Gallery */}
         <div className="mb-6">
           <div className="relative rounded-xl overflow-hidden bg-gray-100">
-            {showVideo && car.videos && car.videos[activeIndex] ? (
-              <video controls className="w-full h-[360px] md:h-[460px] object-cover bg-black">
-                <source src={car.videos[activeIndex]} />
-              </video>
-            ) : (
-              // eslint-disable-next-line @next/next/no-img-element
               <>
-              {car?.images?.length !== 0 && (
-                <></>
-                // <img
-                //   src={(car?.images[activeIndex] || car?.images[0])}
-                //   alt={`${car.name} image ${activeIndex + 1}`}
-                //   className="w-full h-[360px] md:h-[460px] object-cover"
-                // />
+              {car?.images?.length > 0 ? (
+                <img
+                  src={(car?.images[activeIndex] || car?.images[0])}
+                  alt={`${car.modelName} image ${activeIndex + 1}`}
+                  className="w-full h-[360px] md:h-[460px] object-cover"
+                />
+              ) : (
+                <div className='w-full h-[360px] md:h-[460px] flex items-center justify-center '>
+                  <CarIcon className='w-20 h-20'/>
+                </div>
               )}
               </>
-            )}
-            <div className="absolute bottom-3 left-3 flex gap-3">
+            {/* <div className="absolute bottom-3 left-3 flex gap-3">
               <button onClick={() => setShowVideo(true)} className={`px-3 py-1.5 rounded-lg text-sm shadow ${showVideo ? 'bg-gray-900 text-white' : 'bg-white/90 text-gray-900'}`}>Video</button>
               <button onClick={() => setShowVideo(false)} className={`px-3 py-1.5 rounded-lg text-sm shadow ${!showVideo ? 'bg-gray-900 text-white' : 'bg-white/90 text-gray-900'}`}>All Image</button>
-            </div>
+            </div> */}
           </div>
           {/* Thumbnails strip */}
           <div className="mt-3 overflow-x-auto">
             <div className="flex gap-3 w-max">
-              {/* {(showVideo && car.videos && car.videos.length ? car.videos : car.images).map((src, idx) => (
+              {car?.images?.map((src: string, idx: number) => (
                 <button
                   key={src + idx}
                   onClick={() => setActiveIndex(idx)}
@@ -146,55 +176,21 @@ export function CarDetail({ car}: CarDetailProps) {
                     <img src={src} alt={`thumb ${idx+1}`} className="h-28 w-48 object-cover" />
                   )}
                 </button>
-              ))} */}
+              ))}
             </div>
           </div>
         </div>
-        <h1 className="text-3xl font-bold text-slate-900 mb-2">{car.name}</h1>
-        <p className="text-slate-600 mb-4">{car.brand} • {car.category}</p>
-        <p className="text-slate-700 mb-6">{car.description}</p>
-
-        {/* Quick actions panel after description */}
-        {variants.length > 0 && (
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">{car?.modelName?.charAt(0).toUpperCase() + car?.modelName?.slice(1)}</h1>
+        <p className="text-slate-600 mb-4">{car?.brand?.charAt(0).toUpperCase() + car?.brand?.slice(1)} • {car.bodyType == 'suv' ? 'SUV' : car?.bodyType?.charAt(0).toUpperCase() + car?.bodyType?.slice(1)}</p>
+                {/* Quick actions panel after description */}
+        {car?.variant?.length > 0 && (
           <div className="rounded-2xl border border-gray-200 overflow-hidden mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-              <div className="p-4 border-b md:border-b-0 md:border-r">
-                <p className="text-sm text-gray-600 mb-2">Variant</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <select value={quickFuel} onChange={(e) => setQuickFuel(e.target.value as any)} className="w-full border rounded-lg px-3 py-2">
-                    {(['All','Petrol','Diesel','Electric','Hybrid','CNG'] as const).map(f => (
-                      <option key={f} value={f}>{f}</option>
-                    ))}
-                  </select>
-                  <select value={selectedVariant} onChange={(e) => setSelectedVariant(e.target.value)} className="w-full border rounded-lg px-3 py-2">
-                    <option value="">Select Variant</option>
-                    {variants
-                      .filter(v => quickFuel==='All' || v.fuel===quickFuel)
-                      .map(v => (
-                        <option key={v.name} value={v.name}>{v.name}</option>
-                      ))}
-                  </select>
-                </div>
-              </div>
-              <div className="p-4 border-b md:border-b-0 md:border-r">
-                <p className="text-sm text-gray-600 mb-2">Location</p>
-                {(() => {
-                  const allCities = Array.from(new Set(Object.values(INDIA_LOCATIONS).flat())).sort();
-                  return (
-                    <div className="grid grid-cols-1 gap-2">
-                      <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} className="w-full border rounded-lg px-3 py-2">
-                        <option value="">Select City</option>
-                        {allCities.map(c => <option key={c} value={c}>{c}</option>)}
-                      </select>
-                    </div>
-                  );
-                })()}
-              </div>
+            <div className="grid gap-0">
               <div className="p-4">
                 <p className="text-sm text-gray-600 mb-1">On-Road Price</p>
                 {(() => {
-                  const min = Math.min(...variants.map(v => v.price));
-                  const max = Math.max(...variants.map(v => v.price));
+                  const min = Math.min(...car.variant.map((v: any) => v.price));
+                  const max = Math.max(...car.variant.map((v: any) => v.price));
                   return <p className="text-2xl font-bold">₹{(min/100000).toFixed(2)} - {(max/100000).toFixed(2)} Lakh</p>;
                 })()}
                 <div className="mt-3 flex items-center gap-3">
@@ -205,14 +201,47 @@ export function CarDetail({ car}: CarDetailProps) {
             </div>
           </div>
         )}
+
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
-          <div className="p-3 bg-slate-50 rounded-lg">Fuel: {car.fuelType}</div>
-          <div className="p-3 bg-slate-50 rounded-lg">Transmission: {car.transmission}</div>
-          <div className="p-3 bg-slate-50 rounded-lg">Seats: {car.seatingCapacity}</div>
-          <div className="p-3 bg-slate-50 rounded-lg">Engine: {car.engineCapacity}</div>
-          <div className="p-3 bg-slate-50 rounded-lg">Mileage: {car.mileage} km/l</div>
-          <div className="p-3 bg-slate-50 rounded-lg">Price: ₹{(car.price / 100000).toFixed(2)}L</div>
+          <div className="p-3 bg-slate-50 rounded-lg">Engine:
+            {(() => {
+                  const min = Math.min(...car.variant.map((v: any) => v.engineAndTransmission.displacement));
+                  const max = Math.max(...car.variant.map((v: any) => v.engineAndTransmission.displacement));
+                  return <p>{min}cc - {max}cc</p>;
+            })()}
+          </div>
+          <div className="p-3 bg-slate-50 rounded-lg">Power:
+            {(() => {
+                  const min = Math.min(...car.variant.map((v: any) => v.engineAndTransmission.maxPower));
+                  const max = Math.max(...car.variant.map((v: any) => v.engineAndTransmission.maxPower));
+                  return <p>{min} - {max}bhp</p>;
+            })()}
+          </div>
+          <div className="p-3 bg-slate-50 rounded-lg">Seating Capacity:
+            {(() => {
+                  const max = Math.max(...car.variant.map((v: any) => v.dimensionsAndCapacity.seatingCapacity));
+                  return <p>{max}</p>;
+            })()}
+             {car.variant[0].dimensionsAndCapacity.seatingCapacity}
+          </div>
+          <div className="p-3 bg-slate-50 rounded-lg">Torque: 
+            {(() => {
+                  const min = Math.min(...car.variant.map((v: any) => v.engineAndTransmission.maxTorque));
+                  const max = Math.max(...car.variant.map((v: any) => v.engineAndTransmission.maxTorque));
+                  return <p>{min}Nm - {max}Nm</p>;
+            })()}
+          </div>
+          <div className="p-3 bg-slate-50 rounded-lg">Mileage: 
+             {(() => {
+                  const min = Math.min(...car.variant.map((v: any) => v.fuelAndPerformance.petrolMileageARAI));
+                  const max = Math.max(...car.variant.map((v: any) => v.fuelAndPerformance.petrolMileageARAI));
+                  return <p>{min} - {max}kmpl</p>;
+            })()}
+          </div>
+          <div className="p-3 bg-slate-50 rounded-lg">Drive Type: {car.variant[0].engineAndTransmission.driveType}</div>
         </div>
+
+
 
         {/* Variant filters like reference screenshot */}
         <div className="mt-8">
@@ -231,16 +260,16 @@ export function CarDetail({ car}: CarDetailProps) {
             <div className="col-span-3">On-Road Price</div>
             <div className="col-span-3 text-right">Actions</div>
           </div>
-          {variants.map((v) => (
+          {variants?.map((v: any, index: number) => (
             <div key={v.name} className="grid grid-cols-12 items-center px-4 py-4 border-t text-sm">
               <div className="col-span-6">
                 <p className="font-semibold text-gray-900">{v.name}</p>
-                <p className="text-gray-600">{v.specs}</p>
+                <p className="text-gray-600 text-xs">{v.engineAndTransmission.displacement} cc, {v.engineAndTransmission.transmissionType}, {v.fuelAndPerformance.fuelType}, {v.fuelAndPerformance.petrolMileageARAI} kmpl </p>
               </div>
               <div className="col-span-3 font-semibold">₹{(v.price/100000).toFixed(2)} Lakh</div>
               <div className="col-span-3 flex justify-end gap-4">
                 <button onClick={() => openBreakup(v.name, v.price)} className="text-orange-600 hover:underline">View Price Breakup</button>
-                <button onClick={() => setEmiOpen(true)} className="text-blue-600 hover:underline">EMI Options</button>
+                <button onClick={() => {setEmiOpen(true); setIndex(index)}} className="text-blue-600 hover:underline">EMI Options</button>
               </div>
             </div>
           ))}
@@ -263,8 +292,52 @@ export function CarDetail({ car}: CarDetailProps) {
           </div>
         </aside>
       </div>
+
+      <div className='mt-4 border border-gray-200 p-5 rounded-2xl'>
+        <p className='text-lg font-semibold'>Description</p>
+        <p className="text-slate-700">{car.description}</p>
+      </div>
+      
+      <div className="mt-6 border border-gray-200 p-5 rounded-2xl max-w-2xl">
+  <h2 className="text-xl font-semibold mb-4">
+    Pros & Cons of{" "}
+    <span className="capitalize">{car.brand}</span>{" "}
+    <span className="capitalize">{car.modelName}</span>
+  </h2>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    
+    {/* PROS */}
+    <div className="bg-[#f5fbf8] p-4 rounded-xl border border-emerald-100">
+      <h3 className="font-medium text-emerald-600 mb-2">Pros</h3>
+      <ul className="space-y-2">
+        {car.pros?.map((p: string, index: number) => (
+          <li key={index} className="flex items-start gap-2">
+            <span className="mt-1 h-2 w-2 rounded-full bg-emerald-600"></span>
+            <span className="text-gray-700m w-[90%]">{p}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* CONS */}
+    <div className="bg-[#fff5f5] p-4 rounded-xl border border-red-100">
+      <h3 className="font-medium text-red-600 mb-2">Cons</h3>
+      <ul className="space-y-2">
+        {car.cons?.map((c: string, index: number) => (
+          <li key={index} className="flex items-start gap-2">
+            <span className="mt-1 h-2 w-2 rounded-full bg-red-600"></span>
+            <span className="text-gray-700 w-[90%]">{c}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+  </div>
+</div>
+
       {/* Similar price segment compare table */}
-      <div className="mt-12 bg-white rounded-xl border border-gray-200 overflow-hidden">
+      {/* <div className="mt-12 bg-white rounded-xl border border-gray-200 overflow-hidden">
         <div className="px-4 py-4 border-b">
           <h3 className="text-lg font-semibold">Compare with similar price segment cars</h3>
         </div>
@@ -290,7 +363,7 @@ export function CarDetail({ car}: CarDetailProps) {
                     <tr key={s._id} className="border-t">
                       <td className="px-4 py-3 whitespace-nowrap font-medium text-gray-900">{s.brand} {s.name}</td>
                       <td className="px-4 py-3">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                       
                         <img src={s.images[0]} alt={s.name} className="w-28 h-16 object-cover rounded" />
                       </td>
                       <td className="px-4 py-3">₹{(s.price/100000).toFixed(2)} Lakh</td>
@@ -306,10 +379,14 @@ export function CarDetail({ car}: CarDetailProps) {
             </div>
           );
         })()}
-      </div>
+      </div> */}
       {breakupOpen && renderBreakup()}
-      <Reviews carId={car._id ?? ''} />
-      <EmiCalculator open={emiOpen} onClose={() => setEmiOpen(false)} price={car.price} />
+      <Reviews carId={car?._id ?? ''} />
+      <EmiCalculator open={emiOpen} onClose={() => setEmiOpen(false)} price={car?.variant[index]?.price} />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

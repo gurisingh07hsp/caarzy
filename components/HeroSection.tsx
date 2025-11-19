@@ -195,22 +195,22 @@ export function HeroSection({ searchTerm, onSearchChange }: HeroSectionProps) {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {[
-              { name: 'Coupe', count: '1 Car', image: 'https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=300' },
-              { name: 'MVP', count: '0 Cars', image: 'https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg?auto=compress&cs=tinysrgb&w=300' },
-              { name: 'Sedan', count: '1 Car', image: 'https://images.pexels.com/photos/1170412/pexels-photo-1170412.jpeg?auto=compress&cs=tinysrgb&w=300' },
-              { name: 'Hatchback', count: '2 Cars', image: 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=300' },
-              { name: 'SUV', count: '1 Car', image: 'https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=300' },
-              { name: 'Pickup Truck', count: '1 Car', image: 'https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg?auto=compress&cs=tinysrgb&w=300' }
+              { name: 'Coupe', count: '1 Car', image: '/coupelogo.webp' },
+              { name: 'MVP', count: '0 Cars', image: '/mvplogo.webp' },
+              { name: 'Sedan', count: '1 Car', image: '/sedanlogo.webp' },
+              { name: 'Hatchback', count: '2 Cars', image: '/hatchbacklogo.webp' },
+              { name: 'SUV', count: '1 Car', image: '/suvlogo.webp' },
+              { name: 'Pickup Truck', count: '1 Car', image: '/pickup-trucklogo.webp' }
             ].map((type, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-shadow cursor-pointer">
-                <div className="w-20 h-16 mx-auto mb-4 bg-gray-100 rounded-lg overflow-hidden">
+              <div key={index} className="rounded-xl bg-white p-2 text-center transition-shadow cursor-pointer">
+                <div className="w-full mx-auto mb-2 bg-[#fff7f0] rounded-lg overflow-hidden">
                   <img 
                     src={type.image} 
                     alt={type.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-16 object-cover"
                   />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1">{type.name}</h3>
+                <h3 className="font-semibold text-gray-900">{type.name}</h3>
                 <p className="text-sm text-gray-500">{type.count}</p>
               </div>
             ))}
@@ -219,7 +219,6 @@ export function HeroSection({ searchTerm, onSearchChange }: HeroSectionProps) {
           {/* Pagination Dots */}
           <div className="flex justify-center mt-8">
             <div className="flex space-x-2">
-              <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
               <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
               <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
             </div>

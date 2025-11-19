@@ -59,12 +59,14 @@ export function Header({ searchTerm, onSearchChange }: HeaderProps) {
             >
               Contact
             </Link>
-            <Link
-              href="/admin"
-              className="text-gray-700 hover:text-orange-500 font-medium transition-colors"
-            >
-              Admin
-            </Link>
+            {isLoggedIn && user?.role === 'admin' && (
+              <Link
+                href="/admin"
+                className="text-gray-700 hover:text-orange-500 font-medium transition-colors"
+              >
+                Admin
+              </Link>
+            )}
           </nav>
 
           {/* Right Side Actions */}
