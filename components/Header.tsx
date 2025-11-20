@@ -6,12 +6,7 @@ import AuthModal from './AuthModal';
 import { useUser } from '@/context/UserContext';
 import { Car, Search, Menu, X, Heart, User, LogOut } from 'lucide-react';
 
-interface HeaderProps {
-  searchTerm: string;
-  onSearchChange: (term: string) => void;
-}
-
-export function Header({ searchTerm, onSearchChange }: HeaderProps) {
+export function Header() {
   const {isLoggedIn, user, logout} = useUser();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);

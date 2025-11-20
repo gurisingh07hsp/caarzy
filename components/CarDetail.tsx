@@ -8,6 +8,7 @@ import { CarIcon } from 'lucide-react';
 import axios from 'axios';
 import { useEffect} from 'react'
 import { useParams } from "next/navigation";
+import Link from 'next/link';
 
 export function CarDetail() {
   const [selectedFuel, setSelectedFuel] = useState<'All' | 'Petrol' | 'Diesel' | 'Electric' | 'Hybrid' | 'CNG'>('All');
@@ -17,19 +18,21 @@ export function CarDetail() {
   const [variants, setVariants] = useState<any>([]);
   const [car, setCar] = useState<any>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [showVideo, setShowVideo] = useState(false);
   const [breakupOpen, setBreakupOpen] = useState(false);
   const [breakupFor, setBreakupFor] = useState<{name: string; price: number} | null>(null);
   const [loading, setLoading] = useState(true);
   const { brand, name } = useParams();
   const getCars = async()=> {
-    console.log('run');
+    try{
       const response = await axios.get(`/api/managemodels/${brand?.toString().replace(/-/g, ' ')}/${name?.toString().replace(/-/g, ' ')}`);
       if(response.status === 200){
         setCar(response.data.car);
-        setLoading(false);
         console.log(response.data.car);
       }
+    }catch(error){
+      console.error(error);
+    }
+      setLoading(false);
   }
   useEffect(() => {
     getCars();
@@ -167,14 +170,7 @@ export function CarDetail() {
                   onClick={() => setActiveIndex(idx)}
                   className={`relative rounded-xl overflow-hidden border ${activeIndex===idx ? 'border-gray-900' : 'border-transparent'}`}
                 >
-                  {showVideo ? (
-                    <video className="h-28 w-48 object-cover bg-black" muted>
-                      <source src={src} />
-                    </video>
-                  ) : (
-                    // eslint-disable-next-line @next/next/no-img-element
                     <img src={src} alt={`thumb ${idx+1}`} className="h-28 w-48 object-cover" />
-                  )}
                 </button>
               ))}
             </div>
@@ -263,7 +259,7 @@ export function CarDetail() {
           {variants?.map((v: any, index: number) => (
             <div key={v.name} className="grid grid-cols-12 items-center px-4 py-4 border-t text-sm">
               <div className="col-span-6">
-                <p className="font-semibold text-gray-900">{v.name}</p>
+                <Link href={`${name}/${v.name.replace(/\s+/g, '-')}`} className="font-semibold text-gray-900">{v.name}</Link>
                 <p className="text-gray-600 text-xs">{v.engineAndTransmission.displacement} cc, {v.engineAndTransmission.transmissionType}, {v.fuelAndPerformance.fuelType}, {v.fuelAndPerformance.petrolMileageARAI} kmpl </p>
               </div>
               <div className="col-span-3 font-semibold">₹{(v.price/100000).toFixed(2)} Lakh</div>

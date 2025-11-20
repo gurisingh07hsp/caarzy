@@ -54,8 +54,6 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
       <Header
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
       />
         <div>
           <HeroSection searchTerm={searchTerm} onSearchChange={setSearchTerm} />
