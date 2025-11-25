@@ -10,15 +10,38 @@ import axios from 'axios';
 
 export default function AdminPage() {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  const [cars, setCars] = useState<Model[]>([]);
+  const [models, setModels] = useState<Model[]>([]);
+  const [cars, setCars] = useState<Car[]>([]);
   const [blogs, setBlogs] = useState<BlogPost[]>(mockBlogs);
 
-  // Load data from localStorage on component mount
-  useEffect(() => {
-    const savedCars = localStorage.getItem('carwale-cars');
-    if (savedCars) {
-      setCars(JSON.parse(savedCars));
+  const fetchModels = async() => {
+    try{
+      const response = await axios.get('/api/managemodels');
+      if(response.status == 200){
+        setModels(response.data.models);
+        console.log(response.data);
+      }
+    }catch(error){
+      console.log(error);
     }
+  }
+
+  const fetchCars = async() => {
+    try{
+      const response = await axios.get('/api/managecars');
+      if(response.status == 200){
+        setCars(response.data.cars);
+        console.log(response.data);
+      }
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchModels();
+    fetchCars();
+    
     const savedBlogs = localStorage.getItem('carwale-blogs');
     if (savedBlogs) {
       setBlogs(JSON.parse(savedBlogs));
@@ -54,7 +77,7 @@ export default function AdminPage() {
     }
   };
 
-  const handleUpdateCar = (updatedCar: Car) => {
+  const handleUpdateCar = (updatedCar: Model) => {
     // setCars(prev => prev.map(car => car._id === updatedCar._id ? updatedCar : car));
   };
 
@@ -97,6 +120,7 @@ export default function AdminPage() {
 
   return (
     <AdminDashboard
+      models={models}
       cars={cars}
       blogs={blogs}
       onAddCar={handleAddCar}

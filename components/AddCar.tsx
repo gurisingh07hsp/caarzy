@@ -3,10 +3,16 @@ import { useState, useEffect, useRef } from 'react';
 import { Car } from '@/types/Car';
 import { Model } from '@/types/Car';
 import axios from 'axios';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Edit, Eye, Trash2 } from 'lucide-react';
 import toast from "react-hot-toast";
 
-const AddCar = () => {
+interface AddCarProps {
+  selectedCar: Car | null;
+  operation: 'add' | 'update';
+  setOperation: any;
+}
+
+const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     const [carForm, setCarForm] = useState<Car>({
     model: '',
     name: '',
@@ -211,6 +217,7 @@ const AddCar = () => {
   const [models, setModels] = useState<Model[]>([]);
   const [selectedModel, setSelectedModel] = useState(''); 
   const [filteredModels, setFilteredModels] = useState<Model[]>(models || []);
+  const [loading,setLoading] = useState(false);
 //   const locationRef = useRef<HTMLDivElement>(null);
 
   useEffect(()=>{
@@ -227,6 +234,11 @@ const AddCar = () => {
     }
     getModels();
   },[]);
+
+
+    useEffect(()=>{
+      setCarForm({...carForm, ...selectedCar});
+    },[selectedCar])
 
     // useEffect(() => {
     //   const handleClickOutside = (event: MouseEvent) => {
@@ -411,22 +423,39 @@ const AddCar = () => {
     isFeatured: false,
     reviews: [{rating: 0, username: '', title: '', experience: '', postedAt: ''}],
     launchDate: new Date(),
-  })
-    }
+  });
+  setOperation('add');
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    try{
-      const response = await axios.post('/api/managecars', {carForm}, {withCredentials:true});
-      if(response.status === 200){
-        toast.success(response.data.message);
-        resetData();
-        console.log(response.data);
+    setLoading(true);
+    if(operation == 'add'){
+      try{
+        const response = await axios.post('/api/managecars', {carForm}, {withCredentials:true});
+        if(response.status === 200){
+          toast.success(response.data.message);
+          resetData();
+          console.log(response.data);
+        }
+      }catch(error){
+        toast.error('Faild to add the car');
+        console.error(error);
       }
-    }catch(error){
-      toast.error('Faild to add the car');
-      console.error(error);
     }
+    else{
+      try{
+        const response = await axios.put('/api/managecars', {id: selectedCar?._id, carForm}, {withCredentials: true});
+        if(response.status == 200){
+          toast.success(response.data.message);
+          resetData();
+        }
+      }catch(error){
+        toast.error('Faild to update car')
+        console.log(error);
+      }
+    }
+    setLoading(false);
   };
 
   const handleModelChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -909,12 +938,13 @@ const AddCar = () => {
         </Section>
 
         {/* SUBMIT BUTTON */}
-        <div className="flex justify-end pt-4">
+        <div className="flex justify-end gap-2 pt-4">
+          <button onClick={resetData} className='bg-gray-300 p-2 rounded-lg'>Reset Form</button>
           <button
             onClick={handleSubmit}
             className="px-8 py-3 rounded-lg bg-gray-900 text-white hover:bg-gray-800 font-semibold"
           >
-            Save Car Details
+          {loading ? 'Saving....' : 'Save Car Detail'}
           </button>
         </div>
       </div>

@@ -23,10 +23,11 @@ import { BlogAdmin } from './BlogAdmin';
 import { cn } from '@/lib/utils';
 
 interface AdminDashboardProps {
-  cars: Model[];
+  cars: Car[];
+  models: Model[];
   blogs: BlogPost[];
   onAddCar: (car: Car) => void;
-  onUpdateCar: (car: Car) => void;
+  onUpdateCar: (car: Model) => void;
   onDeleteCar: (id: string) => void;
   onAddBlog: (blog: BlogPost) => void;
   onUpdateBlog: (blog: BlogPost) => void;
@@ -36,7 +37,8 @@ interface AdminDashboardProps {
 type AdminPage = 'dashboard' | 'cars' | 'blogs' | 'favorites' | 'reviews' | 'profile' | 'add-car';
 
 export function AdminDashboard({ 
-  cars, 
+  cars,
+  models, 
   blogs, 
   onAddCar, 
   onUpdateCar, 
@@ -64,14 +66,8 @@ export function AdminDashboard({
       case 'cars':
         return (
           <AdminPanel
+            models={models}
             cars={cars}
-            blogs={blogs}
-            onAddCar={onAddCar}
-            onUpdateCar={onUpdateCar}
-            onDeleteCar={onDeleteCar}
-            onAddBlog={onAddBlog}
-            onUpdateBlog={onUpdateBlog}
-            onDeleteBlog={onDeleteBlog}
           />
         );
       case 'blogs':
@@ -86,14 +82,8 @@ export function AdminDashboard({
       case 'add-car':
         return (
           <AdminPanel
+            models={models}
             cars={cars}
-            blogs={blogs}
-            onAddCar={onAddCar}
-            onUpdateCar={onUpdateCar}
-            onDeleteCar={onDeleteCar}
-            onAddBlog={onAddBlog}
-            onUpdateBlog={onUpdateBlog}
-            onDeleteBlog={onDeleteBlog}
           />
         );
       default:
@@ -199,7 +189,7 @@ export function AdminDashboard({
   );
 }
 
-function DashboardOverview({ cars, blogs }: { cars: Model[]; blogs: BlogPost[] }) {
+function DashboardOverview({ cars, blogs }: { cars: Car[]; blogs: BlogPost[] }) {
   const stats = [
     { label: 'Total Cars', value: cars.length, icon: CarIcon, color: 'bg-blue-500' },
     { label: 'Blog Posts', value: blogs.length, icon: FileText, color: 'bg-green-500' },
