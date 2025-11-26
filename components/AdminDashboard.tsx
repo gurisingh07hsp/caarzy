@@ -255,7 +255,7 @@ function DashboardOverview({ cars, blogs }: { cars: Car[]; blogs: BlogPost[] }) 
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Blog Posts</h3>
           <div className="space-y-4">
             {recentBlogs.map((blog) => (
-              <div key={blog.id} className="p-3 bg-gray-50 rounded-lg">
+              <div key={blog._id} className="p-3 bg-gray-50 rounded-lg">
                 <p className="font-medium text-gray-900 line-clamp-2">{blog.title}</p>
                 <div className="flex items-center mt-2 text-sm text-gray-600">
                   <span>{blog.author}</span>

@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { BlogPost } from '@/types/BlogPost';
 import { Plus, Edit, Trash2, Eye, Calendar, User, Tag, Upload, Image, Bold, Italic, List, Link, Quote, Type } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 interface BlogAdminProps {
   blogs: BlogPost[];
@@ -187,7 +188,7 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
     e.preventDefault();
     
     const newBlog: BlogPost = {
-      id: editingBlog?.id || Date.now().toString(),
+      _id: editingBlog?._id || '',
       title: formData.title,
       excerpt: formData.excerpt,
       content: formData.content,
@@ -550,9 +551,10 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
                 <div className="mt-2 p-3 bg-gray-50 rounded-lg">
                   <h4 className="text-sm font-medium text-gray-700 mb-2">Preview:</h4>
                   <div className="prose prose-sm max-w-none">
-                    <pre className="whitespace-pre-wrap text-sm text-gray-600">
+                    {/* <pre className="whitespace-pre-wrap text-sm text-gray-600">
                       {formData.content}
-                    </pre>
+                    </pre> */}
+                    <ReactMarkdown>{formData.content}</ReactMarkdown>
                   </div>
                 </div>
               )}
@@ -755,7 +757,7 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
         
         <div className="divide-y divide-gray-200">
         {blogs.map((blog) => (
-            <div key={blog.id} className="p-6 hover:bg-gray-50 transition-colors">
+            <div key={blog._id} className="p-6 hover:bg-gray-50 transition-colors">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-4 mb-2">
@@ -825,7 +827,7 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
                     <Edit className="h-4 w-4" />
                   </button>
                   <button
-                    onClick={() => handleDelete(blog.id)}
+                    onClick={() => handleDelete(blog._id as string)}
                     className="p-2 text-gray-600 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                     title="Delete"
                   >

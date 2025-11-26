@@ -5,7 +5,7 @@ import { Model } from '@/types/Car';
 import axios from 'axios';
 import AddCar from './AddCar';
 import toast from "react-hot-toast";
-import { Edit, Eye, Trash2 } from 'lucide-react';
+import { Edit, Eye, Filter, Search, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 interface AdminPanelProps {
@@ -15,6 +15,8 @@ interface AdminPanelProps {
 
 export function AdminPanel({cars,models}: AdminPanelProps) {
   const router = useRouter();
+  const [filteredModels, setFilteredModels] = useState<Model[]>(models);
+  const [filteredCars, setFilteredCars] = useState<Car[]>(cars);
   const [modelFormOpen, setModelFormOpen] = useState(false);
   const [variantFormOpen, setVariantFormOpen] = useState(false);
   const [form, setForm] = useState<{
@@ -38,6 +40,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     pros: [],
     cons: []
   })
+
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [operation, setOperation] = useState<'add' | 'update'>('add');
   const [images, setImages] = useState<string>('');
@@ -48,9 +51,15 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
   const [id, setId] = useState<string>('');
   const [isEditing, setIsEditing] = useState(false);
   const [newColor, setNewColor] = useState('#ff6b00');
+  const [searchModelQuery, setSearchModelQuery] = useState('');
+  const [searchCarQuery, setSearchCarQuery] = useState('');
+
   const imageList = useMemo(() => images.split(/\s*,\s*/).filter(Boolean), [images]);
   const prosList = useMemo(() => pros.split(/\s*,\s*/).filter(Boolean), [pros]);
   const consList = useMemo(() => cons.split(/\s*,\s*/).filter(Boolean), [cons]);
+
+
+
   useEffect(()=> {
     setForm({...form, images: imageList});
   },[imageList]);
@@ -94,6 +103,20 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     setId('');
     setIsEditing(false);
   }
+
+  useEffect(()=>{
+    if(searchModelQuery == ''){
+      setFilteredModels(models);
+    }
+    setFilteredModels(models.filter(m => m.modelName.includes(searchModelQuery)));
+  },[searchModelQuery]);
+
+  useEffect(()=>{
+    if(searchCarQuery == ''){
+      setFilteredCars(cars);
+    }
+    setFilteredCars(cars.filter(m => m.name.includes(searchCarQuery)));
+  },[searchCarQuery]);
 
   const handleModelSubmit = async(e: any) => {
     e.preventDefault();
@@ -258,9 +281,24 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
       </div>
       )}
 
+      <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 border border-gray-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          {/* Search */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
+            <input
+              type="text"
+              placeholder="Search models..."
+              value={searchModelQuery }
+              onChange={(e) => setSearchModelQuery(e.target.value)}
+              className="w-full pl-9 sm:pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            />
+          </div>
+        </div>
+      </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto overflow-y-auto max-h-80">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
@@ -282,7 +320,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {models.map((model) => (
+              {filteredModels.map((model) => (
                 <tr key={model._id} className="hover:bg-gray-50">
                   <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
@@ -326,7 +364,9 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
                       >
                         <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
                       </button>
-                      <button className="text-gray-600 hover:text-gray-900 p-1" title="View">
+                      <button
+                      onClick={(e) => { e.stopPropagation(); router.push(`/${model.brand.replace(/\s+/g, '-')}/${model.modelName.replace(/\s+/g, '-')}`)}}
+                      className="text-gray-600 hover:text-gray-900 p-1" title="View">
                         <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
                       </button>
                       <button 
@@ -359,8 +399,24 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
         </div>
       )}
 
+      <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 border border-gray-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          {/* Search */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
+            <input
+              type="text"
+              placeholder="Search car variants..."
+              value={searchCarQuery }
+              onChange={(e) => setSearchCarQuery(e.target.value)}
+              className="w-full pl-9 sm:pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto overflow-y-auto max-h-80">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
@@ -382,7 +438,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {cars.map((car) => (
+              {filteredCars.map((car) => (
                 <tr key={car._id} className="hover:bg-gray-50">
                   <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
@@ -416,9 +472,11 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
                       >
                         <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
                       </button>
-                      <button className="text-gray-600 hover:text-gray-900 p-1" title="View">
+                      {/* <button
+                        onClick={()=>router.push(`${name}/${v.name.replace(/\s+/g, '-')}`)}
+                        className="text-gray-600 hover:text-gray-900 p-1" title="View">
                         <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
-                      </button>
+                      </button> */}
                       <button 
                         onClick={()=>handleCarDelete(car)}
                         className="text-red-600 hover:text-red-900 p-1" title="Delete">

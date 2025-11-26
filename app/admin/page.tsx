@@ -7,12 +7,13 @@ import { mockCars } from '@/data/mockCars';
 import { mockBlogs } from '@/data/mockBlogs';
 import { AdminDashboard } from '@/components/AdminDashboard';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export default function AdminPage() {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [models, setModels] = useState<Model[]>([]);
   const [cars, setCars] = useState<Car[]>([]);
-  const [blogs, setBlogs] = useState<BlogPost[]>(mockBlogs);
+  const [blogs, setBlogs] = useState<BlogPost[]>([]);
 
   const fetchModels = async() => {
     try{
@@ -38,14 +39,22 @@ export default function AdminPage() {
     }
   }
 
+  const fetchBlogs = async() => {
+    try{
+      const response = await axios.get('/api/manageblogs');
+      if(response.status == 200){
+        setBlogs(response.data.blogs);
+        console.log(response.data);
+      }
+    }catch(error){
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     fetchModels();
     fetchCars();
-    
-    const savedBlogs = localStorage.getItem('carwale-blogs');
-    if (savedBlogs) {
-      setBlogs(JSON.parse(savedBlogs));
-    }
+    fetchBlogs();
   }, []);
 
   // read simple admin flag from localStorage
@@ -87,17 +96,47 @@ export default function AdminPage() {
     }
   };
 
-  const handleAddBlog = (blog: BlogPost) => {
-    setBlogs(prev => [...prev, blog]);
+  const handleAddBlog = async(blog: BlogPost) => {
+    try{
+      const response = await axios.post('/api/manageblogs', {form: blog}, {withCredentials: true});
+      if(response.status == 200){
+        toast.success(response.data.message);
+        setBlogs(prev => [...prev, blog]);
+      }
+    }catch(error){
+      toast.error('Faild to Add Blog');
+      console.error(error);
+    }
   };
 
-  const handleUpdateBlog = (updatedBlog: BlogPost) => {
-    setBlogs(prev => prev.map(blog => blog.id === updatedBlog.id ? updatedBlog : blog));
+  const handleUpdateBlog = async(updatedBlog: BlogPost) => {
+    try{
+      const response = await axios.put('/api/manageblogs', {id: updatedBlog, form: updatedBlog}, {withCredentials: true});
+      if(response.status == 200){
+        toast.success(response.data.message);
+        setBlogs(prev => prev.map(blog => blog._id === updatedBlog._id ? updatedBlog : blog));
+      }
+    }catch(error){
+      toast.error('Faild to update blog');
+      console.error(error);
+    }
   };
 
-  const handleDeleteBlog = (id: string) => {
+  const handleDeleteBlog = async(id: string) => {
     if (window.confirm('Are you sure you want to delete this blog post?')) {
-      setBlogs(prev => prev.filter(blog => blog.id !== id));
+      try {
+        const response = await axios.delete('/api/manageblogs', {
+          data: { id: id },
+          withCredentials: true
+        });
+        if (response.status === 200) {
+          toast.success(response.data.message);
+        }
+      } catch (error) {
+        toast.error('Failed to delete blog');
+        console.error(error);
+      }
+      setBlogs(prev => prev.filter(blog => blog._id !== id));
     }
   };
 

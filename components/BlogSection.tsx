@@ -20,7 +20,7 @@ export function BlogSection({ blogs }: BlogSectionProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {blogs.map((blog, index) => (
           <article 
-            key={blog.id} 
+            key={blog._id} 
             className={`bg-white rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group ${
               index === 0 ? 'lg:col-span-2' : ''
             }`}
