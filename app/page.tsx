@@ -22,7 +22,7 @@ import axios from 'axios';
 export default function HomePage() {
   const [models, setModels] = useState<Model[]>([]);
   const [cars, setCars] = useState<Car[]>([]);
-  const [blogs, setBlogs] = useState<BlogPost[]>(mockBlogs);
+  const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   // Load cars from localStorage on component mount
@@ -36,19 +36,30 @@ export default function HomePage() {
       console.error('Error fetching popular cars: ', error);
     }
   };
+  const getBlogs = async() => {
+    try{
+      const response = await axios.get('/api/manageblogs');
+      if(response.status === 200){
+        setBlogs(response.data.blogs.slice(0,4));
+      }
+    }catch(error){
+      console.error('Error fetching popular cars: ', error);
+    }
+  }
   useEffect(() => {
     getModels();
+    getBlogs();
   }, []);
 
-  // Save cars to localStorage whenever cars change
-  useEffect(() => {
-    localStorage.setItem('carwale-cars', JSON.stringify(models));
-  }, [models]);
+  // // Save cars to localStorage whenever cars change
+  // useEffect(() => {
+  //   localStorage.setItem('carwale-cars', JSON.stringify(models));
+  // }, [models]);
 
-  // Save blogs to localStorage whenever blogs change
-  useEffect(() => {
-    localStorage.setItem('carwale-blogs', JSON.stringify(blogs));
-  }, [blogs]);
+  // // Save blogs to localStorage whenever blogs change
+  // useEffect(() => {
+  //   localStorage.setItem('carwale-blogs', JSON.stringify(blogs));
+  // }, [blogs]);
 
 
   return (

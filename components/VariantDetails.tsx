@@ -5,7 +5,6 @@ import { Car } from '@/types/Car';
 import axios from 'axios';
 import { Star, CheckIcon, XIcon, User } from 'lucide-react';
 import { Header } from './Header';
-import { div } from 'framer-motion/client';
 const VariantDetails = () => {
     const { variant } = useParams();
     const [carVariant, setCarVariant] = useState<Car | null>(null);

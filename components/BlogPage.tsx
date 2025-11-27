@@ -1,18 +1,31 @@
 'use client';
-
-import React from 'react';
 import { BlogPost } from '@/types/BlogPost';
 import Link from 'next/link';
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
-
-interface BlogSectionProps {
-  blogs: BlogPost[];
-}
-
-export function BlogSection({ blogs }: BlogSectionProps) {
+import axios from 'axios';
+const BlogPage = () => {
+  const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const router = useRouter();
+
+  useEffect(()=> {
+    fetchBlogs();
+  },[]);
+
+  const fetchBlogs = async()=> {
+    try{
+      const response = await axios.get('/api/manageblogs');
+      if(response.status === 200){
+        setBlogs(response.data.blogs);
+      }
+    }catch(error){
+      console.error('Error fetching popular cars: ', error);
+    }
+  }
+
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-gray-900 mb-4">From our blog</h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -41,17 +54,9 @@ export function BlogSection({ blogs }: BlogSectionProps) {
           </div>
         ))}
       </div>
-
-      {/* View All Button */}
-      {/* <div className="text-center mt-12">
-        <button className="bg-white border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl">
-          View All Articles
-        </button>
-      </div> */}
     </section>
-  );
+    </div>
+  )
 }
 
-
-
-
+export default BlogPage

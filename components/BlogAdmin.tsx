@@ -186,29 +186,45 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const newBlog: BlogPost = {
-      _id: editingBlog?._id || '',
-      title: formData.title,
-      excerpt: formData.excerpt,
-      content: formData.content,
-      author: formData.author,
-      publishDate: editingBlog?.publishDate || new Date().toISOString().split('T')[0],
-      category: formData.category,
-      image: formData.image,
-      featuredImage: formData.featuredImage,
-      readTime: formData.readTime,
-      tags: formData.tags,
-      metaTitle: formData.metaTitle || formData.title,
-      metaDescription: formData.metaDescription || formData.excerpt,
-      focusKeyword: formData.focusKeyword,
-      slug: formData.slug || generateSlug(formData.title),
-      canonicalUrl: formData.canonicalUrl,
-    };
 
     if (editingBlog) {
+       const newBlog: BlogPost = {
+        _id: editingBlog?._id || '',
+        title: formData.title,
+        excerpt: formData.excerpt,
+        content: formData.content,
+        author: formData.author,
+        publishDate: ((editingBlog as any)?.publishDate) || new Date().toISOString().split('T')[0],
+        category: formData.category,
+        image: formData.image,
+        featuredImage: formData.featuredImage,
+        readTime: formData.readTime,
+        tags: formData.tags,
+        metaTitle: formData.metaTitle || formData.title,
+        metaDescription: formData.metaDescription || formData.excerpt,
+        focusKeyword: formData.focusKeyword,
+        slug: formData.slug || generateSlug(formData.title),
+        canonicalUrl: formData.canonicalUrl,
+      };
       onUpdateBlog(newBlog);
     } else {
+      const newBlog: BlogPost = {
+        title: formData.title,
+        excerpt: formData.excerpt,
+        content: formData.content,
+        author: formData.author,
+        publishDate: ((editingBlog as any)?.publishDate) || new Date().toISOString().split('T')[0],
+        category: formData.category,
+        image: formData.image,
+        featuredImage: formData.featuredImage,
+        readTime: formData.readTime,
+        tags: formData.tags,
+        metaTitle: formData.metaTitle || formData.title,
+        metaDescription: formData.metaDescription || formData.excerpt,
+        focusKeyword: formData.focusKeyword,
+        slug: formData.slug || generateSlug(formData.title),
+        canonicalUrl: formData.canonicalUrl,
+      };
       onAddBlog(newBlog);
     }
     
@@ -762,7 +778,7 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
                 <div className="flex-1">
                   <div className="flex items-center gap-4 mb-2">
                     <img
-                      src={blog.image}
+                      src={blog.featuredImage}
                       alt={blog.title}
                       className="w-16 h-16 rounded-lg object-cover"
                     />
