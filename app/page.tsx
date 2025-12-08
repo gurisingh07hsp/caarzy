@@ -18,6 +18,9 @@ import { CompareSection } from '@/components/CompareSection';
 import { AdvertisementSection } from '@/components/AdvertisementSection';
 import { UpcomingCars } from '@/components/UpcomingCars';
 import axios from 'axios';
+import HomeFilter from '@/components/HomeFilter';
+import PopularBrands from '@/components/PopularBrands';
+import PopularQuestions from '@/components/PopularQuestions';
 
 export default function HomePage() {
   const [models, setModels] = useState<Model[]>([]);
@@ -51,15 +54,6 @@ export default function HomePage() {
     getBlogs();
   }, []);
 
-  // // Save cars to localStorage whenever cars change
-  // useEffect(() => {
-  //   localStorage.setItem('carwale-cars', JSON.stringify(models));
-  // }, [models]);
-
-  // // Save blogs to localStorage whenever blogs change
-  // useEffect(() => {
-  //   localStorage.setItem('carwale-blogs', JSON.stringify(blogs));
-  // }, [blogs]);
 
 
   return (
@@ -68,12 +62,15 @@ export default function HomePage() {
       />
         <div>
           <HeroSection searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+          <HomeFilter/>
+          <PopularBrands/>
           <PopularCars cars={models}/>
+          <Testimonials />
+          <PopularQuestions/>
           <CompareSection comparisons={mockComparisons} />
           <UpcomingCars cars={cars}/>
-          <AdvertisementSection />
-          <BrandShowcase brands={mockBrands} />
-          <Testimonials />
+          {/* <AdvertisementSection /> */}
+          {/* <BrandShowcase brands={mockBrands} /> */}
           <BlogSection blogs={blogs} />
         </div>
     </div>

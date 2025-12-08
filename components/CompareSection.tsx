@@ -20,7 +20,7 @@ export function CompareSection({ comparisons }: CompareSectionProps) {
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {comparisons.map((comparison, index) => (
+        {comparisons.map((comparison: any, index) => (
           <div
             key={index}
             className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden"
@@ -35,7 +35,7 @@ export function CompareSection({ comparisons }: CompareSectionProps) {
                   className="w-full h-full object-cover"
                 /> */}
               </div>
-              
+              <div className='h-full w-1 bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'></div>
               {/* Right Car Image */}
               <div className="absolute inset-0 right-0 w-1/2">
                 {/* <img
@@ -58,30 +58,30 @@ export function CompareSection({ comparisons }: CompareSectionProps) {
               <div className="grid grid-cols-2 gap-6">
                 {/* Left Car Details */}
                 <div>
-                  {/* <p className="text-sm text-gray-500 mb-1">{comparison.leftCar.brand}</p> */}
+                  <p className="text-sm text-gray-500 mb-1">{comparison.leftCar.brand || 'kia'}</p>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    {/* {comparison.leftCar.brand} {comparison.leftCar.name} */}
+                    {comparison.leftCar.name}
                   </h3>
                   <p className="text-lg font-semibold text-gray-900">
-                    {/* ₹{(comparison.leftCar.price / 100000).toFixed(2)}L */}
+                    ₹{(comparison.leftCar.price as any / 100000).toFixed(2)}L
                   </p>
                 </div>
 
                 {/* Right Car Details */}
-                <div>
-                  {/* <p className="text-sm text-gray-500 mb-1">{comparison.rightCar.brand}</p> */}
+                <div className='text-end'>
+                  <p className="text-sm text-gray-500 mb-1">{comparison.rightCar.brand}</p>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    {/* {comparison.rightCar.brand} {comparison.rightCar.name} */}
+                    {comparison.rightCar.name}
                   </h3>
                   <p className="text-lg font-semibold text-gray-900">
-                    {/* ₹{(comparison.rightCar.price / 100000).toFixed(2)}L */}
+                    ₹{(comparison.rightCar.price as any / 100000).toFixed(2)}L
                   </p>
                 </div>
               </div>
 
               {/* Compare Button */}
               <button className="w-full mt-6 bg-white border-2 border-orange-500 text-orange-500 font-semibold py-3 px-4 rounded-lg hover:bg-orange-50 transition-colors">
-                Compare
+                {comparison.leftCar.name} Vs {comparison.rightCar.name}
               </button>
             </div>
           </div>

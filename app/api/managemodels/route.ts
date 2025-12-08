@@ -1,4 +1,4 @@
-import Model from "@/models/model";
+import { Model } from "@/models";
 import { dbConnect } from "@/lib/dbConnect";
 import {authUser} from '@/middleware/authMiddleware';
 
@@ -6,7 +6,7 @@ import {authUser} from '@/middleware/authMiddleware';
 export async function GET(){
     await dbConnect();
     try{
-        const models = await Model.find({});
+        const models = await Model.find({}).populate('variant');
         if(models){
             return new Response(
             JSON.stringify({ success: true, models}),

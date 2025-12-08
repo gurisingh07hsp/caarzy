@@ -1,6 +1,7 @@
 "use client";
 import { TestimonialsColumn, testimonials } from "@/components/ui/testimonials-columns-1";
 import { motion } from "framer-motion";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 // Car-related testimonials data
 const carTestimonials = [
@@ -15,49 +16,7 @@ const carTestimonials = [
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
     name: "Michael Chen",
     role: "Car Enthusiast",
-  },
-  {
-    text: "As a first-time car buyer, AutoDeal guided me through the entire process. The detailed specifications and expert reviews were invaluable.",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-    name: "Emily Rodriguez",
-    role: "New Driver",
-  },
-  {
-    text: "The financing options and EMI calculator helped me plan my budget perfectly. I got my car with the best possible deal!",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-    name: "David Kim",
-    role: "Business Owner",
-  },
-  {
-    text: "AutoDeal's customer service is outstanding! They helped me find the perfect family SUV with all the features I needed.",
-    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
-    name: "Lisa Thompson",
-    role: "Mother of Three",
-  },
-  {
-    text: "The platform's search filters are so precise! I found my ideal luxury sedan within minutes of browsing. Highly recommended!",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-    name: "James Wilson",
-    role: "Executive",
-  },
-  {
-    text: "AutoDeal's blog section provided excellent insights about car maintenance and buying tips. It's more than just a marketplace!",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
-    name: "Maria Garcia",
-    role: "Car Owner",
-  },
-  {
-    text: "The virtual car tours and high-quality images gave me confidence in my purchase decision. I felt like I was there in person!",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
-    name: "Robert Taylor",
-    role: "Tech Professional",
-  },
-  {
-    text: "AutoDeal's warranty and after-sales support is exceptional. They truly care about customer satisfaction beyond the sale.",
-    image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face",
-    name: "Jennifer Lee",
-    role: "Car Dealer",
-  },
+  }
 ];
 
 const firstColumn = carTestimonials.slice(0, 3);
@@ -66,8 +25,57 @@ const thirdColumn = carTestimonials.slice(6, 9);
 
 const Testimonials = () => {
   return (
-    <section className="bg-gray-50 my-20 relative">
-      <div className="container z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="my-20 max-w-7xl mx-auto">
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold tracking-tighter">
+          People Love It from Us
+        </h2>
+        <div className="flex gap-2">
+          <button className="w-8 h-8 flex justify-center items-center text-[#D9D9D9] rounded-full border">
+            <ArrowLeft/>
+          </button>
+          <button className="w-8 h-8 flex justify-center items-center text-white rounded-full border bg-[#FF3F25]">
+            <ArrowRight/>
+          </button>
+        </div>
+      </div>
+
+      <div className="grid lg:grid-cols-2 grid-cols-1 mt-4 gap-4">
+        {carTestimonials.map((test,index) => (
+          <div key={index} className="relative">
+            <div className="absolute flex flex-col justify-between h-52 top-32 mx-12 pr-6">
+              <p>{test.text}</p>
+              <div className="flex gap-4 mt-">
+                <img src="#" alt="" className="w-14 h-14 rounded-lg border" />
+                <div>
+                  <h4 className="text-xl font-semibold">{test.name}</h4>
+                  <div className="flex gap-1">
+                    <svg width="20" height="30" viewBox="0 0 42 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20.9232 0L25.8626 15.2016H41.8465L28.9152 24.5967L33.8545 39.7984L20.9232 30.4033L7.99197 39.7984L12.9313 24.5967L5.72205e-06 15.2016H15.9839L20.9232 0Z" fill="#FFDB4B"/>
+                    </svg>
+                    <svg width="20" height="30" viewBox="0 0 42 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20.9232 0L25.8626 15.2016H41.8465L28.9152 24.5967L33.8545 39.7984L20.9232 30.4033L7.99197 39.7984L12.9313 24.5967L5.72205e-06 15.2016H15.9839L20.9232 0Z" fill="#FFDB4B"/>
+                    </svg>
+                    <svg width="20" height="30" viewBox="0 0 42 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20.9232 0L25.8626 15.2016H41.8465L28.9152 24.5967L33.8545 39.7984L20.9232 30.4033L7.99197 39.7984L12.9313 24.5967L5.72205e-06 15.2016H15.9839L20.9232 0Z" fill="#FFDB4B"/>
+                    </svg>
+                    <svg width="20" height="30" viewBox="0 0 42 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20.9232 0L25.8626 15.2016H41.8465L28.9152 24.5967L33.8545 39.7984L20.9232 30.4033L7.99197 39.7984L12.9313 24.5967L5.72205e-06 15.2016H15.9839L20.9232 0Z" fill="#FFDB4B"/>
+                    </svg>
+                    <svg width="20" height="30" viewBox="0 0 42 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20.9232 0L25.8626 15.2016H41.8465L28.9152 24.5967L33.8545 39.7984L20.9232 30.4033L7.99197 39.7984L12.9313 24.5967L5.72205e-06 15.2016H15.9839L20.9232 0Z" fill="#FFDB4B"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <svg width="600" height="400" viewBox="0 0 829 479" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 102C0 82.67 15.67 67 35 67H438.096C448.201 67 457.814 62.6321 464.46 55.0198L502.04 11.9802C508.686 4.36792 518.299 0 528.404 0H794C813.33 0 829 15.67 829 35V444C829 463.33 813.33 479 794 479H35C15.67 479 0 463.33 0 444V102Z" fill="#F6F6F6"/>
+            </svg>
+          </div>
+        ))}
+      </div>
+      {/* <div className="container z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -94,7 +102,7 @@ const Testimonials = () => {
           <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={19} />
           <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={17} />
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };
