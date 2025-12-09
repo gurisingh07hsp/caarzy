@@ -25,7 +25,7 @@ const thirdColumn = carTestimonials.slice(6, 9);
 
 const Testimonials = () => {
   return (
-    <section className="my-20 max-w-7xl mx-auto">
+    <section className="my-20 max-w-7xl lg:px-0 px-4 lg:mx-auto">
       <div className="flex justify-between items-center">
         <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold tracking-tighter">
           People Love It from Us
@@ -40,15 +40,15 @@ const Testimonials = () => {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 grid-cols-1 mt-4 gap-4">
+      <div className="grid md:grid-cols-2 grid-cols-1 mt-4 gap-4">
         {carTestimonials.map((test,index) => (
           <div key={index} className="relative">
-            <div className="absolute flex flex-col justify-between h-52 top-32 mx-12 pr-6">
-              <p>{test.text}</p>
-              <div className="flex gap-4 mt-">
+            <div className="absolute flex flex-col justify-between lg:h-52 md:h-48 h-40 lg:top-32 top-[16%] lg:mx-12 mx-4 pr-6">
+              <p className="max-sm:text-xs">{test.text}</p>
+              <div className="flex gap-4">
                 <img src="#" alt="" className="w-14 h-14 rounded-lg border" />
                 <div>
-                  <h4 className="text-xl font-semibold">{test.name}</h4>
+                  <h4 className="lg:text-xl font-semibold">{test.name}</h4>
                   <div className="flex gap-1">
                     <svg width="20" height="30" viewBox="0 0 42 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M20.9232 0L25.8626 15.2016H41.8465L28.9152 24.5967L33.8545 39.7984L20.9232 30.4033L7.99197 39.7984L12.9313 24.5967L5.72205e-06 15.2016H15.9839L20.9232 0Z" fill="#FFDB4B"/>
@@ -69,7 +69,7 @@ const Testimonials = () => {
                 </div>
               </div>
             </div>
-            <svg width="600" height="400" viewBox="0 0 829 479" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg className="lg:w-600 lg:h-400 w-full" viewBox="0 0 829 479" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 102C0 82.67 15.67 67 35 67H438.096C448.201 67 457.814 62.6321 464.46 55.0198L502.04 11.9802C508.686 4.36792 518.299 0 528.404 0H794C813.33 0 829 15.67 829 35V444C829 463.33 813.33 479 794 479H35C15.67 479 0 463.33 0 444V102Z" fill="#F6F6F6"/>
             </svg>
           </div>

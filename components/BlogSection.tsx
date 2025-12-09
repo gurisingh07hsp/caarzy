@@ -22,9 +22,14 @@ export function BlogSection({ blogs }: BlogSectionProps) {
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {blogs.map((blog, index) => (
-          <div key={index} className='flex gap-4 w-[600px] h-[200px]'>
-            <div className='w-[400px] h-full rounded-2xl overflow-hidden'>
-              <img src={blog.featuredImage} alt={blog.title} className='rounded-2xl w-[400px] h-full hover:scale-105 transition-all duration-300' />
+          <div key={index} className='flex md:flex-row flex-col gap-4 lg:w-[600px] md:h-[200px]'>
+            <div className='md:w-[400px] md:h-full relative h-[200px] rounded-2xl overflow-hidden'>
+              <div className='bg-[#FF7101] text-white absolute top-2 left-2 rounded-full px-2 py-1'>{new Date(blog.publishDate).toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+              })}</div>
+              <img src={blog.featuredImage} alt={blog.title} className='rounded-2xl md:w-[400px] md:h-full hover:scale-105 transition-all duration-300' />
             </div>
             <div className='space-y-2'>
               <div className='flex gap-1 text-sm'>
@@ -32,8 +37,8 @@ export function BlogSection({ blogs }: BlogSectionProps) {
                 <p className='text-gray-300'> | </p>
                 <p className='text-orange-600 font-semibold'>{blog.category}</p>
               </div>
-              <p onClick={()=> router.push(`/blog/${blog.slug}`)} className='text-xl font-bold hover:text-orange-600 w-[300px] transition-colors duration-300 cursor-pointer'>{blog.title.length > 50 ? blog.title.slice(0,50) + '...' : blog.title}</p>
-              <div className='w-[260px] text-sm'>{blog.excerpt.slice(0,110)}</div>
+              <p onClick={()=> router.push(`/blog/${blog.slug}`)} className='text-xl font-bold hover:text-orange-600 lg:w-[300px] w-full transition-colors duration-300 cursor-pointer'>{blog.title.length > 50 ? blog.title.slice(0,50) + '...' : blog.title}</p>
+              <div className='lg:w-[260px] w-full text-sm'>{blog.excerpt.slice(0,110)}</div>
               <div>
                 <Link href={`/blog/${blog.slug}`} className='font-semibold hover:text-orange-600 transition-colors duration-300'>Read more</Link>
               </div>

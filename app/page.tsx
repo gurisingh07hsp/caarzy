@@ -58,8 +58,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header
-      />
         <div>
           <HeroSection searchTerm={searchTerm} onSearchChange={setSearchTerm} />
           <HomeFilter/>
