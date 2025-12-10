@@ -92,7 +92,7 @@ export function Reviews({ carId }: ReviewsProps) {
       </div>
 
       {/* Category summary */}
-      <div className="px-4 py-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+      {/* <div className="px-4 py-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
         {[
           ['Exterior','exterior'],
           ['Comfort','comfort'],
@@ -105,7 +105,7 @@ export function Reviews({ carId }: ReviewsProps) {
             <span className="text-xs text-gray-600 mt-1">{label as string}</span>
           </div>
         ))}
-      </div>
+      </div> */}
       <div className="grid grid-cols-1 md:grid-cols-2">
         <div className="p-4 border-b md:border-b-0 md:border-r">
           <form onSubmit={submit} className="space-y-3">
@@ -116,7 +116,7 @@ export function Reviews({ carId }: ReviewsProps) {
               <span className="text-sm font-medium">{rating}</span>
             </div>
             {/* Sub ratings */}
-            <div className="grid grid-cols-2 gap-3">
+            {/* <div className="grid grid-cols-2 gap-3">
               {[
                 ['Exterior','exterior'],
                 ['Comfort','comfort'],
@@ -131,7 +131,7 @@ export function Reviews({ carId }: ReviewsProps) {
                   <span className="w-6 text-right">{(subRatings as any)[key]}</span>
                 </label>
               ))}
-            </div>
+            </div> */}
             <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Share your experience" className="border rounded-lg px-3 py-2 w-full min-h-24" />
             <div>
               <label className="block text-sm text-gray-700 mb-1">Image URLs (comma separated)</label>

@@ -14,7 +14,7 @@ export function VariantFilter({ selectedFuel, onFuelChange, selectedTransmission
   const transmissionOptions: VariantFilterProps['selectedTransmission'][] = ['All','Manual','Automatic','Automatic (AMT)'];
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-4">
+    <div className="bg-white rounded-xl p-4">
       <div className="flex items-center gap-3 text-sm text-gray-600 mb-3">
         <span className="inline-flex items-center gap-2">
           <span className="text-gray-500">Filter</span>
@@ -36,7 +36,6 @@ export function VariantFilter({ selectedFuel, onFuelChange, selectedTransmission
             </button>
           ))}
         </div>
-        <div className="mx-2 h-6 w-px bg-gray-200" />
         <div className="flex items-center gap-2 flex-wrap">
           {transmissionOptions.map((opt) => (
             <button

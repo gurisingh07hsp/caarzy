@@ -64,7 +64,7 @@ export function EmiCalculator({ price, open, onClose }: EmiCalculatorProps) {
               <p className="text-sm text-gray-600 mt-2">Your loan amount will be: <span className="font-semibold">{formatINR(principal)}</span></p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-6">
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <p className="font-medium">Tenure</p>
@@ -72,7 +72,7 @@ export function EmiCalculator({ price, open, onClose }: EmiCalculatorProps) {
                 </div>
                 <input type="range" min={12} max={84} value={tenureMonths}
                        onChange={(e) => setTenureMonths(Number(e.target.value))} className="w-full" />
-                <div className="mt-3 flex items-center gap-3">
+                <div className="lg:mt-3 mt-1 flex items-center gap-3">
                   <input type="number" min={1} value={Math.round(tenureMonths/12)} onChange={(e) => setTenureMonths(Math.min(84, Math.max(12, Number(e.target.value) * 12)))} className="border rounded-lg px-3 py-2 w-20" />
                   <span className="text-sm text-gray-600">years</span>
                 </div>
@@ -90,11 +90,11 @@ export function EmiCalculator({ price, open, onClose }: EmiCalculatorProps) {
           </div>
 
           {/* Right summary */}
-          <div className="p-6">
+          <div className="lg:p-6 px-6 py-2">
             <div className="text-2xl font-bold">{formatINR(monthlyEmi)} <span className="text-base font-normal text-gray-600">EMI / month</span></div>
 
             <div className="mt-6 flex items-center justify-center">
-              <svg width="200" height="200" viewBox="0 0 200 200">
+              <svg className='lg:w-[200px] lg:h-[200px] w-[100px] h-[100px]' viewBox="0 0 200 200">
                 <circle cx="100" cy="100" r="72" stroke="#e2e8f0" strokeWidth="18" fill="none" />
                 <circle cx="100" cy="100" r="72" stroke="#10b981" strokeWidth="18" fill="none"
                         strokeDasharray={`${principalStroke} ${circumference}`} strokeLinecap="round" transform="rotate(-90 100 100)" />
