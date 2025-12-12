@@ -183,3 +183,9 @@ export interface Car {
    reviews: [{rating: number, username: string, title: string, experience: string, postedAt: ''}]
    launchDate: Date;
 }
+
+export interface CompareCar {
+  _id?: string;
+  car1: string;
+  car2: string;
+}

@@ -21,10 +21,12 @@ import {
 import { AdminPanel } from './AdminPanel';
 import { BlogAdmin } from './BlogAdmin';
 import { cn } from '@/lib/utils';
+import AdminComparePage from './AdminComparePage';
 
 interface AdminDashboardProps {
   cars: Car[];
   models: Model[];
+  comparisons: any;
   blogs: BlogPost[];
   onAddCar: (car: Car) => void;
   onUpdateCar: (car: Model) => void;
@@ -34,11 +36,12 @@ interface AdminDashboardProps {
   onDeleteBlog: (id: string) => void;
 }
 
-type AdminPage = 'dashboard' | 'cars' | 'blogs' | 'favorites' | 'reviews' | 'profile' | 'add-car';
+type AdminPage = 'dashboard' | 'cars' | 'compare cars' | 'blogs' | 'favorites' | 'reviews' | 'profile' | 'add-car';
 
 export function AdminDashboard({ 
   cars,
   models, 
+  comparisons,
   blogs, 
   onAddCar, 
   onUpdateCar, 
@@ -52,6 +55,7 @@ export function AdminDashboard({
   const sidebarItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'cars', label: 'My Cars', icon: List },
+    { id: 'compare cars', label: 'Compare Cars', icon: Package},
     { id: 'blogs', label: 'My Blogs', icon: FileText },
     { id: 'favorites', label: 'My Favorites', icon: Heart },
     { id: 'reviews', label: 'My Reviews', icon: MessageSquare },
@@ -69,6 +73,12 @@ export function AdminDashboard({
             models={models}
             cars={cars}
           />
+        );
+      case 'compare cars':
+        return (
+          <AdminComparePage 
+            models={models}
+            comparisons={comparisons} />
         );
       case 'blogs':
         return (

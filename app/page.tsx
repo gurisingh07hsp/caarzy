@@ -25,6 +25,7 @@ import PopularQuestions from '@/components/PopularQuestions';
 export default function HomePage() {
   const [models, setModels] = useState<Model[]>([]);
   const [cars, setCars] = useState<Car[]>([]);
+  const [comparisons, setComparisons] = useState<any>([]);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -49,8 +50,19 @@ export default function HomePage() {
       console.error('Error fetching popular cars: ', error);
     }
   }
+  const getComparisons = async() => {
+    try{
+      const response = await axios.get('/api/managecomparison');
+      if(response.status === 200){
+        setComparisons(response.data.comparisons.slice(0,4));
+      }
+    }catch(error){
+      console.error('Error fetching popular cars: ', error);
+    }
+  }
   useEffect(() => {
     getModels();
+    getComparisons();
     getBlogs();
   }, []);
 
@@ -65,7 +77,7 @@ export default function HomePage() {
           <PopularCars cars={models}/>
           <Testimonials />
           <PopularQuestions/>
-          <CompareSection comparisons={mockComparisons} />
+          <CompareSection comparisons={comparisons} />
           <UpcomingCars cars={cars}/>
           {/* <AdvertisementSection /> */}
           {/* <BrandShowcase brands={mockBrands} /> */}

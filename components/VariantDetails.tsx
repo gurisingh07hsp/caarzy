@@ -158,7 +158,7 @@ const VariantDetails = () => {
   return (
     <div>
         {carVariant && model ? (
-            <div className='max-w-7xl flex lg:flex-row flex-col gap-4 mx-auto'>
+            <div className='max-w-7xl flex lg:flex-row flex-col gap-8 mx-auto'>
 
 
                {/* <div className="relative w-full h-screen bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden">
@@ -258,12 +258,12 @@ const VariantDetails = () => {
 
 
 
-              <div className='lg:w-[800px]'>
+              <div className='lg:w-[700px]'>
                 <div className='md:h-[460px]'>
                     <img src={`${model.images[activeIndex]}`} alt="model" className='w-[100%] h-[100%] rounded-lg' />
                 </div>
-                 <div className="overflow-x-auto">
-            <div className="flex gap-3 max-w-4xl">
+                          <div className="mt-3 overflow-x-auto">
+            <div className="flex gap-3 w-max">
               {model?.images?.map((src: string, idx: number) => (
                 <button
                   key={src + idx}
@@ -479,7 +479,7 @@ const VariantDetails = () => {
                     ].map(([label, value], idx) => (
                       <div key={idx} className='flex items-center'>
                         <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p>{label}</p>
+                        <p className='text-[#696665] text-sm'>{label}</p>
                       </div>
                     ))}
                     </div>
@@ -498,7 +498,7 @@ const VariantDetails = () => {
                     ].map(([label, value], idx) => (
                       <div key={idx} className='flex items-center'>
                         <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p>{label}</p>
+                        <p className='text-[#696665] text-sm'>{label}</p>
                       </div>
                     ))}
                     </div>
@@ -519,7 +519,7 @@ const VariantDetails = () => {
                       ].map(([label, value], idx) => (
                       <div key={idx} className='flex items-center'>
                         <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p>{label}</p>
+                        <p className='text-[#696665] text-sm'>{label}</p>
                       </div>
                     ))}
                     </div>
@@ -541,7 +541,7 @@ const VariantDetails = () => {
                       ].map(([label, value], idx) => (
                       <div key={idx} className='flex items-center'>
                         <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p>{label}</p>
+                        <p className='text-[#696665] text-sm'>{label}</p>
                       </div>
                     ))}
                     </div>
@@ -611,7 +611,7 @@ const VariantDetails = () => {
                     ].map(([label, value], idx) => (
                       <div key={idx} className='flex items-center'>
                         <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p>{label}</p>
+                        <p className='text-[#696665] text-sm'>{label}</p>
                       </div>
                     ))}
                     </div>
@@ -647,7 +647,7 @@ const VariantDetails = () => {
                       ].map(([label, value], idx) => (
                       <div key={idx} className='flex items-center'>
                         <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p>{label}</p>
+                        <p className='text-[#696665] text-sm'>{label}</p>
                       </div>
                     ))}
                     </div>
@@ -688,7 +688,7 @@ const VariantDetails = () => {
                         ].map(([label, value], idx) => (
                       <div key={idx} className='flex items-center'>
                         <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p>{label}</p>
+                        <p className='text-[#696665] text-sm'>{label}</p>
                       </div>
                     ))}
                     </div>
@@ -714,7 +714,7 @@ const VariantDetails = () => {
                       ].map(([label, value], idx) => (
                       <div key={idx} className='flex items-center'>
                         <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p>{label}</p>
+                        <p className='text-[#696665] text-sm'>{label}</p>
                       </div>
                     ))}
                     </div>
@@ -730,7 +730,7 @@ const VariantDetails = () => {
                       ].map(([label, value], idx) => (
                       <div key={idx} className='flex items-center'>
                         <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p>{label}</p>
+                        <p className='text-[#696665] text-sm'>{label}</p>
                       </div>
                     ))}
                     </div>
@@ -747,7 +747,7 @@ const VariantDetails = () => {
                       ].map(([label, value], idx) => (
                       <div key={idx} className='flex items-center'>
                         <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p>{label}</p>
+                        <p className='text-[#696665] text-sm'>{label}</p>
                       </div>
                     ))}
                     </div>

@@ -13,6 +13,7 @@ export default function AdminPage() {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [models, setModels] = useState<Model[]>([]);
   const [cars, setCars] = useState<Car[]>([]);
+  const [comparisons, setComparisons] = useState<any>([]);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
 
   const fetchModels = async() => {
@@ -39,6 +40,18 @@ export default function AdminPage() {
     }
   }
 
+  const fetchComparisons = async() => {
+    try{
+      const response = await axios.get('/api/managecomparison');
+      if(response.status == 200){
+        setComparisons(response.data.comparisons);
+        console.log(response.data.comparisons);
+      }
+    }catch(error){
+      console.log(error);
+    }
+  }
+
   const fetchBlogs = async() => {
     try{
       const response = await axios.get('/api/manageblogs');
@@ -54,6 +67,7 @@ export default function AdminPage() {
   useEffect(() => {
     fetchModels();
     fetchCars();
+    fetchComparisons();
     fetchBlogs();
   }, []);
 
@@ -161,6 +175,7 @@ export default function AdminPage() {
     <AdminDashboard
       models={models}
       cars={cars}
+      comparisons={comparisons}
       blogs={blogs}
       onAddCar={handleAddCar}
       onUpdateCar={handleUpdateCar}

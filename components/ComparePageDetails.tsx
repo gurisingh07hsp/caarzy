@@ -1,8 +1,10 @@
 'use client';
 import { CheckIcon, ChevronDown, ChevronUp, Image, XIcon } from "lucide-react";
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import axios from "axios";
 const ComparePageDetails = () => {
+    const { slug } = useParams();
           type SectionId =
             | 'basic'
             | 'engine'
@@ -16,6 +18,9 @@ const ComparePageDetails = () => {
             | 'entertainment'
             | 'adas'
             | 'internet';
+    const [loading, setLoading] = useState(true);
+    const [car1, setCar1] = useState<any>();
+    const [car2, setCar2] = useState<any>();
         
           const [expandedSections, setExpandedSections] = useState<{ [K in SectionId]: boolean }>({
             basic: true,
@@ -31,15 +36,43 @@ const ComparePageDetails = () => {
             adas: false,
             internet: false,
           });
+
+      const fetchVariant = async() => {
+        try{
+            const response = await axios.get(`/api/managecomparison/${slug?.toString().replace(/-/g, ' ')}`);
+            if(response.status === 200){
+                console.log(response.data);
+                setCar1(response.data.car1);
+                setCar2(response.data.car2);
+            }
+        }catch(error){
+            console.log(error);
+        }
+        setLoading(false);
+    }
+    useEffect(()=> {
+        fetchVariant();
+    },[]);
+
+
+
     const toggleSection = (section: SectionId) => {
     setExpandedSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
+
+
+    if(loading){
+      return (
+        <div>loading...</div>
+      )
+    }
+
   return (
     <div className="max-w-7xl mx-auto mt-4">
       <div className="max-w-4xl grid grid-cols-2 gap-20 mx-auto">
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer">
           <div className="relative aspect-video w-full bg-gray-100 overflow-hidden">
-            {/* <img src={car?.images[0]} alt={car.modelName} className="w-full h-full object-cover" /> */}
+            <img src={car1?.images[0]} alt={car1?.modelName} className="w-full h-full object-cover" />
 
             {/* Badges */}
             <div className="absolute top-3 left-3 flex gap-2">
@@ -51,7 +84,7 @@ const ComparePageDetails = () => {
               {/* {isSold && ( */}
               <span className="bg-[#B9B9B9] text-white text-xs font-semibold px-3 py-1 rounded-2xl flex items-center gap-1">
                 <Image size={12} />
-                {/* {car.images.length || 0} */}
+                {car1.images.length || 0}
               </span>
               {/* )} */}
             </div>
@@ -66,10 +99,10 @@ const ComparePageDetails = () => {
           {/* Content Section */}
           <div className="p-4">
             {/* Category */}
-            {/* <p className="text-[#FF7101] text-sm font-medium mb-1">{car.bodyType === 'suv' ? 'SUV' : car.category.charAt(0).toUpperCase() + car.category.slice(1)}</p> */}
+            <p className="text-[#FF7101] text-sm font-medium mb-1">{car1.bodyType === 'suv' ? 'SUV' : car1.category.charAt(0).toUpperCase() + car1.category.slice(1)}</p>
 
             {/* Car Name */}
-            {/* <h3 className="text-lg font-medium text-gray-900 mb-1">{car.brand.charAt(0).toUpperCase() + car.brand.slice(1)} {car.modelName.charAt(0).toUpperCase() + car.modelName.slice(1)}</h3> */}
+            <h3 className="text-lg font-medium text-gray-900 mb-1">{car1.brand.charAt(0).toUpperCase() + car1.brand.slice(1)} {car1.modelName.charAt(0).toUpperCase() + car1.modelName.slice(1)}</h3>
 
             {/* Specifications */}
             <div className="flex gap-4 items-center space-y-1 mb-4">
@@ -86,7 +119,7 @@ const ComparePageDetails = () => {
                     fill="#696665"
                   />
                 </svg>
-                {/* <span>{car.variant[1].fuelAndPerformance.petrolMileageARAI} km</span> */}
+                <span>{car1.variant[0].fuelAndPerformance.petrolMileageARAI} km</span>
               </div>
               <div className="flex items-center gap-1 text-sm text-gray-600">
                 <svg
@@ -101,7 +134,7 @@ const ComparePageDetails = () => {
                     fill="#696665"
                   />
                 </svg>
-                {/* <span>{car.variant[1].fuelAndPerformance.fuelType}</span> */}
+                <span>{car1.variant[0].fuelAndPerformance.fuelType}</span>
               </div>
               <div className="flex items-center gap-1 text-sm text-gray-600">
                 <svg
@@ -116,15 +149,15 @@ const ComparePageDetails = () => {
                     fill="#696665"
                   />
                 </svg>
-                {/* <span>{car.variant[1].engineAndTransmission.transmissionType}</span> */}
+                <span>{car1.variant[0].engineAndTransmission.transmissionType}</span>
               </div>
             </div>
 
             {/* Price */}
             <div className="mb-4">
               <div className="flex items-center gap-2">
-                {/* <span className="text-[#FF7101] font-bold text-xl">₹{(car.variant[0].price as any / 100000).toFixed(2)}L</span>
-            <span className="text-gray-400 text-sm line-through">₹{(car.variant[0].originalPrice as any / 100000).toFixed(2)}L</span> */}
+                <span className="text-[#FF7101] font-bold text-xl">₹{(car1.variant[0].price as any / 100000).toFixed(2)}L</span>
+            <span className="text-gray-400 text-sm line-through">₹{(car1.variant[0].originalPrice as any / 100000).toFixed(2)}L</span>
               </div>
             </div>
 
@@ -132,7 +165,7 @@ const ComparePageDetails = () => {
 
             {/* View Button - Full Width */}
             <button
-              //   onClick={(e) => { e.stopPropagation(); router.push(`/${car.brand.replace(/\s+/g, '-')}/${car.modelName.replace(/\s+/g, '-')}`)}}
+                // onClick={(e) => { e.stopPropagation(); router.push(`/${car.brand.replace(/\s+/g, '-')}/${car.modelName.replace(/\s+/g, '-')}`)}}
               className="mt-4 w-full bg-white border border-gray-300 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
             >
               View car
@@ -142,7 +175,7 @@ const ComparePageDetails = () => {
 
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer">
           <div className="relative aspect-video w-full bg-gray-100 overflow-hidden">
-            {/* <img src={car?.images[0]} alt={car.modelName} className="w-full h-full object-cover" /> */}
+            <img src={car2?.images[0]} alt={car2.modelName} className="w-full h-full object-cover" />
 
             {/* Badges */}
             <div className="absolute top-3 left-3 flex gap-2">
@@ -154,7 +187,7 @@ const ComparePageDetails = () => {
               {/* {isSold && ( */}
               <span className="bg-[#B9B9B9] text-white text-xs font-semibold px-3 py-1 rounded-2xl flex items-center gap-1">
                 <Image size={12} />
-                {/* {car.images.length || 0} */}
+                {car2.images.length || 0}
               </span>
               {/* )} */}
             </div>
@@ -169,10 +202,10 @@ const ComparePageDetails = () => {
           {/* Content Section */}
           <div className="p-4">
             {/* Category */}
-            {/* <p className="text-[#FF7101] text-sm font-medium mb-1">{car.bodyType === 'suv' ? 'SUV' : car.category.charAt(0).toUpperCase() + car.category.slice(1)}</p> */}
+            <p className="text-[#FF7101] text-sm font-medium mb-1">{car2.bodyType === 'suv' ? 'SUV' : car2.category.charAt(0).toUpperCase() + car2.category.slice(1)}</p>
 
             {/* Car Name */}
-            {/* <h3 className="text-lg font-medium text-gray-900 mb-1">{car.brand.charAt(0).toUpperCase() + car.brand.slice(1)} {car.modelName.charAt(0).toUpperCase() + car.modelName.slice(1)}</h3> */}
+            <h3 className="text-lg font-medium text-gray-900 mb-1">{car2.brand.charAt(0).toUpperCase() + car2.brand.slice(1)} {car2.modelName.charAt(0).toUpperCase() + car2.modelName.slice(1)}</h3>
 
             {/* Specifications */}
             <div className="flex gap-4 items-center space-y-1 mb-4">
@@ -189,7 +222,7 @@ const ComparePageDetails = () => {
                     fill="#696665"
                   />
                 </svg>
-                {/* <span>{car.variant[1].fuelAndPerformance.petrolMileageARAI} km</span> */}
+                <span>{car2.variant[0].fuelAndPerformance.petrolMileageARAI} km</span>
               </div>
               <div className="flex items-center gap-1 text-sm text-gray-600">
                 <svg
@@ -204,7 +237,7 @@ const ComparePageDetails = () => {
                     fill="#696665"
                   />
                 </svg>
-                {/* <span>{car.variant[1].fuelAndPerformance.fuelType}</span> */}
+                <span>{car2.variant[0].fuelAndPerformance.fuelType}</span>
               </div>
               <div className="flex items-center gap-1 text-sm text-gray-600">
                 <svg
@@ -219,15 +252,15 @@ const ComparePageDetails = () => {
                     fill="#696665"
                   />
                 </svg>
-                {/* <span>{car.variant[1].engineAndTransmission.transmissionType}</span> */}
+                <span>{car2.variant[0].engineAndTransmission.transmissionType}</span>
               </div>
             </div>
 
             {/* Price */}
             <div className="mb-4">
               <div className="flex items-center gap-2">
-                {/* <span className="text-[#FF7101] font-bold text-xl">₹{(car.variant[0].price as any / 100000).toFixed(2)}L</span>
-            <span className="text-gray-400 text-sm line-through">₹{(car.variant[0].originalPrice as any / 100000).toFixed(2)}L</span> */}
+                <span className="text-[#FF7101] font-bold text-xl">₹{(car2.variant[0].price as any / 100000).toFixed(2)}L</span>
+            <span className="text-gray-400 text-sm line-through">₹{(car2.variant[0].originalPrice as any / 100000).toFixed(2)}L</span>
               </div>
             </div>
 
@@ -252,20 +285,17 @@ const ComparePageDetails = () => {
               toggleSection={toggleSection}>
               <div className=''>
                     {[
-                    //   ["Engine Type", carVariant.engineAndTransmission.engineType],
-                    //   ["Displacement", carVariant.engineAndTransmission.displacement],
-                    //   ["Max Power", carVariant.engineAndTransmission.maxPower],
-                    //   ["Max Torque", carVariant.engineAndTransmission.maxTorque],
-                    //   ["No. of Cylinders", carVariant.engineAndTransmission.NumOfCylinders],
-                    //   ["Valves Per Cylinder", carVariant.engineAndTransmission.valvesPerCylinder],
-                    //   ["Fuel Supply System", carVariant.engineAndTransmission.fuelSupplySystem],
-                    //   ["Turbo Charger", carVariant.engineAndTransmission.turboCharger ? "Yes" : "No"],
-                    //   ["Transmission Type", carVariant.engineAndTransmission.transmissionType],
-                    //   ["Gearbox", carVariant.engineAndTransmission.gearbox],
-                    //   ["Drive Type", carVariant.engineAndTransmission.driveType],
-                      ["Drive Type", 'fefef', 'fiejf'],
-                      ["Drive Type", false, true],
-                      ["Drive Type", true, true],
+                      ["Engine Type", car1.variant[0].engineAndTransmission?.engineType, car2.variant[0].engineAndTransmission?.engineType],
+                      ["Displacement", car1.variant[0].engineAndTransmission.displacement, car2.variant[0].engineAndTransmission.displacement],
+                      // ["Max Power", car1.engineAndTransmission.maxPower, car2.engineAndTransmission.maxPower],
+                      // ["Max Torque", car1.engineAndTransmission.maxTorque, car2.engineAndTransmission.maxTorque],
+                      // ["No. of Cylinders", car1.engineAndTransmission.NumOfCylinders, car2.engineAndTransmission.NumOfCylinders],
+                      // ["Valves Per Cylinder", car1.engineAndTransmission.valvesPerCylinder, car2.engineAndTransmission.valvesPerCylinder],
+                      // ["Fuel Supply System", car1.engineAndTransmission.fuelSupplySystem, car2.engineAndTransmission.fuelSupplySystem],
+                      // ["Turbo Charger", car1.engineAndTransmission.turboCharger ? "Yes" : "No", car2.engineAndTransmission.turboCharger ? "Yes" : "No"],
+                      // ["Transmission Type", car1.engineAndTransmission.transmissionType, car2.engineAndTransmission.transmissionType],
+                      // ["Gearbox", car1.engineAndTransmission.gearbox, car2.engineAndTransmission.gearbox],
+                      // ["Drive Type", car1.engineAndTransmission.driveType, car2.engineAndTransmission.driveType],
                     ].map(([label, value1, value2], idx) => (
                       <div key={idx} className="space-y-2 mb-4">
                         <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
