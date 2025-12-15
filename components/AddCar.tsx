@@ -180,7 +180,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     },
     isLatest: false,
     isFeatured: false,
-    reviews: [{rating: 0, username: '', title: '', experience: '', postedAt: ''}],
+    reviews: [{rating: 0, username: '', title: '', experience: '', postedAt: new Date()}],
     launchDate: new Date(),
   })
 
@@ -421,7 +421,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     },
     isLatest: false,
     isFeatured: false,
-    reviews: [{rating: 0, username: '', title: '', experience: '', postedAt: ''}],
+    reviews: [{rating: 0, username: '', title: '', experience: '', postedAt: new Date()}],
     launchDate: new Date(),
   });
   setOperation('add');

@@ -21,6 +21,7 @@ export function CarDetail() {
   const [breakupOpen, setBreakupOpen] = useState(false);
   const [breakupFor, setBreakupFor] = useState<{name: string; price: number} | null>(null);
   const [loading, setLoading] = useState(true);
+  const [sort, setSort] = useState<'latest' | 'top'>('latest');
   const { brand, name } = useParams();
   const getCars = async()=> {
     try{
@@ -38,7 +39,17 @@ export function CarDetail() {
     getCars();
     console.log(car);
   }, []);
-  
+
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    if (!car?.variant) return;
+
+    const reviews = car.variant.flatMap(
+      (v: any) => v.reviews || []
+    );
+    setReviews(reviews);
+  }, [car]);
 
   useEffect(()=> {
     let filterVariats = car?.variant;
@@ -92,6 +103,7 @@ export function CarDetail() {
         </div>
       )
     }
+
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center">
         <div className="absolute inset-0 bg-black/40" onClick={() => setBreakupOpen(false)} />
@@ -476,7 +488,45 @@ export function CarDetail() {
         })()}
       </div> */}
       {breakupOpen && renderBreakup()}
-      <Reviews carId={car?._id ?? ''} />
+
+
+        <div className="mt-12 bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="px-4 py-4 border-b flex items-center justify-between">
+        <h3 className="text-lg font-semibold">User Reviews</h3>
+        {/* <div className="text-sm text-gray-600">Average Rating: <span className="font-semibold">{avg.toFixed(1)}</span> / 5 ({reviews.length})</div> */}
+      </div>
+
+      {/* <div className="grid grid-cols-1 md:grid-cols-2"> */}
+        <div className="p-4 max-h-96 overflow-y-auto">
+
+          <div className="flex items-center justify-between mb-3">
+            {/* <p className="text-sm font-medium">All Reviews ({reviews.length})</p> */}
+            <select value={sort} onChange={(e) => setSort(e.target.value as any)} className="border rounded px-2 py-1 text-sm">
+              <option value="latest">Latest</option>
+              <option value="top">Top Rated</option>
+            </select>
+          </div>
+          {/* {reviews.length === 0 && <p className="text-sm text-gray-600">No reviews yet. Be the first to review.</p>} */}
+          <ul className="space-y-3">
+            {[...reviews]
+              .sort((a: any,b: any) => sort==='latest' ? (new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime()) : (b.rating - a.rating))
+              .map((r: any) => (
+              <li key={r._id} className="p-3 border rounded-lg">
+                <div className="flex items-center justify-between">
+                  <p className="font-medium">{r.username}</p>
+                  <span className="text-sm">{r.rating} / 5</span>
+                </div>
+                <p className="text-sm text-gray-700 mt-1">{r.experience}</p>
+                <p className="text-xs text-gray-500 mt-1">{new Date(r.postedAt).toLocaleDateString()}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      {/* </div> */}
+    </div>
+
+
+      {/* <Reviews carId={car?._id ?? ''} reviews={reviews} /> */}
       <EmiCalculator open={emiOpen} onClose={() => setEmiOpen(false)} price={car?.variant[index]?.price} />
             </div>
           )}

@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { Car } from '@/types/Car';
 import axios from 'axios';
 import { Star, CheckIcon, XIcon, User, ChevronRight, ChevronLeft, Image, Video, ChevronUp, ChevronDown } from 'lucide-react';
+import { Reviews } from './Reviews';
 const VariantDetails = () => {
     const { variant } = useParams();
     const [carVariant, setCarVariant] = useState<Car | null>(null);
@@ -800,7 +801,7 @@ const VariantDetails = () => {
           </div>
 
 
-          <div className='border border-gray-200 rounded-2xl p-4 max-w-4xl mt-4'>
+          {/* <div className='border border-gray-200 rounded-2xl p-4 max-w-4xl mt-4'>
             <h2 className='text-2xl font-semibold'>{carVariant.name} user reviews</h2>
             <div className='flex mt-4 items-center'>
               <span className='text-3xl font-bold'>4.7</span>
@@ -870,7 +871,8 @@ const VariantDetails = () => {
                   </div>
               </div>
             </div>
-          </div>
+          </div> */}
+           <Reviews carId={carVariant?._id ?? ''} reviews={carVariant.reviews} />
             </div>
 
             <aside className="hidden lg:block">
@@ -911,8 +913,8 @@ const VariantDetails = () => {
             </div> */}
           </div>
         </aside>
+       
         </div>
-
 
         ) : (
             <div>No Car found</div>

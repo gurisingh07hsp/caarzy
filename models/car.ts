@@ -349,6 +349,7 @@ const carSchema = new mongoose.Schema<ICar>({
     name: {type: String},
     avatar: {type: String},
   },
+  reviews: [{rating: {type: Number}, username: {type: String}, title: {type: String}, experience: {type: String}, postedAt: {type: Date}}],
   launchDate: {type: Date},
 })
 
