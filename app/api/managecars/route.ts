@@ -35,8 +35,6 @@ export async function POST(req: Request) {
 
   const {carForm} = body;
 
-  console.log(carForm);
-
     const { user, error } = await authUser(req);
     if (error) return error;
 
@@ -67,8 +65,6 @@ export async function PUT(req: Request){
   const body = await req.json();
 
   const {id,carForm} = body;
-
-  console.log(id,carForm);
 
     const { user, error } = await authUser(req);
     if (error) return error;
@@ -112,7 +108,6 @@ export async function DELETE(req: Request){
     await dbConnect();
     const body = await req.json();
     const {id} = body;
-    console.log(id);
 
     try{
         const { user, error } = await authUser(req);

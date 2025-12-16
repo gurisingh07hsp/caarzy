@@ -16,7 +16,9 @@ import {
   FileText,
   BarChart3,
   Settings,
-  List
+  List,
+  Menu,
+  X
 } from 'lucide-react';
 import { AdminPanel } from './AdminPanel';
 import { BlogAdmin } from './BlogAdmin';
@@ -51,6 +53,7 @@ export function AdminDashboard({
   onDeleteBlog
 }: AdminDashboardProps) {
   const [currentPage, setCurrentPage] = useState<AdminPage>('dashboard');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const sidebarItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -66,7 +69,7 @@ export function AdminDashboard({
   const renderContent = () => {
     switch (currentPage) {
       case 'dashboard':
-        return <DashboardOverview cars={cars} blogs={blogs} />;
+        return <DashboardOverview models={models} blogs={blogs} />;
       case 'cars':
         return (
           <AdminPanel
@@ -102,59 +105,19 @@ export function AdminDashboard({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      {/* Top Header */}
-      <div className="fixed top-0 left-0 right-0 bg-white shadow-sm border-b border-gray-200 z-50">
-        <div className="flex items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center">
-            <div className="bg-orange-500 p-2 rounded-lg mr-3">
-              <CarIcon className="h-6 w-6 text-white" />
-            </div>
-            <span className="text-2xl font-bold text-gray-900">AutoDeal</span>
-          </Link>
-          
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-orange-500 font-medium transition-colors">
-              Home
-            </Link>
-            <button className="text-gray-700 hover:text-orange-500 font-medium transition-colors">
-              Buy Car
-            </button>
-            <Link href="/about" className="text-gray-700 hover:text-orange-500 font-medium transition-colors">
-              Blog
-            </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-orange-500 font-medium transition-colors">
-              Contact
-            </Link>
-          </nav>
-
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={() => setCurrentPage('blogs')}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center"
-            >
-              <FileText className="h-4 w-4 mr-2" />
-              Manage Blogs
-            </button>
-            <button
-              onClick={() => setCurrentPage('add-car')}
-              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center"
-            >
-              <CarIcon className="h-4 w-4 mr-2" />
-              Add Car
-            </button>
-          </div>
-        </div>
+    <div>
+      <div onClick={()=> setIsMenuOpen(true)} className='lg:hidden block ms-5 py-1'>
+        <Menu/>
       </div>
-
+    <div className="h-[92vh] bg-gray-50 flex">
       {/* Sidebar */}
-      <div className="w-64 bg-gray-800 text-white flex flex-col fixed left-0 top-16 bottom-0">
-        {/* Menu Label */}
+      <div className="w-64 bg-gray-800 text-white lg:flex flex-col hidden">
+        
         <div className="px-6 py-6">
           <span className="text-gray-400 text-sm font-medium">Menu</span>
         </div>
 
-        {/* Navigation */}
+        
         <nav className="flex-1 px-4">
           <ul className="space-y-2">
             {sidebarItems.map((item) => (
@@ -176,7 +139,7 @@ export function AdminDashboard({
           </ul>
         </nav>
 
-        {/* Logout */}
+        
         <div className="p-4 border-t border-gray-700">
           <Link
             href="/"
@@ -188,26 +151,70 @@ export function AdminDashboard({
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 ml-64 mt-16">
+      {isMenuOpen && (
+      <div className="w-64 bg-gray-800 text-white flex flex-col lg:hidden z-30 absolute h-[92%]">
         
+        <div className="px-6 py-6 flex justify-between">
+          <span className="text-gray-400 text-sm font-medium">Menu</span>
+          <X onClick={()=> setIsMenuOpen(false)}/>
+        </div>
+
+        
+        <nav className="flex-1 px-4">
+          <ul className="space-y-2">
+            {sidebarItems.map((item) => (
+              <li key={item.id}>
+                <button
+                  onClick={() => {setCurrentPage(item.id as AdminPage); setIsMenuOpen(false)}}
+                  className={cn(
+                    "w-full flex items-center px-4 py-3 text-left rounded-lg transition-all duration-200",
+                    currentPage === item.id
+                      ? "bg-orange-500 text-white shadow-lg"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                  )}
+                >
+                  <item.icon className="h-5 w-5 mr-3" />
+                  {item.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        
+        <div className="p-4 border-t border-gray-700">
+          <Link
+            href="/"
+            className="w-full flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-all duration-200"
+          >
+            <LogOut className="h-5 w-5 mr-3" />
+            Logout
+          </Link>
+        </div>
+      </div>
+      )}
+
+
+      {/* Main Content */}
+      <div className="flex-1 overflow-y-auto">
         <div className="p-8">
           {renderContent()}
         </div>
       </div>
     </div>
+    </div>
   );
 }
 
-function DashboardOverview({ cars, blogs }: { cars: Car[]; blogs: BlogPost[] }) {
+function DashboardOverview({ models, blogs }: { models: Model[]; blogs: BlogPost[] }) {
   const stats = [
-    { label: 'Total Cars', value: cars.length, icon: CarIcon, color: 'bg-blue-500' },
+    { label: 'Total Cars', value: models.length, icon: CarIcon, color: 'bg-blue-500' },
     { label: 'Blog Posts', value: blogs.length, icon: FileText, color: 'bg-green-500' },
-    // { label: 'Latest Models', value: cars.filter(car => car.isLatest).length, icon: BarChart3, color: 'bg-orange-500' },
-    // { label: 'Categories', value: new Set(cars.map(car => car.category)).size, icon: Settings, color: 'bg-purple-500' },
+    // { label: 'Latest Models', value: models.filter(car => car?.isLatest).length, icon: BarChart3, color: 'bg-orange-500' },
+    { label: 'Categories', value: new Set(models.map(car => car.category)).size, icon: Settings, color: 'bg-purple-500' },
   ];
 
-  const recentCars = cars.slice(-5);
+  const recentCars = models.slice(-5);
   const recentBlogs = blogs.slice(-3);
 
   return (
@@ -241,14 +248,14 @@ function DashboardOverview({ cars, blogs }: { cars: Car[]; blogs: BlogPost[] }) 
           <div className="space-y-4">
             {recentCars.map((car) => (
               <div key={car._id} className="flex items-center p-3 bg-gray-50 rounded-lg">
-                {/* <img
+                <img
                   src={car.images[0]}
-                  alt={car.name}
+                  alt={car.modelName}
                   className="w-12 h-12 rounded-lg object-cover"
-                /> */}
+                />
                 <div className="ml-3 flex-1">
-                  {/* <p className="font-medium text-gray-900">{car.brand} {car.name}</p> */}
-                  {/* <p className="text-sm text-gray-600">₹{(car.price / 100000).toFixed(1)}L</p> */}
+                  <p className="font-medium text-gray-900">{car.brand} {car.modelName}</p>
+                  {/* <p className="text-sm text-gray-600">₹{(car?.variant[0]?.price / 100000).toFixed(1)}L</p> */}
                 </div>
                 {/* {car.isLatest && (
                   <span className="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs font-medium">

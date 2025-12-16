@@ -8,6 +8,7 @@ import axios from 'axios';
 export interface UserReview {
   _id?: string;
   username: string;
+  title: string;
   rating: number; // 1-5
   experience: string;
   postedAt: Date;
@@ -19,16 +20,9 @@ interface ReviewsProps {
 }
 
 export function Reviews({ carId, reviews }: ReviewsProps) {
-  console.log('reviews : ', reviews)
   const {user} = useUser();
-  const [name, setName] = useState('');
-  const [rating, setRating] = useState(5);
-  const [comment, setComment] = useState('');
-  // const [reviews, setReviews] = useState<UserReview[]>([]);
-  const [imagesText, setImagesText] = useState('');
   const [sort, setSort] = useState<'latest' | 'top'>('latest');
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [subRatings, setSubRatings] = useState({ exterior: 5, comfort: 5, performance: 5, fuelEconomy: 5, valueForMoney: 5 });
   const [reviewForm, setReviewForm] = useState({
     username: '',
     rating: 0,
@@ -60,23 +54,24 @@ export function Reviews({ carId, reviews }: ReviewsProps) {
 
       const response = await axios.post(`/api/reviews/${carId}`, review);
       if(response.status == 200){
+        setReviewForm({
+          username: '',
+          rating: 0,
+          title: '',
+          experience: '',
+          postedAt: new Date()
+        })
         console.log(response.data);
       }
     }
     else{
       setIsAuthModalOpen(true);
     }
-
-    // setReviews((list) => [review, ...list]);
-    setName('');
-    setComment('');
-    setRating(5);
-    setImagesText('');
   }
 
 
   return (
-    <div className="mt-12 bg-white rounded-xl border border-gray-200 overflow-hidden">
+    <div className="mt-12 bg-white rounded-xl border border-gray-200 overflow-hidden mb-8">
       <div className="px-4 py-4 border-b flex items-center justify-between">
         <h3 className="text-lg font-semibold">User Reviews</h3>
         <div className="text-sm text-gray-600">Average Rating: <span className="font-semibold">{avg.toFixed(1)}</span> / 5 ({reviews.length})</div>
@@ -114,6 +109,7 @@ export function Reviews({ carId, reviews }: ReviewsProps) {
                   <p className="font-medium">{r.username}</p>
                   <span className="text-sm">{r.rating} / 5</span>
                 </div>
+                <p>{r.title}</p>
                 <p className="text-sm text-gray-700 mt-1">{r.experience}</p>
                 <p className="text-xs text-gray-500 mt-1">{new Date(r.postedAt).toLocaleDateString()}</p>
               </li>

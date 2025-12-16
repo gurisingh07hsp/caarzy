@@ -26,10 +26,10 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       NumOfCylinders: '',
       valvesPerCylinder: '',
       fuelSupplySystem: '',
-      turboCharger: false,
       transmissionType: '',
       gearbox: '',
       driveType: '',
+      turboCharger: false,
     },
     fuelAndPerformance: {
       fuelType: '',
@@ -639,7 +639,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
         expandedSections={expandedSections}
         toggleSection={toggleSection}>
           <div className="grid lg:grid-cols-4 gap-3">
-            {(["engineType", "displacement", "maxPower", "maxTorque", "NumOfCylinders", "valvesPerCylinder", "fuelSupplySystem", "transmissionType", "gearbox", "driveType"] as const).map((key) => (
+            {(["engineType", "displacement", "maxPower", "maxTorque", "NumOfCylinders", "valvesPerCylinder", "fuelSupplySystem", "transmissionType", "gearbox", "driveType",] as const).map((key) => (
               <input
                 key={key}
                 value={carForm.engineAndTransmission[key]}

@@ -277,7 +277,7 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex lg:flex-row flex-col gap-2 lg:items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Blog Management</h2>
           <p className="text-gray-600">Manage your blog posts and content</p>
@@ -773,10 +773,10 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
         
         <div className="divide-y divide-gray-200">
         {blogs.map((blog) => (
-            <div key={blog._id} className="p-6 hover:bg-gray-50 transition-colors">
+            <div key={blog._id} className="p-6 hover:bg-gray-50 transition-colors overflow-x-auto">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <div className="flex items-center gap-4 mb-2">
+                  <div className="flex lg:flex-row flex-col lg:items-center gap-4 mb-2">
                     <img
                       src={blog.featuredImage}
                       alt={blog.title}

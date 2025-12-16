@@ -1,9 +1,7 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { VariantFilter } from './VariantFilter';
 import { EmiCalculator } from './EmiCalculator';
-import { Reviews } from './Reviews';
-import { Model } from '@/types/Car';
 import { CarIcon } from 'lucide-react';
 import axios from 'axios';
 import { useEffect} from 'react'
@@ -50,6 +48,11 @@ export function CarDetail() {
     );
     setReviews(reviews);
   }, [car]);
+
+    const avg = useMemo(() => {
+      if (reviews.length === 0) return 0;
+      return reviews.reduce((a, r: any) => a + r.rating, 0) / reviews.length;
+    }, [reviews]);
 
   useEffect(()=> {
     let filterVariats = car?.variant;
@@ -490,23 +493,23 @@ export function CarDetail() {
       {breakupOpen && renderBreakup()}
 
 
-        <div className="mt-12 bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div className="mt-12 bg-white rounded-xl border border-gray-200 overflow-hidden mb-8">
       <div className="px-4 py-4 border-b flex items-center justify-between">
         <h3 className="text-lg font-semibold">User Reviews</h3>
-        {/* <div className="text-sm text-gray-600">Average Rating: <span className="font-semibold">{avg.toFixed(1)}</span> / 5 ({reviews.length})</div> */}
+        <div className="text-sm text-gray-600">Average Rating: <span className="font-semibold">{avg.toFixed(1)}</span> / 5 ({reviews.length})</div>
       </div>
 
       {/* <div className="grid grid-cols-1 md:grid-cols-2"> */}
         <div className="p-4 max-h-96 overflow-y-auto">
 
           <div className="flex items-center justify-between mb-3">
-            {/* <p className="text-sm font-medium">All Reviews ({reviews.length})</p> */}
+            <p className="text-sm font-medium">All Reviews ({reviews.length})</p>
             <select value={sort} onChange={(e) => setSort(e.target.value as any)} className="border rounded px-2 py-1 text-sm">
               <option value="latest">Latest</option>
               <option value="top">Top Rated</option>
             </select>
           </div>
-          {/* {reviews.length === 0 && <p className="text-sm text-gray-600">No reviews yet. Be the first to review.</p>} */}
+          {reviews.length === 0 && <p className="text-sm text-gray-600">No reviews yet. Be the first to review.</p>}
           <ul className="space-y-3">
             {[...reviews]
               .sort((a: any,b: any) => sort==='latest' ? (new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime()) : (b.rating - a.rating))
@@ -516,6 +519,7 @@ export function CarDetail() {
                   <p className="font-medium">{r.username}</p>
                   <span className="text-sm">{r.rating} / 5</span>
                 </div>
+                <p>{r.title}</p>
                 <p className="text-sm text-gray-700 mt-1">{r.experience}</p>
                 <p className="text-xs text-gray-500 mt-1">{new Date(r.postedAt).toLocaleDateString()}</p>
               </li>

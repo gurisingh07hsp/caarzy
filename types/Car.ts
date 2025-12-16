@@ -26,10 +26,10 @@ export interface Car {
      NumOfCylinders: string;
      valvesPerCylinder: string;
      fuelSupplySystem: string;
-     turboCharger: boolean;
      transmissionType: string;
      gearbox: string;
      driveType: string;
+     turboCharger: boolean;
    };
    fuelAndPerformance: {
      fuelType: string;

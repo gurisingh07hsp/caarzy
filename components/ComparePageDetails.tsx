@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { Car } from "@/types/Car";
+import { useRouter } from "next/navigation";
 const ComparePageDetails = () => {
     const { slug } = useParams();
           type SectionId =
@@ -19,6 +20,7 @@ const ComparePageDetails = () => {
             | 'entertainment'
             | 'adas'
             | 'internet';
+    const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [car1, setCar1] = useState<any>();
     const [car2, setCar2] = useState<any>();
@@ -192,7 +194,7 @@ const ComparePageDetails = () => {
 
             {/* View Button - Full Width */}
             <button
-                // onClick={(e) => { e.stopPropagation(); router.push(`/${car.brand.replace(/\s+/g, '-')}/${car.modelName.replace(/\s+/g, '-')}`)}}
+              onClick={(e) => { e.stopPropagation(); router.push(`/${car1.brand.replace(/\s+/g, '-')}/${car1.modelName.replace(/\s+/g, '-')}`)}}
               className="mt-4 w-full bg-white border border-gray-300 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
             >
               View car
@@ -317,7 +319,7 @@ const ComparePageDetails = () => {
 
             {/* View Button - Full Width */}
             <button
-              //   onClick={(e) => { e.stopPropagation(); router.push(`/${car.brand.replace(/\s+/g, '-')}/${car.modelName.replace(/\s+/g, '-')}`)}}
+              onClick={(e) => { e.stopPropagation(); router.push(`/${car2.brand.replace(/\s+/g, '-')}/${car2.modelName.replace(/\s+/g, '-')}`)}}
               className="mt-4 w-full bg-white border border-gray-300 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
             >
               View car
@@ -334,14 +336,14 @@ const ComparePageDetails = () => {
               toggleSection={toggleSection}>
               <div className=''>
                     {[
-                      ["Engine Type", selectedVariant1?.engineAndTransmission?.engineType, car2.variant[0].engineAndTransmission?.engineType],
-                      ["Displacement", selectedVariant1?.engineAndTransmission?.displacement, car2.variant[0].engineAndTransmission.displacement],
+                      ["Engine Type", selectedVariant1?.engineAndTransmission?.engineType, selectedVariant2.engineAndTransmission?.engineType],
+                      ["Displacement", selectedVariant1?.engineAndTransmission?.displacement, selectedVariant2.engineAndTransmission.displacement],
                       ["Max Power", selectedVariant1?.engineAndTransmission?.maxPower, selectedVariant2?.engineAndTransmission?.maxPower],
                       ["Max Torque", selectedVariant1?.engineAndTransmission?.maxTorque, selectedVariant2?.engineAndTransmission?.maxTorque],
                       ["No. of Cylinders", selectedVariant1?.engineAndTransmission?.NumOfCylinders, selectedVariant2?.engineAndTransmission?.NumOfCylinders],
                       ["Valves Per Cylinder", selectedVariant1.engineAndTransmission.valvesPerCylinder, selectedVariant2.engineAndTransmission.valvesPerCylinder],
                       ["Fuel Supply System", selectedVariant1.engineAndTransmission.fuelSupplySystem, selectedVariant2.engineAndTransmission.fuelSupplySystem],
-                      ["Turbo Charger", selectedVariant1.engineAndTransmission.turboCharger ? "Yes" : "No", selectedVariant2.engineAndTransmission.turboCharger ? "Yes" : "No"],
+                      ["Turbo Charger", selectedVariant1.engineAndTransmission.turboCharger, selectedVariant2.engineAndTransmission.turboCharger],
                       ["Transmission Type", selectedVariant1.engineAndTransmission.transmissionType, selectedVariant2.engineAndTransmission.transmissionType],
                       ["Gearbox", selectedVariant1.engineAndTransmission.gearbox, selectedVariant2.engineAndTransmission.gearbox],
                       ["Drive Type", selectedVariant1.engineAndTransmission.driveType, selectedVariant2.engineAndTransmission.driveType],

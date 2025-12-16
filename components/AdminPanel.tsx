@@ -394,7 +394,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
       </div>
 
       {variantFormOpen && (
-        <div id='CarForm' className="bg-white rounded-xl border border-gray-200 p-6">
+        <div id='CarForm' className="bg-white rounded-xl border border-gray-200 lg:p-6">
           <AddCar selectedCar={selectedCar} operation={operation} setOperation={setOperation}/>
         </div>
       )}

@@ -13,7 +13,7 @@ export interface ICar extends Omit<mongoose.Document, 'model'> {
     NumOfCylinders: string;
     valvesPerCylinder: string;
     fuelSupplySystem: string;
-    turboChanger: boolean;
+    turboCharger: boolean;
     transmissionType: string;
     gearbox: string;
     driveType: string;
@@ -191,7 +191,7 @@ const carSchema = new mongoose.Schema<ICar>({
     NumOfCylinders: {type: String},
     valvesPerCylinder: {type: String},
     fuelSupplySystem: {type: String},
-    turboChanger: {type: Boolean},
+    turboCharger: {type: Boolean},
     transmissionType: {type: String},
     gearbox: {type: String},
     driveType: {type: String},

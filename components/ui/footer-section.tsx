@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export function Footer() {
   return (
-    <footer className="bg-gray-800 text-gray-300 mt-12">
+    <footer className="bg-gray-800 text-gray-300">
       {/* Top Informational Bar */}
       <div className="bg-gray-800 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

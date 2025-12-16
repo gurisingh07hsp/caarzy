@@ -1,10 +1,7 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import { Car, Model } from '@/types/Car';
 import { BlogPost } from '@/types/BlogPost';
-import { mockCars } from '@/data/mockCars';
-import { mockBlogs } from '@/data/mockBlogs';
 import { AdminDashboard } from '@/components/AdminDashboard';
 import axios from 'axios';
 import toast from 'react-hot-toast';

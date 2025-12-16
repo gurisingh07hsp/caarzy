@@ -473,7 +473,7 @@ const VariantDetails = () => {
                       ["No. of Cylinders", carVariant.engineAndTransmission.NumOfCylinders],
                       ["Valves Per Cylinder", carVariant.engineAndTransmission.valvesPerCylinder],
                       ["Fuel Supply System", carVariant.engineAndTransmission.fuelSupplySystem],
-                      ["Turbo Charger", carVariant.engineAndTransmission.turboCharger ? "Yes" : "No"],
+                      ["Turbo Charger", carVariant.engineAndTransmission.turboCharger],
                       ["Transmission Type", carVariant.engineAndTransmission.transmissionType],
                       ["Gearbox", carVariant.engineAndTransmission.gearbox],
                       ["Drive Type", carVariant.engineAndTransmission.driveType],
