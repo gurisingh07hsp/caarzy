@@ -5,13 +5,27 @@ import { BlogPost } from '@/types/BlogPost';
 import { AdminDashboard } from '@/components/AdminDashboard';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 export default function AdminPage() {
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(true);
   const [models, setModels] = useState<Model[]>([]);
   const [cars, setCars] = useState<Car[]>([]);
   const [comparisons, setComparisons] = useState<any>([]);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
+
+  const isAdmin = async() => {
+    try{
+      const response = await axios.get('/api/isadmin', {withCredentials: true});
+      if(response.status != 200){
+        router.push('/');
+      }
+    }catch(error){
+        router.push('/');
+    }
+    setLoading(false);
+  }
 
   const fetchModels = async() => {
     try{
@@ -66,23 +80,8 @@ export default function AdminPage() {
     fetchCars();
     fetchComparisons();
     fetchBlogs();
+    isAdmin();
   }, []);
-
-  // read simple admin flag from localStorage
-  useEffect(() => {
-    const adminFlag = localStorage.getItem('autodeal-admin') === 'true';
-    setIsAdmin(adminFlag);
-  }, []);
-
-  // Save cars to localStorage whenever cars change
-  useEffect(() => {
-    localStorage.setItem('carwale-cars', JSON.stringify(cars));
-  }, [cars]);
-
-  // Save blogs to localStorage whenever blogs change
-  useEffect(() => {
-    localStorage.setItem('carwale-blogs', JSON.stringify(blogs));
-  }, [blogs]);
 
   const handleAddCar = async(car: Car) => {
     try{
@@ -151,18 +150,11 @@ export default function AdminPage() {
     }
   };
 
-  if (!isAdmin) {
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="max-w-md w-full bg-white border rounded-xl p-8 text-center">
-          <h1 className="text-2xl font-bold mb-2">Admin Access Required</h1>
-          <p className="text-gray-600 mb-6">Only admins can add or manage cars.</p>
-          <button
-            onClick={() => { localStorage.setItem('autodeal-admin','true'); setIsAdmin(true); }}
-            className="px-5 py-3 rounded-lg bg-orange-500 text-white hover:bg-orange-600 w-full"
-          >
-            Continue as Admin (demo)
-          </button>
+        <div className="max-w-md w-full bg-white rounded-xl p-8 text-center">
+          <h1 className="text-2xl">Loading...</h1>
         </div>
       </div>
     );

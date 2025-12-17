@@ -1,6 +1,4 @@
 'use client';
-
-import React from 'react';
 import { Model } from '@/types/Car';
 import { CarCard } from './CarCard';
 

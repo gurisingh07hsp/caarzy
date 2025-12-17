@@ -29,6 +29,8 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     colors: string[];
     pros: string[];
     cons: string[];
+    isFeatured: boolean,
+    isLatest: boolean
   }>({
     brand: '',
     modelName: '',
@@ -38,7 +40,9 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     description: '',
     colors: [],
     pros: [],
-    cons: []
+    cons: [],
+    isFeatured: false,
+    isLatest: false
   })
 
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
@@ -50,7 +54,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState<string>('');
   const [isEditing, setIsEditing] = useState(false);
-  const [newColor, setNewColor] = useState('#ff6b00');
+  const [newColor, setNewColor] = useState('');
   const [searchModelQuery, setSearchModelQuery] = useState('');
   const [searchCarQuery, setSearchCarQuery] = useState('');
 
@@ -77,6 +81,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
 
   function addColor() {
     if (!colors.includes(newColor)) setColors((c) => [...c, newColor]);
+    setNewColor('');
   }
 
   function removeColor(c: string) {
@@ -93,7 +98,9 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
       description: '',
       colors: [],
       pros: [],
-      cons: []
+      cons: [],
+      isFeatured: false,
+      isLatest: false
     });
     setImages('');
     setPros('');
@@ -161,7 +168,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     setImages(imgs);
     setPros(pros);
     setCons(cons);
-    setNewColor(model.colors.join(','));
+    setColors(model.colors);
     setId(model._id as string);
   }
 
@@ -218,7 +225,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
       </div>
 
       {modelFormOpen && (
-              <div className='bg-white rounded-lg border border-gary-200 p-6'>
+      <div className='bg-white rounded-lg border border-gary-200 p-6'>
         <form onSubmit={(e)=> handleModelSubmit(e)}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <input value={form.modelName} onChange={(e)=> setForm({...form, modelName: e.target.value.toLowerCase()})} placeholder="Model name" className="border rounded-lg px-3 py-2" required />
@@ -245,8 +252,8 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
 
       <div>
         <label className="block mt-4 text-sm font-medium text-gray-700 mb-2">Colors</label>
-        <div className="flex items-center gap-2">
-          <input type="color" value={newColor} onChange={(e) => setNewColor(e.target.value)} className="w-10 h-10 p-0 border rounded" />
+        <div className="flex lg:flex-row flex-col lg:items-center gap-2">
+          <input type="text" value={newColor} onChange={(e) => setNewColor(e.target.value)} className="py-2 px-2 border rounded-lg" />
           <button type="button" onClick={addColor} className="px-3 py-2 rounded bg-orange-500 text-white hover:bg-orange-600">Add Color</button>
         </div>
         <div className="flex flex-wrap gap-2 mt-3">
@@ -258,7 +265,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
             </button>
           ))}
         </div>
-        <div>
+        <div className='flex lg:flex-row flex-col gap-4 lg:items-center mt-2'>
           <select required className='border px-3 py-2 rounded-lg' value={form.category} onChange={(e)=> setForm({...form, category: e.target.value})}>
             <option value={''}>Select Category</option>
             <option value={'Popular Cars'}>Popular Cars</option>
@@ -267,6 +274,16 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
             <option value={'Latest Cars'}>Latest Cars</option>
             <option value={'Other'}>Other</option>
           </select>
+
+          <div>
+            <input type="checkbox" checked={form.isFeatured} onChange={(e)=> setForm({...form, isFeatured: e.target.checked})} />
+            <label className='ms-2'>isFeatured</label>
+          </div>
+
+          <div>
+            <input type="checkbox" checked={form.isLatest} onChange={(e)=> setForm({...form, isLatest: e.target.checked})} />
+            <label className='ms-2'>isLatest</label>
+          </div>
         </div>
       </div>
       <textarea value={pros} onChange={(e)=> setPros(e.target.value)} placeholder="Pros" className="border mt-4 rounded-lg px-3 py-2 w-full min-h-24" />

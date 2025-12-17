@@ -210,7 +210,7 @@ function DashboardOverview({ models, blogs }: { models: Model[]; blogs: BlogPost
   const stats = [
     { label: 'Total Cars', value: models.length, icon: CarIcon, color: 'bg-blue-500' },
     { label: 'Blog Posts', value: blogs.length, icon: FileText, color: 'bg-green-500' },
-    // { label: 'Latest Models', value: models.filter(car => car?.isLatest).length, icon: BarChart3, color: 'bg-orange-500' },
+    { label: 'Latest Models', value: models.filter(car => car?.isLatest).length, icon: BarChart3, color: 'bg-orange-500' },
     { label: 'Categories', value: new Set(models.map(car => car.category)).size, icon: Settings, color: 'bg-purple-500' },
   ];
 

@@ -21,6 +21,7 @@ import axios from 'axios';
 import HomeFilter from '@/components/HomeFilter';
 import PopularBrands from '@/components/PopularBrands';
 import PopularQuestions from '@/components/PopularQuestions';
+import ElectricCars from '@/components/ElectricCars';
 
 export default function HomePage() {
   const [models, setModels] = useState<Model[]>([]);
@@ -75,11 +76,11 @@ export default function HomePage() {
           <HomeFilter/>
           <PopularBrands/>
           <PopularCars cars={models}/>
+          <ElectricCars cars={models}/>
+          <UpcomingCars cars={models}/>
           <Testimonials />
           <PopularQuestions/>
           <CompareSection comparisons={comparisons} />
-          <UpcomingCars cars={cars}/>
-          {/* <AdvertisementSection /> */}
           {/* <BrandShowcase brands={mockBrands} /> */}
           <BlogSection blogs={blogs} />
         </div>

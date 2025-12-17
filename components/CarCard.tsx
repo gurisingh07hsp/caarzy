@@ -22,11 +22,11 @@ export function CarCard({car}: CarCardProps) {
         
         {/* Badges */}
         <div className="absolute top-3 left-3 flex gap-2">
-          {/* {isFeatured && ( */}
+          {car.isFeatured && (
             <span className="bg-[#FF7101] text-white text-xs font-semibold px-2 py-1 rounded-2xl">
               Featured
             </span>
-          {/* )} */}
+           )}
           {/* {isSold && ( */}
             <span className="bg-[#B9B9B9] text-white text-xs font-semibold px-3 py-1 rounded-2xl flex items-center gap-1">
               <Image size={12}/>

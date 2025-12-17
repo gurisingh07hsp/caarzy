@@ -1,6 +1,7 @@
 import React from 'react'
-
+import { useRouter } from 'next/navigation'
 const PopularBrands = () => {
+  const router = useRouter();
   return (
     <section className="py-8 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,13 +12,13 @@ const PopularBrands = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {[
               { name: 'Coupe', count: '1 Car', image: '/coupelogo.webp' },
-              { name: 'MVP', count: '0 Cars', image: '/mvplogo.webp' },
+              { name: 'MUV', count: '0 Cars', image: '/mvplogo.webp' },
               { name: 'Sedan', count: '1 Car', image: '/sedanlogo.webp' },
               { name: 'Hatchback', count: '2 Cars', image: '/hatchbacklogo.webp' },
               { name: 'SUV', count: '1 Car', image: '/suvlogo.webp' },
               { name: 'Pickup Truck', count: '1 Car', image: '/pickup-trucklogo.webp' }
             ].map((type, index) => (
-              <div key={index} className="rounded-xl bg-white border p-2 text-center hover:shadow-lg transition-shadow cursor-pointer">
+              <div key={index} onClick={()=> router.push(`/cars/${type.name.toLowerCase().replace(/\s+/, '-')}`)} className="rounded-xl bg-white border p-2 text-center hover:shadow-lg transition-shadow cursor-pointer">
                 <div className="w-full mx-auto mb-2 bg-[#fff7f0] rounded-lg overflow-hidden">
                   <img 
                     src={type.image} 

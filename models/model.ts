@@ -10,6 +10,8 @@ export interface IModel extends mongoose.Document {
   colors: string[];
   pros: string[];
   cons: string[];
+  isFeatured: boolean;
+  isLatest: boolean;
 }
 
 const modelSchema = new mongoose.Schema<IModel>({
@@ -22,7 +24,9 @@ const modelSchema = new mongoose.Schema<IModel>({
     description: {type: String},
     colors: {type: [String]},
     pros: {type: [String]},
-    cons: {type: [String]}
+    cons: {type: [String]},
+    isFeatured: {type: Boolean},
+    isLatest: {type: Boolean}
 });
 
 const Model = mongoose.models.Model || mongoose.model<IModel>("Model", modelSchema);

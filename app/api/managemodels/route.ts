@@ -3,10 +3,18 @@ import { dbConnect } from "@/lib/dbConnect";
 import {authUser} from '@/middleware/authMiddleware';
 
 
-export async function GET(){
+export async function GET(req: Request){
     await dbConnect();
     try{
-        const models = await Model.find({}).populate('variant');
+
+        const { searchParams } = new URL(req.url);
+        const bodyType = searchParams.get('bodyType');
+
+        console.log('bodyType:', bodyType);
+
+        const filter = bodyType ? { bodyType } : {};
+
+        const models = await Model.find(filter).populate('variant');
         if(models){
             return new Response(
             JSON.stringify({ success: true, models}),

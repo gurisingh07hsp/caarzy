@@ -10,6 +10,8 @@ export interface Model {
   colors: string[];
   pros: string[];
   cons: string[];
+  isFeatured: boolean;
+  isLatest: boolean;
 }
 
 export interface Car {
