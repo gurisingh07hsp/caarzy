@@ -33,12 +33,12 @@ const PopularBrands = () => {
           </div>
 
          
-          <div className="flex justify-center mt-8">
+          {/* <div className="flex justify-center mt-8">
             <div className="flex space-x-2">
               <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
               <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
   )

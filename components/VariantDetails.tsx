@@ -12,6 +12,7 @@ const VariantDetails = () => {
     const [activeTab, setActiveTab] = useState('Engine & Transmission');
     const [model, setModel] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [popularCars, setPopularCars] = useState([]);
 
       type SectionId =
         | 'basic'
@@ -146,6 +147,19 @@ const VariantDetails = () => {
     useEffect(()=> {
         fetchVariant();
     },[]);
+
+
+      useEffect(()=> {
+    const fetchPopularCars = async() => {
+      if(model && model.bodyType){
+        const response = await axios.get(`/api/managemodels`, {params: {bodyType: model.bodyType?.toString().replace('-', ' ')}});
+        if(response.status == 200){
+            setPopularCars(response.data.models);
+        }
+      }
+    }
+    fetchPopularCars();
+  },[model]);
 
     if(loading){
         return(
@@ -348,8 +362,12 @@ const VariantDetails = () => {
           </div>
 
           <div className='flex items-center gap-2'>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.5 18.125C17.5 18.2908 17.4341 18.4498 17.3169 18.567C17.1997 18.6842 17.0407 18.75 16.875 18.75H8.74998C8.58422 18.75 8.42525 18.6842 8.30804 18.567C8.19083 18.4498 8.12498 18.2908 8.12498 18.125C8.12498 17.9593 8.19083 17.8003 8.30804 17.6831C8.42525 17.5659 8.58422 17.5 8.74998 17.5H16.875C17.0407 17.5 17.1997 17.5659 17.3169 17.6831C17.4341 17.8003 17.5 17.9593 17.5 18.125ZM17.5 12.5V15C17.5 15.3316 17.3683 15.6495 17.1339 15.8839C16.8994 16.1183 16.5815 16.25 16.25 16.25H8.91482C8.68238 16.2508 8.45439 16.1864 8.25666 16.0642C8.05893 15.942 7.89938 15.7669 7.79607 15.5586L3.25623 6.49614C3.16991 6.3223 3.125 6.13085 3.125 5.93676C3.125 5.74268 3.16991 5.55122 3.25623 5.37739L4.98435 1.93989C5.13103 1.64716 5.38671 1.42368 5.69642 1.31747C6.00613 1.21126 6.34515 1.23081 6.6406 1.37192L9.27263 2.48285L9.30935 2.50004C9.60567 2.64838 9.83097 2.90831 9.93571 3.22269C10.0405 3.53707 10.0161 3.88019 9.86795 4.1766C9.86555 4.18256 9.86268 4.18831 9.85935 4.19379L8.74998 6.25004L11.2328 11.25H16.25C16.5815 11.25 16.8994 11.3817 17.1339 11.6162C17.3683 11.8506 17.5 12.1685 17.5 12.5ZM16.25 12.5H11.232C10.9997 12.5008 10.7718 12.4364 10.5741 12.3142C10.3765 12.192 10.2171 12.0169 10.114 11.8086L7.63045 6.80864C7.54434 6.63516 7.49953 6.44411 7.49953 6.25043C7.49953 6.05676 7.54434 5.86571 7.63045 5.69223L7.63982 5.67504L8.74998 3.61879L6.13826 2.51645C6.12574 2.51163 6.11348 2.50616 6.10154 2.50004L4.37498 5.93754L8.91404 15H16.25V12.5Z" fill="#B6B6B6"/>
+            <svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              
+              <path d="M11.25 2.5L6.25 10H10L8.75 17.5L13.75 10H10L11.25 2.5Z" fill="#B6B6B6" stroke="#B6B6B6" strokeWidth="0.5" strokeLinejoin="round"/>
+              <path d="M4.5 8.5C4.5 8.22386 4.72386 8 5 8H6C6.27614 8 6.5 8.22386 6.5 8.5V11.5C6.5 11.7761 6.27614 12 6 12H5C4.72386 12 4.5 11.7761 4.5 11.5V8.5Z" fill="#B6B6B6"/>
+              
+              <path d="M14.5 8.5C14.5 8.22386 14.7239 8 15 8H16C16.2761 8 16.5 8.22386 16.5 8.5V11.5C16.5 11.7761 16.2761 12 16 12H15C14.7239 12 14.5 11.7761 14.5 11.5V8.5Z" fill="#B6B6B6"/>
             </svg>
             <div className="flex items-center gap-16">
               <p className='text-[#696665] w-20'>Power:</p>
@@ -368,8 +386,11 @@ const VariantDetails = () => {
           </div>
 
           <div className='flex items-center gap-2'>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.5 18.125C17.5 18.2908 17.4341 18.4498 17.3169 18.567C17.1997 18.6842 17.0407 18.75 16.875 18.75H8.74998C8.58422 18.75 8.42525 18.6842 8.30804 18.567C8.19083 18.4498 8.12498 18.2908 8.12498 18.125C8.12498 17.9593 8.19083 17.8003 8.30804 17.6831C8.42525 17.5659 8.58422 17.5 8.74998 17.5H16.875C17.0407 17.5 17.1997 17.5659 17.3169 17.6831C17.4341 17.8003 17.5 17.9593 17.5 18.125ZM17.5 12.5V15C17.5 15.3316 17.3683 15.6495 17.1339 15.8839C16.8994 16.1183 16.5815 16.25 16.25 16.25H8.91482C8.68238 16.2508 8.45439 16.1864 8.25666 16.0642C8.05893 15.942 7.89938 15.7669 7.79607 15.5586L3.25623 6.49614C3.16991 6.3223 3.125 6.13085 3.125 5.93676C3.125 5.74268 3.16991 5.55122 3.25623 5.37739L4.98435 1.93989C5.13103 1.64716 5.38671 1.42368 5.69642 1.31747C6.00613 1.21126 6.34515 1.23081 6.6406 1.37192L9.27263 2.48285L9.30935 2.50004C9.60567 2.64838 9.83097 2.90831 9.93571 3.22269C10.0405 3.53707 10.0161 3.88019 9.86795 4.1766C9.86555 4.18256 9.86268 4.18831 9.85935 4.19379L8.74998 6.25004L11.2328 11.25H16.25C16.5815 11.25 16.8994 11.3817 17.1339 11.6162C17.3683 11.8506 17.5 12.1685 17.5 12.5ZM16.25 12.5H11.232C10.9997 12.5008 10.7718 12.4364 10.5741 12.3142C10.3765 12.192 10.2171 12.0169 10.114 11.8086L7.63045 6.80864C7.54434 6.63516 7.49953 6.44411 7.49953 6.25043C7.49953 6.05676 7.54434 5.86571 7.63045 5.69223L7.63982 5.67504L8.74998 3.61879L6.13826 2.51645C6.12574 2.51163 6.11348 2.50616 6.10154 2.50004L4.37498 5.93754L8.91404 15H16.25V12.5Z" fill="#B6B6B6"/>
+            <svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 3.5C6.41015 3.5 3.5 6.41015 3.5 10C3.5 13.5899 6.41015 16.5 10 16.5C13.5899 16.5 16.5 13.5899 16.5 10C16.5 9.30964 16.3978 8.64314 16.2071 8.01472" stroke="#B6B6B6" strokeWidth="1.2" strokeLinecap="round"/>
+              <path d="M16.2071 8.01472L14.5 6.5L15.5 9.5L16.2071 8.01472Z" fill="#B6B6B6"/>
+              <circle cx="10" cy="10" r="1.5" fill="#B6B6B6"/>
+              <path d="M9 10L7 8M7 8L6 9M7 8L8 7" stroke="#B6B6B6" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             <div className="flex items-center gap-16">
               <p className='text-[#696665] w-20'>Torque:</p>
@@ -882,25 +903,18 @@ const VariantDetails = () => {
               <p className='text-[#696665] mt-1'>showing more cars you might like</p>
             </div>
 
-            <div className='mt-8'>
-              <div className='flex gap-4'>
-                <div>
-                  <img src="#" alt="" className='w-24 h-20 rounded-lg' />
+            <div className='mt-8 space-y-2'>
+              {popularCars.map((model: any)=>(
+                <div key={model._id} className='flex gap-4'>
+                  <div>
+                    <img src={model.images[0]} alt={model.modelName} className='w-28 h-20 rounded-lg' />
+                  </div>
+                  <div>
+                    <h2>{model.modelName}</h2>
+                    <p className='text-[#FF7101]'>₹{(model.variant[0].price as any /100000).toFixed(2)}L</p>
+                  </div>
                 </div>
-                <div>
-                  <h2>2023 Skoda Slavia 1.0 TSI Ambition AT BSVI</h2>
-                  <p className='text-[#FF7101]'>₹14L</p>
-                </div>
-              </div>
-              <div className='flex gap-4 mt-4'>
-                <div>
-                  <img src="#" alt="" className='w-24 h-20 rounded-lg' />
-                </div>
-                <div>
-                  <h2>2023 Skoda Slavia 1.0 TSI Ambition AT BSVI</h2>
-                  <p className='text-[#FF7101]'>₹14L</p>
-                </div>
-              </div>
+              ))}
             </div>
             {/* <div className="h-64 w-full bg-gray-100 border rounded-xl flex items-center justify-center text-gray-500">
               <span>Ad 300×600</span>

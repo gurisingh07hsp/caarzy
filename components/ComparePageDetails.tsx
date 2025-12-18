@@ -77,7 +77,7 @@ const ComparePageDetails = () => {
 
   return (
     <div className="max-w-7xl mx-auto mt-4">
-      <div className="max-w-4xl grid grid-cols-2 gap-20 mx-auto">
+      <div className="max-w-4xl grid md:grid-cols-2 grid-cols-1 mx-4 gap-20 md:mx-auto">
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer">
           <div className="relative aspect-video w-full bg-gray-100 overflow-hidden">
             <img src={car1?.images[0]} alt={car1?.modelName} className="w-full h-full object-cover" />

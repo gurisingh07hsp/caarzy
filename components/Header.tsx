@@ -32,15 +32,7 @@ export function Header() {
               className="text-gray-700 hover:text-orange-500 font-medium transition-colors"
             >
               Home
-            </Link>
-            
-            <Link
-              href="#"
-              className="text-gray-700 hover:text-orange-500 font-medium transition-colors"
-            >
-              Buy Car
-            </Link>
-            
+            </Link>          
             <Link
               href="/blog"
               className="text-gray-700 hover:text-orange-500 font-medium transition-colors"
@@ -133,13 +125,15 @@ export function Header() {
               >
                 Contact
               </Link>
+              {isLoggedIn && user?.role === 'admin' && (
               <Link
                 href="/admin"
-                className="px-4 py-2 text-left font-medium text-gray-700 hover:text-orange-500 transition-colors"
+                className="text-gray-700 hover:text-orange-500 font-medium transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Admin
               </Link>
+            )}
 
               {isLoggedIn ? (
               <button onClick={()=> setIsMobileMenuOpen(false)} className='w-44 flex items-center gap-2 py-1 px-2 rounded-lg'>

@@ -152,7 +152,7 @@ export function AdminDashboard({
       </div>
 
       {isMenuOpen && (
-      <div className="w-64 bg-gray-800 text-white flex flex-col lg:hidden z-30 absolute h-[92%]">
+      <div className="w-64 bg-gray-800 text-white flex flex-col lg:hidden z-30 absolute h-[93%]">
         
         <div className="px-6 py-6 flex justify-between">
           <span className="text-gray-400 text-sm font-medium">Menu</span>
