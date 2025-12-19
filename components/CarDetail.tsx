@@ -6,6 +6,7 @@ import { CarIcon } from 'lucide-react';
 import axios from 'axios';
 import { useEffect} from 'react'
 import { useParams } from "next/navigation";
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export function CarDetail() {
@@ -22,6 +23,7 @@ export function CarDetail() {
   const [sort, setSort] = useState<'latest' | 'top'>('latest');
   const [popularCars, setPopularCars] = useState([]);
   const { brand, name } = useParams();
+  const router = useRouter();
   const getCars = async()=> {
     try{
       const response = await axios.get(`/api/managemodels/${brand?.toString().replace(/-/g, ' ')}/${name?.toString().replace(/-/g, ' ')}`);
@@ -390,14 +392,14 @@ export function CarDetail() {
             </div>
 
             <div className='mt-8 space-y-2'>
-              {popularCars.map((car: any)=>(
-                <div key={car._id} className='flex gap-4'>
+              {popularCars.map((pcar: any)=>(
+                <div key={pcar._id} onClick={()=>router.push(`/${pcar.brand}/${pcar.modelName}`)} className={`flex gap-4 cursor-pointer hover:text-[#FF7101] ${car._id == pcar._id ? 'hidden' : 'block'}`}>
                   <div>
-                    <img src={car.images[0]} alt={car.modelName} className='w-28 h-20 rounded-lg' />
+                    <img src={pcar.images[0]} alt={pcar.modelName} className='w-28 h-20 rounded-lg' />
                   </div>
                   <div>
-                    <h2>{car.modelName}</h2>
-                    <p className='text-[#FF7101]'>₹{(car.variant[0].price as any /100000).toFixed(2)}L</p>
+                    <h2>{pcar.modelName}</h2>
+                    <p className='text-[#FF7101]'>₹{(pcar.variant[0].price as any /100000).toFixed(2)}L</p>
                   </div>
                 </div>
               ))}

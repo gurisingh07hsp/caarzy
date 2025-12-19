@@ -30,7 +30,8 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     pros: string[];
     cons: string[];
     isFeatured: boolean,
-    isLatest: boolean
+    isLatest: boolean,
+    launchDate: Date
   }>({
     brand: '',
     modelName: '',
@@ -42,7 +43,8 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     pros: [],
     cons: [],
     isFeatured: false,
-    isLatest: false
+    isLatest: false,
+    launchDate: new Date()
   })
 
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
@@ -100,7 +102,8 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
       pros: [],
       cons: [],
       isFeatured: false,
-      isLatest: false
+      isLatest: false,
+      launchDate: new Date()
     });
     setImages('');
     setPros('');
@@ -231,7 +234,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
         <input value={form.modelName} onChange={(e)=> setForm({...form, modelName: e.target.value.toLowerCase()})} placeholder="Model name" className="border rounded-lg px-3 py-2" required />
         <input value={form.brand} onChange={(e)=> setForm({...form, brand: e.target.value.toLowerCase()})}  placeholder="Brand" className="border rounded-lg px-3 py-2" required />
         <select value={form.bodyType} onChange={(e)=> setForm({...form, bodyType: e.target.value})}  className="border rounded-lg px-3 py-2">
-          {['SUV','Hatchback','Sedan','Coupe','Convertible','Wagon', 'Luxury'].map((c) => (
+          {['SUV','Hatchback','Sedan','Coupe','Convertible','Wagon', 'Luxury', 'Pickup truck'].map((c) => (
             <option key={c} value={c.toLowerCase()}>{c}</option>
           ))}
         </select>
@@ -283,6 +286,11 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
           <div>
             <input type="checkbox" checked={form.isLatest} onChange={(e)=> setForm({...form, isLatest: e.target.checked})} />
             <label className='ms-2'>isLatest</label>
+          </div>
+
+          <div className='border p-1 rounded-lg'>
+            <label className='ms-2'>Launch Date</label>
+            <input type="date" value={form.launchDate instanceof Date ? form.launchDate.toISOString().split('T')[0] : ''} onChange={(e)=> setForm({...form, launchDate: new Date(e.target.value)})} />
           </div>
         </div>
       </div>

@@ -9,10 +9,11 @@ export async function GET(req: Request){
 
         const { searchParams } = new URL(req.url);
         const bodyType = searchParams.get('bodyType');
+        const brand = searchParams.get('brand');
 
-        console.log('bodyType:', bodyType);
-
-        const filter = bodyType ? { bodyType } : {};
+        let filter: any = {};
+        if (bodyType) filter.bodyType = bodyType;
+        if (brand) filter.brand = brand;
 
         const models = await Model.find(filter).populate('variant');
         if(models){

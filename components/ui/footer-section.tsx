@@ -76,7 +76,7 @@ export function Footer() {
                 <li><Link href="#" className="text-gray-400 hover:text-white">Dealer Listings</Link></li>
                 <li><Link href="#" className="text-gray-400 hover:text-white">Sale Agents</Link></li>
                 <li><Link href="/contact" className="text-gray-400 hover:text-white">Contact us</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Blog List</Link></li>
+                <li><Link href="/blog" className="text-gray-400 hover:text-white">Blog List</Link></li>
                 <li><Link href="#" className="text-gray-400 hover:text-white">FAQs</Link></li>
               </ul>
             </div>
@@ -85,13 +85,9 @@ export function Footer() {
             <div>
               <h4 className="text-white font-bold text-lg mb-4">Popular used car</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="#" className="text-gray-400 hover:text-white">KIA</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Ford</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Isuzu</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Foton</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Toyota</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Land Rover</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Mercedes Benz</Link></li>
+                {['KIA','Ford','Hyundai','Fiat','Toyota','Land Rover','Mercedes Benz'].map((brand)=>(
+                  <li key={brand}><Link href={`/brand/${brand.toLowerCase().replace(/\s+/, ' ')}`} className="text-gray-400 hover:text-white">{brand}</Link></li>
+                ))}
               </ul>
             </div>
 

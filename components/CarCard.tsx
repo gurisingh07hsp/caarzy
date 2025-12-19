@@ -37,9 +37,10 @@ export function CarCard({car}: CarCardProps) {
         
         <div className="absolute top-3 right-3 flex gap-2">
           <span className="bg-[#FF7101] text-white text-xs font-semibold px-2 py-1 rounded-md">
-            {'2024'}
+            {car && car.launchDate && new Date(car.launchDate).getFullYear()}
           </span>
         </div>
+        
       </div>
 
 

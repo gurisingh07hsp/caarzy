@@ -1,18 +1,19 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from "next/navigation";
 import { Car } from '@/types/Car';
 import axios from 'axios';
-import { Star, CheckIcon, XIcon, User, ChevronRight, ChevronLeft, Image, Video, ChevronUp, ChevronDown } from 'lucide-react';
+import { CheckIcon, XIcon, ChevronUp, ChevronDown } from 'lucide-react';
 import { Reviews } from './Reviews';
+import { useRouter } from 'next/navigation';
 const VariantDetails = () => {
     const { variant } = useParams();
     const [carVariant, setCarVariant] = useState<Car | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
-    const [activeTab, setActiveTab] = useState('Engine & Transmission');
     const [model, setModel] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [popularCars, setPopularCars] = useState([]);
+    const router = useRouter();
 
       type SectionId =
         | 'basic'
@@ -904,27 +905,18 @@ const VariantDetails = () => {
             </div>
 
             <div className='mt-8 space-y-2'>
-              {popularCars.map((model: any)=>(
-                <div key={model._id} className='flex gap-4'>
+              {popularCars.map((pmodel: any)=>(
+                <div key={pmodel._id} onClick={()=>router.push(`/${pmodel.brand}/${pmodel.modelName}`)} className={`flex gap-4 cursor-pointer hover:text-[#FF7101] ${model._id == pmodel._id ? 'hidden' : 'block'}`}>
                   <div>
-                    <img src={model.images[0]} alt={model.modelName} className='w-28 h-20 rounded-lg' />
+                    <img src={pmodel.images[0]} alt={pmodel.modelName} className='w-28 h-20 rounded-lg' />
                   </div>
                   <div>
-                    <h2>{model.modelName}</h2>
-                    <p className='text-[#FF7101]'>₹{(model.variant[0].price as any /100000).toFixed(2)}L</p>
+                    <h2>{pmodel.modelName}</h2>
+                    <p className='text-[#FF7101]'>₹{(pmodel.variant[0].price as any /100000).toFixed(2)}L</p>
                   </div>
                 </div>
               ))}
             </div>
-            {/* <div className="h-64 w-full bg-gray-100 border rounded-xl flex items-center justify-center text-gray-500">
-              <span>Ad 300×600</span>
-            </div>
-            <div className="h-48 w-full bg-gray-100 border rounded-xl flex items-center justify-center text-gray-500">
-              <span>Ad 300×250</span>
-            </div>
-            <div className="h-48 w-full bg-gray-100 border rounded-xl flex items-center justify-center text-gray-500">
-              <span>Ad 300×250</span>
-            </div> */}
           </div>
         </aside>
        

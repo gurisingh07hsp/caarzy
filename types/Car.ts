@@ -2,7 +2,7 @@ export interface Model {
   _id?: string;
   brand: string;
   modelName: string;
-  bodyType: 'suv' | 'hatchback' | 'sedan' | 'coupe' | 'convertible' | 'wagon' | 'muv' | 'luxury';
+  bodyType: 'suv' | 'hatchback' | 'sedan' | 'coupe' | 'convertible' | 'wagon' | 'muv' | 'luxury' | 'pickup truck';
   category: 'Popular Cars' | 'Electric Cars' | 'Upcoming Cars' | 'Latest Cars' | 'Other'; 
   images: string[];
   variant: Car[];
@@ -12,6 +12,7 @@ export interface Model {
   cons: string[];
   isFeatured: boolean;
   isLatest: boolean;
+  launchDate: Date;
 }
 
 export interface Car {
