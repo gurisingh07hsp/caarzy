@@ -1,21 +1,15 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Car } from '@/types/Car';
+import { useState, useEffect } from 'react';
 import { Model } from '@/types/Car';
 import { BlogPost } from '@/types/BlogPost';
-import { mockCars } from '@/data/mockCars';
 import { mockBrands } from '@/data/mockBrands';
-import { mockBlogs } from '@/data/mockBlogs';
-import { mockComparisons } from '@/data/mockComparisons';
-import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/HeroSection';
 import { PopularCars } from '@/components/PopularCars';
 import { BrandShowcase } from '@/components/BrandShowcase';
 import Testimonials from '@/components/ui/testimonials';
 import { BlogSection } from '@/components/BlogSection';
 import { CompareSection } from '@/components/CompareSection';
-import { AdvertisementSection } from '@/components/AdvertisementSection';
 import { UpcomingCars } from '@/components/UpcomingCars';
 import axios from 'axios';
 import HomeFilter from '@/components/HomeFilter';
@@ -25,7 +19,6 @@ import ElectricCars from '@/components/ElectricCars';
 
 export default function HomePage() {
   const [models, setModels] = useState<Model[]>([]);
-  const [cars, setCars] = useState<Car[]>([]);
   const [comparisons, setComparisons] = useState<any>([]);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -67,7 +60,7 @@ export default function HomePage() {
     getBlogs();
   }, []);
 
-
+ 
 
   return (
     <div className="min-h-screen bg-white">

@@ -25,6 +25,8 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     bodyType: string;
     category: string;
     images: string[];
+    exteriorImages: string[];
+    interiorImages: string[];
     description: string;
     colors: string[];
     pros: string[];
@@ -38,6 +40,8 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     bodyType: 'suv',
     category: '',
     images: [],
+    exteriorImages: [],
+    interiorImages: [],
     description: '',
     colors: [],
     pros: [],
@@ -49,7 +53,9 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
 
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [operation, setOperation] = useState<'add' | 'update'>('add');
-  const [images, setImages] = useState<string>('');
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [exteriorImageFiles, setExteriorImageFiles] = useState<File[]>([]);
+  const [interiorImageFiles, setInteriorImageFiles] = useState<File[]>([]);
   const [pros, setPros] = useState<string>('');
   const [cons, setCons] = useState<string>('');
   const [colors, setColors] = useState<string[]>([]);
@@ -60,15 +66,22 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
   const [searchModelQuery, setSearchModelQuery] = useState('');
   const [searchCarQuery, setSearchCarQuery] = useState('');
 
-  const imageList = useMemo(() => images.split(/\s*,\s*/).filter(Boolean), [images]);
+
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [exteriorPreviews, setExteriorPreviews] = useState<string[]>([]);
+  const [interiorPreviews, setInteriorPreviews] = useState<string[]>([]);
+  
+  const [uploadingImages, setUploadingImages] = useState(false);
+
+  // const imageList = useMemo(() => images.split(/\s*,\s*/).filter(Boolean), [images]);
   const prosList = useMemo(() => pros.split(/\s*,\s*/).filter(Boolean), [pros]);
   const consList = useMemo(() => cons.split(/\s*,\s*/).filter(Boolean), [cons]);
 
 
 
-  useEffect(()=> {
-    setForm({...form, images: imageList});
-  },[imageList]);
+  // useEffect(()=> {
+  //   setForm({...form, images: imageList});
+  // },[imageList]);
 
   useEffect(()=> {
     setForm({...form, colors: colors});
@@ -97,6 +110,8 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
       bodyType: 'suv',
       category: '',
       images: [],
+      exteriorImages: [],
+      interiorImages: [],
       description: '',
       colors: [],
       pros: [],
@@ -105,13 +120,17 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
       isLatest: false,
       launchDate: new Date()
     });
-    setImages('');
-    setPros('');
+    setImageFiles([]);
+    setExteriorImageFiles([]);
+    setInteriorImageFiles([]);
+    setImagePreviews([]);
+    setExteriorPreviews([]);
+    setInteriorPreviews([]);
     setPros('');
     setCons('');
-    setColors([]);
-    setId('');
+    setNewColor('');
     setIsEditing(false);
+    setId('');
   }
 
   useEffect(()=>{
@@ -128,47 +147,197 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     setFilteredCars(cars.filter(m => m.name.includes(searchCarQuery)));
   },[searchCarQuery]);
 
-  const handleModelSubmit = async(e: any) => {
+
+    // Upload single image to Cloudinary
+  const uploadImageToCloudinary = async (file: File): Promise<string | null> => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!); // Replace with your Cloudinary upload preset
+    // formData.append('cloud_name', 'your_cloud_name'); // Replace with your Cloudinary cloud name
+
+    try {
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, // Replace with your cloud name
+        formData
+      );
+
+    let url = response.data.secure_url;
+    url = url.replace(
+      '/upload/',
+      '/upload/f_webp,q_auto:best,w_1920/'
+    );
+    
+    return url;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast.error('Failed to upload image');
+      return null;
+    }
+  };
+
+  // Upload multiple images
+  const uploadMultipleImages = async (files: File[]): Promise<string[]> => {
+    const uploadPromises = files.map(file => uploadImageToCloudinary(file));
+    const results = await Promise.all(uploadPromises);
+    return results.filter((url): url is string => url !== null);
+  };
+
+
+// Handle file selection with preview
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: 'featured' | 'exterior' | 'interior'
+  ) => {
+    const files = Array.from(e.target.files || []);
+    
+    if (files.length === 0) return;
+
+    // Create preview URLs
+    const previewUrls = files.map(file => URL.createObjectURL(file));
+
+    switch (type) {
+      case 'featured':
+        setImageFiles(prev => [...prev, ...files]);
+        setImagePreviews(prev => [...prev, ...previewUrls]);
+        break;
+      case 'exterior':
+        setExteriorImageFiles(prev => [...prev, ...files]);
+        setExteriorPreviews(prev => [...prev, ...previewUrls]);
+        break;
+      case 'interior':
+        setInteriorImageFiles(prev => [...prev, ...files]);
+        setInteriorPreviews(prev => [...prev, ...previewUrls]);
+        break;
+    }
+  };
+
+  // Remove image from preview (before upload)
+  const removePreviewImage = (
+    index: number,
+    type: 'featured' | 'exterior' | 'interior'
+  ) => {
+    switch (type) {
+      case 'featured':
+        setImageFiles(prev => prev.filter((_, i) => i !== index));
+        setImagePreviews(prev => {
+          URL.revokeObjectURL(prev[index]);
+          return prev.filter((_, i) => i !== index);
+        });
+        break;
+      case 'exterior':
+        setExteriorImageFiles(prev => prev.filter((_, i) => i !== index));
+        setExteriorPreviews(prev => {
+          URL.revokeObjectURL(prev[index]);
+          return prev.filter((_, i) => i !== index);
+        });
+        break;
+      case 'interior':
+        setInteriorImageFiles(prev => prev.filter((_, i) => i !== index));
+        setInteriorPreviews(prev => {
+          URL.revokeObjectURL(prev[index]);
+          return prev.filter((_, i) => i !== index);
+        });
+        break;
+    }
+  };
+
+  // Remove uploaded image (after upload)
+  const removeUploadedImage = (
+    index: number,
+    type: 'featured' | 'exterior' | 'interior'
+  ) => {
+    switch (type) {
+      case 'featured':
+        setForm(prev => ({
+          ...prev,
+          images: prev.images.filter((_, i) => i !== index)
+        }));
+        break;
+      case 'exterior':
+        setForm(prev => ({
+          ...prev,
+          exteriorImages: prev.exteriorImages.filter((_, i) => i !== index)
+        }));
+        break;
+      case 'interior':
+        setForm(prev => ({
+          ...prev,
+          interiorImages: prev.interiorImages.filter((_, i) => i !== index)
+        }));
+        break;
+    }
+  };
+
+
+
+
+
+
+  // Handle form submission
+  const handleModelSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    if(!isEditing){
-      try{
-        const response = await axios.post('/api/managemodels', {form}, {withCredentials: true});
-        if(response.status === 200){
-          resetData();
-          toast.success(response.data.message);
-          console.log(response.data);
-        }
-      } catch(error){
-        toast.error('Faild to Create Model');
-        console.error(error);
-      }
-    }
-    else{
-      try{
-        const response = await axios.put(`/api/managemodels`, {id, form}, {withCredentials: true});
-        if(response.status == 200){
-          toast.success(response.data.message);
-          resetData();
-        }
-      }catch(error){
-        toast.error('Faild to Upated Model');
-        console.log(error);
-      }
-      setIsEditing(false);
-    }
+    setUploadingImages(true);
 
-    setLoading(false);
-  }
+    try {
+      // Upload all new images to Cloudinary
+      const [featuredUrls, exteriorUrls, interiorUrls] = await Promise.all([
+        uploadMultipleImages(imageFiles),
+        uploadMultipleImages(exteriorImageFiles),
+        uploadMultipleImages(interiorImageFiles)
+      ]);
+
+      // Combine existing images with newly uploaded ones
+      const updatedForm = {
+        ...form,
+        images: [...form.images, ...featuredUrls],
+        exteriorImages: [...form.exteriorImages, ...exteriorUrls],
+        interiorImages: [...form.interiorImages, ...interiorUrls],
+        pros: pros.split('\n').filter(p => p.trim()),
+        cons: cons.split('\n').filter(c => c.trim())
+      };
+
+      setUploadingImages(false);
+
+      // Submit to backend
+      if (!isEditing) {
+        const response = await axios.post('/api/managemodels', 
+          { form: updatedForm }, 
+          { withCredentials: true }
+        );
+        
+        if (response.status === 200) {
+          toast.success(response.data.message);
+          resetData();
+        }
+      } else {
+        const response = await axios.put('/api/managemodels', 
+          { id, form: updatedForm }, 
+          { withCredentials: true }
+        );
+        
+        if (response.status === 200) {
+          toast.success(response.data.message);
+          resetData();
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(isEditing ? 'Failed to update model' : 'Failed to create model');
+    } finally {
+      setLoading(false);
+      setUploadingImages(false);
+    }
+  };
 
   // Edit Models
   const handleEditModel = (model: Model) => {
     setForm({...form, ...model})
-    const imgs = model.images.join(",");
+    // const imgs = model.images.join(",");
     const pros = model.pros.join(',');
     const cons = model.cons.join(',');
     setIsEditing(true);
-    setImages(imgs);
+    // setImages(imgs);
     setPros(pros);
     setCons(cons);
     setColors(model.colors);
@@ -240,18 +409,197 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
         </select>
       </div>
       <textarea value={form.description} onChange={(e)=> setForm({...form, description: e.target.value})} placeholder="Description" className="border mt-4 rounded-lg px-3 py-2 w-full min-h-32" />
-      <div>
-        <label className="block mt-4 text-sm font-medium text-gray-700 mb-1">Image URLs (comma separated)</label>
-        <input value={images} onChange={(e) => setImages(e.target.value)} className="border rounded-lg px-3 py-2 w-full" placeholder="https://..., https://..." />
-        {imageList.length > 0 && (
-          <div className="flex gap-2 mt-2 overflow-x-auto">
-            {imageList.map((src) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img key={src} src={src} alt="preview" className="w-16 h-16 object-cover rounded" />
-            ))}
-          </div>
-        )}
-      </div>
+
+
+        {/* Featured Images */}
+        <div>
+          <label className="block mt-4 text-sm font-medium text-gray-700 mb-1">
+            Featured Images
+          </label>
+          <input 
+            type='file' 
+            multiple 
+            accept="image/*"
+            onChange={(e) => handleFileChange(e, 'featured')} 
+            className="border rounded-lg px-3 py-2 w-full" 
+          />
+          
+          {/* Existing uploaded images */}
+          {form.images.length > 0 && (
+            <div>
+              <p className="text-xs text-gray-500 mt-2">Uploaded Images:</p>
+              <div className="flex gap-2 mt-2 overflow-x-auto">
+                {form.images.map((src, idx) => (
+                  <div key={idx} className="relative group">
+                    <img 
+                      src={src} 
+                      alt="uploaded" 
+                      className="w-20 h-20 object-cover rounded border-2 border-green-500" 
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeUploadedImage(idx, 'featured')}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Preview new images */}
+          {imagePreviews.length > 0 && (
+            <div>
+              <p className="text-xs text-gray-500 mt-2">New Images (not uploaded yet):</p>
+              <div className="flex gap-2 mt-2 overflow-x-auto">
+                {imagePreviews.map((src, idx) => (
+                  <div key={idx} className="relative group">
+                    <img 
+                      src={src} 
+                      alt="preview" 
+                      className="w-20 h-20 object-cover rounded border-2 border-blue-500" 
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removePreviewImage(idx, 'featured')}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Exterior Images */}
+        <div>
+          <label className="block mt-4 text-sm font-medium text-gray-700 mb-1">
+            Exterior Images
+          </label>
+          <input 
+            type='file' 
+            multiple 
+            accept="image/*"
+            onChange={(e) => handleFileChange(e, 'exterior')} 
+            className="border rounded-lg px-3 py-2 w-full" 
+          />
+          
+          {form.exteriorImages.length > 0 && (
+            <div>
+              <p className="text-xs text-gray-500 mt-2">Uploaded Images:</p>
+              <div className="flex gap-2 mt-2 overflow-x-auto">
+                {form.exteriorImages.map((src, idx) => (
+                  <div key={idx} className="relative group">
+                    <img 
+                      src={src} 
+                      alt="uploaded" 
+                      className="w-20 h-20 object-cover rounded border-2 border-green-500" 
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeUploadedImage(idx, 'exterior')}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {exteriorPreviews.length > 0 && (
+            <div>
+              <p className="text-xs text-gray-500 mt-2">New Images (not uploaded yet):</p>
+              <div className="flex gap-2 mt-2 overflow-x-auto">
+                {exteriorPreviews.map((src, idx) => (
+                  <div key={idx} className="relative group">
+                    <img 
+                      src={src} 
+                      alt="preview" 
+                      className="w-20 h-20 object-cover rounded border-2 border-blue-500" 
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removePreviewImage(idx, 'exterior')}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Interior Images */}
+        <div>
+          <label className="block mt-4 text-sm font-medium text-gray-700 mb-1">
+            Interior Images
+          </label>
+          <input 
+            type='file' 
+            multiple 
+            accept="image/*"
+            onChange={(e) => handleFileChange(e, 'interior')} 
+            className="border rounded-lg px-3 py-2 w-full" 
+          />
+          
+          {form.interiorImages.length > 0 && (
+            <div>
+              <p className="text-xs text-gray-500 mt-2">Uploaded Images:</p>
+              <div className="flex gap-2 mt-2 overflow-x-auto">
+                {form.interiorImages.map((src, idx) => (
+                  <div key={idx} className="relative group">
+                    <img 
+                      src={src} 
+                      alt="uploaded" 
+                      className="w-20 h-20 object-cover rounded border-2 border-green-500" 
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeUploadedImage(idx, 'interior')}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {interiorPreviews.length > 0 && (
+            <div>
+              <p className="text-xs text-gray-500 mt-2">New Images (not uploaded yet):</p>
+              <div className="flex gap-2 mt-2 overflow-x-auto">
+                {interiorPreviews.map((src, idx) => (
+                  <div key={idx} className="relative group">
+                    <img 
+                      src={src} 
+                      alt="preview" 
+                      className="w-20 h-20 object-cover rounded border-2 border-blue-500" 
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removePreviewImage(idx, 'interior')}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+
 
       <div>
         <label className="block mt-4 text-sm font-medium text-gray-700 mb-2">Colors</label>

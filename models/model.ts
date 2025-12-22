@@ -5,6 +5,8 @@ export interface IModel extends mongoose.Document {
   bodyType: 'suv' | 'hatchback' | 'sedan' | 'coupe' | 'convertible' | 'wagon' | 'muv' | 'luxury' | 'pickup truck';
   category: 'Popular Cars' | 'Electric Cars' | 'Upcoming Cars' | 'Latest Cars' | 'Other';
   images: string[];
+  exteriorImages: string[];
+  interiorImages: string[];
   variant: mongoose.Types.ObjectId[]; 
   description: string;
   colors: string[];
@@ -20,7 +22,9 @@ const modelSchema = new mongoose.Schema<IModel>({
     modelName: {type: String, required: true, trim: true},
     bodyType: {type: String, required: true, enum: ['suv','hatchback','sedan','coupe','convertible','wagon','muv','luxury','pickup truck']},
     category: {type: String, required: true, enum: ['Popular Cars','Electric Cars','Upcoming Cars','Latest Cars','Other']},
-    images: {type: [String], required: true},
+    images: {type: [String]},
+    exteriorImages: {type: [String]},
+    interiorImages: {type: [String]},
     variant: [{type: mongoose.Schema.Types.ObjectId, ref: 'Car'}],
     description: {type: String},
     colors: {type: [String]},
