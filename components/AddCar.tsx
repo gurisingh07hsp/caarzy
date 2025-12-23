@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Car } from '@/types/Car';
 import { Model } from '@/types/Car';
 import axios from 'axios';
-import { ChevronDown, ChevronUp, Edit, Eye, Trash2 } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import toast from "react-hot-toast";
 
 interface AddCarProps {
@@ -165,11 +165,28 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     },
     ADASFeature: {
       blindSpotMonitor: false,
+      forwardCollisionWarning: false,
+      automaticEmergencyBraking: false,
+      speedAssistSystem: false,
+      trafficSignRecognition: false,
+      blindSpotCollisionAvoidanceAssist: false,
+      laneDepartureWarning: false,
+      laneKeepAssist: false,
+      laneDeparturePreventionAssist: false,
+      driverAttentionWarning: false,
+      adaptiveCruiseControl: false,
+      adaptiveHighBeamAssist: false,
+      rearCrossTrafficAlert: false,
+      rearCrossTrafficCollisionAvoidanceAssist: false,
     },
     advanceInternetFeature: {
       overAirUpdates: false,
       remoteVehicleIgnitionStartStop: false,
       inbuiltApps: false,
+      navigationwithLiveTraffic: false,
+      ecallAndIcall: false,
+      googleAlexaConnectivity: false,
+      SOSButton: false,
     },
     description: '',
     priceBreakup: {
@@ -218,7 +235,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
   const [selectedModel, setSelectedModel] = useState(''); 
   const [filteredModels, setFilteredModels] = useState<Model[]>(models || []);
   const [loading,setLoading] = useState(false);
-//   const locationRef = useRef<HTMLDivElement>(null);
+  const modelRef = useRef<HTMLDivElement>(null);
 
   useEffect(()=>{
     const getModels = async()=> {
@@ -238,20 +255,20 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
 
     useEffect(()=>{
       setCarForm({...carForm, ...selectedCar});
-    },[selectedCar])
+    },[selectedCar]);
 
-    // useEffect(() => {
-    //   const handleClickOutside = (event: MouseEvent) => {
-    //     if (locationRef.current && !locationRef.current.contains(event.target as Node)) {
-    //       setShowModelDropdown(false);
-    //     }
-    //   };
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (modelRef.current && !modelRef.current.contains(event.target as Node)) {
+          setShowModelDropdown(false);
+        }
+      };
   
-    //   document.addEventListener('mousedown', handleClickOutside);
-    //   return () => {
-    //     document.removeEventListener('mousedown', handleClickOutside);
-    //   };
-    // }, []);
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, []);
 
     const resetData = ()=> {
     setCarForm({
@@ -406,11 +423,28 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     },
     ADASFeature: {
       blindSpotMonitor: false,
+      forwardCollisionWarning: false,
+      automaticEmergencyBraking: false,
+      speedAssistSystem: false,
+      trafficSignRecognition: false,
+      blindSpotCollisionAvoidanceAssist: false,
+      laneDepartureWarning: false,
+      laneKeepAssist: false,
+      laneDeparturePreventionAssist: false,
+      driverAttentionWarning: false,
+      adaptiveCruiseControl: false,
+      adaptiveHighBeamAssist: false,
+      rearCrossTrafficAlert: false,
+      rearCrossTrafficCollisionAvoidanceAssist: false,
     },
     advanceInternetFeature: {
       overAirUpdates: false,
       remoteVehicleIgnitionStartStop: false,
       inbuiltApps: false,
+      navigationwithLiveTraffic: false,
+      ecallAndIcall: false,
+      googleAlexaConnectivity: false,
+      SOSButton: false,
     },
     description: '',
     priceBreakup: {
@@ -506,7 +540,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
         <Section title="Basic Details" id="basic" 
         expandedSections={expandedSections}
         toggleSection={toggleSection}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <input
               value={carForm.name}
               onChange={(e) => updateCarField("name", e.target.value)}
@@ -526,7 +560,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
               
               
               {showModelDropdown && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
+                <div ref={modelRef} className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
                   {filteredModels.length > 0 ? (
                     filteredModels.filter((model, index, arr) => arr.indexOf(model) === index).map((model, index) => (
                       <button
@@ -907,14 +941,16 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
         toggleSection={toggleSection}
         >
           <div className="grid lg:grid-cols-4 gap-3">
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={carForm.ADASFeature.blindSpotMonitor}
-                onChange={(e) => updateCarField("ADASFeature.blindSpotMonitor", e.target.checked)}
-              />
-              <span className="text-sm">Blind Spot Monitor</span>
-            </label>
+            {(["blindSpotMonitor", "forwardCollisionWarning", "automaticEmergencyBraking", "speedAssistSystem", "trafficSignRecognition", "blindSpotCollisionAvoidanceAssist", "laneDepartureWarning", "laneKeepAssist","laneDeparturePreventionAssist","driverAttentionWarning","adaptiveCruiseControl","adaptiveHighBeamAssist","rearCrossTrafficAlert","rearCrossTrafficCollisionAvoidanceAssist"]as const).map((key) => (
+              <label key={key} className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={carForm.ADASFeature[key]}
+                  onChange={(e) => updateCarField(`ADASFeature.${key}`, e.target.checked)}
+                />
+                <span className="text-sm">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+              </label>
+            ))}
           </div>
         </Section>
 
@@ -924,7 +960,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
         toggleSection={toggleSection}
         >
           <div className="grid lg:grid-cols-3 gap-3">
-            {(["overAirUpdates", "remoteVehicleIgnitionStartStop", "inbuiltApps"]as const).map((key) => (
+            {(["overAirUpdates", "remoteVehicleIgnitionStartStop", "inbuiltApps", "navigationwithLiveTraffic", "ecallAndIcall", "googleAlexaConnectivity", "SOSButton"]as const).map((key) => (
               <label key={key} className="flex items-center gap-2">
                 <input
                   type="checkbox"

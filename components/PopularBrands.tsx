@@ -8,13 +8,13 @@ interface PageProps {
 const PopularBrands = ({cars}: PageProps) => {
   const router = useRouter();
   return (
-    <section className="py-8 mt-12">
+    <section className="py-4 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-12">
-            <h2 className="md:text-3xl text-2xl text-center font-bold text-gray-900">Body Types</h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="md:text-2xl text-lg text-center font-bold text-gray-900">Body Types</h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
             {[
               { name: 'Coupe', count: `${cars.filter((car)=>car.bodyType == 'coupe').length} cars`, image: '/coupelogo.webp' },
               { name: 'MUV', count: `${cars.filter((car)=>car.bodyType == 'muv').length} cars`, image: '/mvplogo.webp' },

@@ -16,8 +16,8 @@ interface CompareSectionProps {
 export function CompareSection({ comparisons }: CompareSectionProps) {
   const router = useRouter();
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h2 className="text-4xl font-bold text-gray-900 text-center mb-12">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 py-4">
+      <h2 className="md:text-3xl text-lg text font-bold text-gray-900 mb-4">
         Compare to buy the right car
       </h2>
       

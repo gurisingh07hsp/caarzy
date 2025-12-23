@@ -139,7 +139,7 @@ const Testimonials = () => {
   return (
     <section className="my-20 max-w-7xl lg:px-0 px-4 lg:mx-auto">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold tracking-tighter">
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tighter">
           People Love It from Us
         </h2>
         <div className="flex gap-2">

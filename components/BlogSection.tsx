@@ -21,7 +21,7 @@ export function BlogSection({ blogs }: BlogSectionProps) {
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {blogs.map((blog, index) => (
+        {blogs.slice(0,2).map((blog, index) => (
           <div key={index} className='flex md:flex-row flex-col gap-4 lg:w-[600px] md:h-[200px]'>
             <div className='md:w-[400px] md:h-full relative h-[200px] rounded-2xl overflow-hidden'>
               <div className='bg-[#FF7101] text-white absolute top-2 left-2 rounded-full px-2 py-1'>{new Date(blog.publishDate).toLocaleDateString("en-IN", {

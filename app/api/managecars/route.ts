@@ -7,7 +7,7 @@ import {authUser} from '@/middleware/authMiddleware';
 export async function GET(){
     await dbConnect();
     try{
-        const cars = await Car.find({});
+        const cars = await Car.find({}).populate('model');
         if(cars){
             return new Response(
             JSON.stringify({ success: true, cars}),

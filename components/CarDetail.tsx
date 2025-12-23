@@ -46,7 +46,7 @@ export function CarDetail() {
       if(car && car.bodyType){
         const response = await axios.get(`/api/managemodels`, {params: {bodyType: car.bodyType?.toString().replace('-', ' ')}});
         if(response.status == 200){
-            setPopularCars(response.data.models);
+            setPopularCars(response.data.models.slice(0,8));
         }
       }
     }
@@ -206,13 +206,42 @@ export function CarDetail() {
             </div>
           </div>
         </div>
-        <div className='flex gap-2 my-4 overflow-x-auto'>
-          <button onClick={()=> {setSelectedTab('description'); router.push('#description')}} className={`px-4 w-36 py-3 ${selectedtab == 'description' ? 'bg-[#FF7101] text-white border-none' : 'border'} rounded-4xl hover:bg-[#FF7101] hover:text-white hover:border-none`}>Description</button>
-          <button onClick={()=> {setSelectedTab('overview'); router.push('#overview')}} className={`px-4 w-36 py-3 ${selectedtab == 'overview' ? 'bg-[#FF7101] text-white border-none' : 'border'} rounded-4xl hover:bg-[#FF7101] hover:text-white hover:border-none`}>Overview</button>
-          <button onClick={()=> {setSelectedTab('images'); router.push(`${car.modelName}/pictures`)}} className={`px-4 w-36 py-3 ${selectedtab == 'images' ? 'bg-[#FF7101] text-white border-none' : 'border'} rounded-4xl hover:bg-[#FF7101] hover:text-white hover:border-none`}>Images</button>
-          <button onClick={()=> {setSelectedTab('pros&cons'); router.push('#pros&cons')}} className={`px-4 w-36 py-3 ${selectedtab == 'pros&cons' ? 'bg-[#FF7101] text-white border-none' : 'border'} rounded-4xl hover:bg-[#FF7101] hover:text-white hover:border-none`}>Pros & Cons</button>
-          <button onClick={()=> {setSelectedTab('reviews'); router.push('#reviews')}} className={`px-4 w-36 py-3 ${selectedtab == 'reviews' ? 'bg-[#FF7101] text-white border-none' : 'border'} rounded-4xl hover:bg-[#FF7101] hover:text-white hover:border-none`}>Reviews</button>
-        </div> 
+        <div className='flex gap-2 my-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2'>
+          <button 
+            onClick={() => {setSelectedTab('description'); router.push('#description')}} 
+            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'description' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+          >
+            Description
+          </button>
+          
+          <button 
+            onClick={() => {setSelectedTab('overview'); router.push('#overview')}} 
+            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'overview' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+          >
+            Overview
+          </button>
+          
+          <button 
+            onClick={() => {setSelectedTab('images'); router.push(`${car.modelName}/pictures`)}} 
+            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'images' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+          >
+            Images
+          </button>
+          
+          <button 
+            onClick={() => {setSelectedTab('pros&cons'); router.push('#pros&cons')}} 
+            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'pros&cons' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+          >
+            Pros & Cons
+          </button>
+          
+          <button 
+            onClick={() => {setSelectedTab('reviews'); router.push('#reviews')}} 
+            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'reviews' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+          >
+            Reviews
+          </button>
+        </div>
         <p className="text-slate-600 mb-2 px-4">{car?.brand?.charAt(0).toUpperCase() + car?.brand?.slice(1)} • {car.bodyType == 'suv' ? 'SUV' : car?.bodyType?.charAt(0).toUpperCase() + car?.bodyType?.slice(1)}</p>
         <h1 className="text-3xl font-bold text-slate-900 mb-2 px-4">{car?.modelName?.charAt(0).toUpperCase() + car?.modelName?.slice(1)}</h1>
 

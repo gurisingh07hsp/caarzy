@@ -152,11 +152,28 @@ export interface ICar extends Omit<mongoose.Document, 'model'> {
   };
   ADASFeature: {
     blindSpotMonitor: boolean;
+    forwardCollisionWarning: boolean;
+    automaticEmergencyBraking: boolean;
+    speedAssistSystem: boolean;
+    trafficSignRecognition: boolean;
+    blindSpotCollisionAvoidanceAssist: boolean;
+    laneDepartureWarning: boolean;
+    laneKeepAssist: boolean;
+    laneDeparturePreventionAssist: boolean;
+    driverAttentionWarning: boolean;
+    adaptiveCruiseControl: boolean;
+    adaptiveHighBeamAssist: boolean;
+    rearCrossTrafficAlert: boolean;
+    rearCrossTrafficCollisionAvoidanceAssist: boolean;
   };
   advanceInternetFeature: {
     overAirUpdates: boolean;
     remoteVehicleIgnitionStartStop: boolean;
     inbuiltApps: boolean;
+    navigationwithLiveTraffic: boolean;
+    ecallAndIcall: boolean;
+    googleAlexaConnectivity: boolean;
+    SOSButton: boolean;
   };
   description: string;
   priceBreakup?: {
@@ -330,11 +347,28 @@ const carSchema = new mongoose.Schema<ICar>({
   },
   ADASFeature: {
     blindSpotMonitor: { type: Boolean },
+    forwardCollisionWarning: { type: Boolean },
+    automaticEmergencyBraking: { type: Boolean },
+    speedAssistSystem: { type: Boolean },
+    trafficSignRecognition: { type: Boolean },
+    blindSpotCollisionAvoidanceAssist: { type: Boolean },
+    laneDepartureWarning: { type: Boolean },
+    laneKeepAssist: { type: Boolean },
+    laneDeparturePreventionAssist: { type: Boolean },
+    driverAttentionWarning: { type: Boolean },
+    adaptiveCruiseControl: { type: Boolean },
+    adaptiveHighBeamAssist: { type: Boolean },
+    rearCrossTrafficAlert: { type: Boolean },
+    rearCrossTrafficCollisionAvoidanceAssist: { type: Boolean },
   },
   advanceInternetFeature: {
     overAirUpdates: { type: Boolean },
     remoteVehicleIgnitionStartStop: { type: Boolean },
     inbuiltApps: { type: Boolean },
+    navigationwithLiveTraffic: { type: Boolean },
+    ecallAndIcall: { type: Boolean },
+    googleAlexaConnectivity: { type: Boolean },
+    SOSButton: { type: Boolean },
   },
   priceBreakup: {
     exShowroom: {type: Number},

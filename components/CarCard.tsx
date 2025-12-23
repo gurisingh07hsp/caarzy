@@ -45,7 +45,7 @@ export function CarCard({car}: CarCardProps) {
       {/* Content Section */}
       <div className="p-4">
         {/* Category */}
-        <p className="text-[#FF7101] text-sm font-medium mb-1">{car.bodyType === 'suv' ? 'SUV' : car.category.charAt(0).toUpperCase() + car.category.slice(1)}</p>
+        <p className="text-[#FF7101] text-sm font-medium mb-1">{car.bodyType === 'suv' ? 'SUV' : car.bodyType.charAt(0).toUpperCase() + car.bodyType.slice(1)}</p>
         
         {/* Car Name */}
         <h3 className="text-lg font-medium text-gray-900 mb-1">{car.brand.charAt(0).toUpperCase() + car.brand.slice(1)} {car.modelName.charAt(0).toUpperCase() + car.modelName.slice(1)}</h3>

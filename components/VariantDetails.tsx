@@ -10,6 +10,7 @@ const VariantDetails = () => {
     const { variant } = useParams();
     const [carVariant, setCarVariant] = useState<Car | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [selectedtab, setSelectedTab] = useState<'description' | 'overview' | 'images' | 'features' | 'reviews'>('description');
     const [model, setModel] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [popularCars, setPopularCars] = useState([]);
@@ -44,94 +45,6 @@ const VariantDetails = () => {
         internet: false,
       });
 
-
-  // const [currentIndex, setCurrentIndex] = useState(0);
-  // const [isDragging, setIsDragging] = useState(false);
-  // const [startX, setStartX] = useState(0);
-  // const [scrollLeft, setScrollLeft] = useState(0);
-  // const containerRef = useRef<HTMLDivElement | any>(null);
-
-  // const slides = [
-  //   { type: 'video', color: 'from-purple-500 to-pink-500' },
-  //   { type: 'image', color: 'from-blue-500 to-cyan-500' },
-  //   { type: 'image', color: 'from-green-500 to-emerald-500' },
-  //   { type: 'image', color: 'from-orange-500 to-red-500' },
-  //   { type: 'image', color: 'from-indigo-500 to-purple-500' },
-  //   { type: 'image', color: 'from-pink-500 to-rose-500' },
-  // ];
-
-  // const handlePrev = () => {
-  //   setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  // };
-
-  // const handleNext = () => {
-  //   setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  // };
-
-  // const handleMouseDown = (e: any) => {
-  //   setIsDragging(true);
-  //   setStartX(e.pageX - containerRef?.current?.offsetLeft);
-  //   setScrollLeft(containerRef?.current?.scrollLeft);
-  // };
-
-  // const handleTouchStart = (e: any) => {
-  //   setIsDragging(true);
-  //   setStartX(e.touches[0].pageX - containerRef?.current?.offsetLeft);
-  //   setScrollLeft(containerRef.current?.scrollLeft);
-  // };
-
-  // const handleMouseMove = (e: any) => {
-  //   if (!isDragging) return;
-  //   e.preventDefault();
-  //   const x = e.pageX - (containerRef.current?.offsetLeft || 0);
-  //   const walk = (x - startX) * 2;
-  //   if (containerRef.current) {
-  //     containerRef.current.scrollLeft = scrollLeft - walk;
-  //   }
-  // };
-
-  // const handleTouchMove = (e: any) => {
-  //   if (!isDragging) return;
-  //   const x = e.touches[0].pageX - (containerRef.current?.offsetLeft || 0);
-  //   const walk = (x - startX) * 2;
-  //   if (containerRef.current) {
-  //     containerRef.current.scrollLeft = scrollLeft - walk;
-  //   }
-  // };
-
-  // const handleMouseUp = () => {
-  //   setIsDragging(false);
-  // };
-
-  // const handleTouchEnd = () => {
-  //   setIsDragging(false);
-  // };
-
-  // useEffect(() => {
-  //   const container = containerRef.current;
-  //   if (container) {
-  //     const cardWidth = container.offsetWidth;
-  //     container.scrollTo({
-  //       left: currentIndex * cardWidth,
-  //       behavior: 'smooth',
-  //     });
-  //   }
-  // }, [currentIndex]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     const fetchVariant = async() => {
         try{
             const response = await axios.get(`/api/managecars/${variant?.toString().replace(/-/g, ' ')}`);
@@ -155,7 +68,7 @@ const VariantDetails = () => {
       if(model && model.bodyType){
         const response = await axios.get(`/api/managemodels`, {params: {bodyType: model.bodyType?.toString().replace('-', ' ')}});
         if(response.status == 200){
-            setPopularCars(response.data.models);
+            setPopularCars(response.data.models.slice(0,8));
         }
       }
     }
@@ -175,110 +88,11 @@ const VariantDetails = () => {
     <div>
         {carVariant && model ? (
             <div className='max-w-7xl flex lg:flex-row flex-col gap-8 mx-auto'>
-
-
-               {/* <div className="relative w-full h-screen bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden">
-   
-      <button
-        onClick={handlePrev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 shadow-lg"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
-      <button
-        onClick={handleNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 shadow-lg"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
-
-      
-      <div
-        ref={containerRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        className="flex h-full overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing snap-x snap-mandatory"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-      >
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className="min-w-full h-full flex items-center justify-center px-4 sm:px-8 md:px-16 snap-center"
-          >
-            <div className="w-full max-w-7xl mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
-                
-                <div className="lg:col-span-7 h-[50vh] sm:h-[60vh] lg:h-[70vh]">
-                  <img src={model.images[0]} alt="" />
-                </div>
-
-                
-                <div className="lg:col-span-5 grid grid-cols-2 lg:grid-cols-2 gap-4">
-                  {model.images.map((i:any) => (
-                    <div
-                      key={i}
-                      className="h-[23vh] sm:h-[28vh] lg:h-[33.5vh]"
-                    >
-                      <img src={i} alt="" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`transition-all duration-300 rounded-full ${
-              currentIndex === index
-                ? 'w-8 bg-white'
-                : 'w-2 bg-white/40 hover:bg-white/60'
-            } h-2`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
-    </div> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
               <div className='lg:w-[700px]'>
                 <div className='md:h-[460px]'>
                     <img src={`${model.images[activeIndex]}`} alt="model" className='w-[100%] h-[100%] rounded-lg' />
                 </div>
-                          <div className="mt-3 overflow-x-auto">
+            <div className="mt-3 overflow-x-auto">
             <div className="flex gap-3 w-max">
               {model?.images?.map((src: string, idx: number) => (
                 <button
@@ -292,8 +106,45 @@ const VariantDetails = () => {
             </div>
           </div>
 
-            <p className="text-slate-600 mb-2 px-4">{model?.brand?.charAt(0).toUpperCase() + model?.brand?.slice(1)} • {model.bodyType == 'suv' ? 'SUV' : model?.bodyType?.charAt(0).toUpperCase() + model?.bodyType?.slice(1)}</p>
-            <h1 className="text-3xl font-bold text-slate-900 mb-2 px-4">{carVariant?.name?.charAt(0).toUpperCase() + carVariant?.name?.slice(1)}</h1>
+                  <div className='flex gap-2 my-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2'>
+          <button 
+            onClick={() => {setSelectedTab('description'); router.push('#description')}} 
+            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'description' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+          >
+            Description
+          </button>
+          
+          <button 
+            onClick={() => {setSelectedTab('overview'); router.push('#overview')}} 
+            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'overview' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+          >
+            Overview
+          </button>
+          
+          <button 
+            onClick={() => {setSelectedTab('features'); router.push('#features')}} 
+            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'features' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+          >
+            Features
+          </button>
+          <button 
+            onClick={() => {setSelectedTab('images'); router.push(`pictures`)}} 
+            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'images' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+          >
+            Images
+          </button>
+          
+          
+          <button 
+            onClick={() => {setSelectedTab('reviews'); router.push('#reviews')}} 
+            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'reviews' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+          >
+            Reviews
+          </button>
+        </div>
+
+        <p className="text-slate-600 mb-2 px-4">{model?.brand?.charAt(0).toUpperCase() + model?.brand?.slice(1)} • {model.bodyType == 'suv' ? 'SUV' : model?.bodyType?.charAt(0).toUpperCase() + model?.bodyType?.slice(1)}</p>
+        <h1 className="text-3xl font-bold text-slate-900 mb-2 px-4">{carVariant?.name?.charAt(0).toUpperCase() + carVariant?.name?.slice(1)}</h1>
 
         <div className='flex items-center gap-4 px-4'>
           <div className='flex items-center gap-1'>
@@ -346,7 +197,7 @@ const VariantDetails = () => {
             </div>
           </div>
 
-        <hr />
+        <hr id='overview'/>
 
         <div className='mt-4 px-4'>
           <h2 className='text-2xl font-medium'>Car Overview</h2>
@@ -443,7 +294,7 @@ const VariantDetails = () => {
         </div>
       </div>
 
-          <div className='p-4 max-w-4xl mt-4'>
+          <div id='description' className='p-4 max-w-4xl mt-4'>
             <hr className='my-4'/>
             <h2 className='text-2xl font-medium'>Description</h2>
             <p className='text-slate-700 mt-4'>{carVariant.description}</p>
@@ -476,8 +327,8 @@ const VariantDetails = () => {
             </div>
           )}
 
-            <hr className='mx-4 my-4'/>
-          <div className='max-w-4xl'>
+          <hr className='mx-4 my-4'/>
+          <div id='features' className='max-w-4xl'>
             <div className='py-3'>
                 <h2 className='text-2xl font-medium ms-4'>Specifications & Features</h2>
             </div>
@@ -501,7 +352,7 @@ const VariantDetails = () => {
                       ["Drive Type", carVariant.engineAndTransmission.driveType],
                     ].map(([label, value], idx) => (
                       <div key={idx} className='flex items-center'>
-                        <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
+                        <div className="px-4 py-2 text-sm">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
                         <p className='text-[#696665] text-sm'>{label}</p>
                       </div>
                     ))}
@@ -750,6 +601,19 @@ const VariantDetails = () => {
               <div className='grid grid-cols-2 md:grid-cols-3 gap-x-4'>
                     {[
                         ["Blind Spot Monitor", carVariant.ADASFeature.blindSpotMonitor],
+                        ["Forward Collision Warning", carVariant.ADASFeature.forwardCollisionWarning],
+                        ["Automatic Emergency Braking", carVariant.ADASFeature.automaticEmergencyBraking],
+                        ["Speed Assist System", carVariant.ADASFeature.speedAssistSystem],
+                        ["Traffic Sign Recognition", carVariant.ADASFeature.trafficSignRecognition],
+                        ["Blind Spot Collision Avoidance Assist", carVariant.ADASFeature.blindSpotCollisionAvoidanceAssist],
+                        ["Lane Departure Warning", carVariant.ADASFeature.laneDepartureWarning],
+                        ["Lane Keep Assist", carVariant.ADASFeature.laneKeepAssist],
+                        ["Lane Departure Prevention Assist", carVariant.ADASFeature.laneDeparturePreventionAssist],
+                        ["Driver Attention Warning", carVariant.ADASFeature.driverAttentionWarning],
+                        ["Adaptive Cruise Control", carVariant.ADASFeature.adaptiveCruiseControl],
+                        ["Adaptive High Beam Assist", carVariant.ADASFeature.adaptiveHighBeamAssist],
+                        ["Rear Cross Traffic Alert", carVariant.ADASFeature.rearCrossTrafficAlert],
+                        ["Rear Cross Traffic Collision-Avoidance Assist", carVariant.ADASFeature.rearCrossTrafficCollisionAvoidanceAssist],
                       ].map(([label, value], idx) => (
                       <div key={idx} className='flex items-center'>
                         <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
@@ -767,6 +631,10 @@ const VariantDetails = () => {
                         ["Over the Air (OTA) Updates", carVariant.advanceInternetFeature.overAirUpdates],
                         ["Remote Vehicle Ignition Start/Stop", carVariant.advanceInternetFeature.remoteVehicleIgnitionStartStop],
                         ["Inbuilt APPs", carVariant.advanceInternetFeature.inbuiltApps],
+                        ["Navigation with Live Traffic", carVariant.advanceInternetFeature.navigationwithLiveTraffic],
+                        ["E-Call & I-Call", carVariant.advanceInternetFeature.ecallAndIcall],
+                        ["Google / Alexa Connectivity ", carVariant.advanceInternetFeature.googleAlexaConnectivity],
+                        ["SOS Button", carVariant.advanceInternetFeature.SOSButton],
                       ].map(([label, value], idx) => (
                       <div key={idx} className='flex items-center'>
                         <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
@@ -776,125 +644,12 @@ const VariantDetails = () => {
                     </div>
               </Section>
 
-              
-
-
             </div>
 
-
-
-
-            {/* <div className='p-2 flex'>
-              <div className='flex flex-col items-start w-80 border bg-[#fafafa] divide-y rounded-bl-lg h-max text-sm'>
-                {['Engine & Transmission','Fuel & Performance','Suspension, Steering & Brakes','Dimensions & Capacity',
-                  'Comfort & Convenience','Interior','Exterior','Safety','Entertainment & Communication','ADAS Feature',
-                  'Advance Internet Feature'
-                  ].map((item,index)=>(
-                    <button onClick={()=> setActiveTab(item)} className={`w-full ${activeTab === item && 'bg-[#24272c] text-white'} py-3 text-start px-2`} key={index}>{item}</button>
-                  ))}
-              </div>
-              <div className='overflow-y-auto w-full h-[500px]'>
-                  <div className='px-4'>
-
-                    
-                   {activeTab == 'Advance Internet Feature' &&
-                    <div>
-                       <p className='ms-4 text-lg font-bold'>Advance Internet Feature</p>
-                    <table className="w-full border border-slate-300 rounded-lg overflow-hidden mt-6 text-slate-700">
-                      <tbody>
-                        {[
-                          ["Over the Air (OTA) Updates", carVariant.advanceInternetFeature.overAirUpdates],
-                          ["Remote Vehicle Ignition Start/Stop", carVariant.advanceInternetFeature.remoteVehicleIgnitionStartStop],
-                          ["Inbuilt APPs", carVariant.advanceInternetFeature.inbuiltApps],
-                        ].map(([label, value], idx) => (
-                          <tr key={idx} className="border-b last:border-none">
-                            <td className="border-r px-4 py-2 font-medium">{label}</td>
-                            <td className="px-4 py-2">{(value as any) == true ? <CheckIcon className='text-green-600'/> : (value as any) == false ? <XIcon className='text-red-600'/> : value}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                    </div>
-                   }
-
-                  </div>
-              </div>
-            </div> */}
           </div>
-
-
-          {/* <div className='border border-gray-200 rounded-2xl p-4 max-w-4xl mt-4'>
-            <h2 className='text-2xl font-semibold'>{carVariant.name} user reviews</h2>
-            <div className='flex mt-4 items-center'>
-              <span className='text-3xl font-bold'>4.7</span>
-              <Star className='w-[30px] h-[30px] text-yellow-400 ms-1'/>
-              <p className='text-sm ms-1'>Based on 40 User reviews</p>
-            </div>
-
-            <div className='grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4'>
-              <div className='border p-4 rounded-lg'>
-                  <div className='flex items-center gap-2'>
-                    <div className='bg-gray-400 flex justify-center items-center rounded-full w-8 h-8'>
-                      <User/>
-                    </div>
-                    <div>
-                      <p className='text-xs'>Arijit On Nov 22, 2025</p>
-                      <div className='flex items-center'>
-                        <p className='text-sm font-semibold'>5</p>
-                        <Star className='w-3 h-4'/>
-                      </div>
-                    </div>
-                  </div>
-                  <p className='mt-2 font-semibold'>Excellent Car</p>
-                  <div className='text-[13px] mt-2'>Good car, Modern design in a reasonable & budget friendly price, I recommend people to
-                     buy it as its newly launched & hyundai services are good & their resale value is 
-                     considered one of the best in the world. Dont think twice & go for it with some new gen
-                      technology & new modern fit for the people. Thank you
-                  </div>
-              </div>
-              <div className='border p-4 rounded-lg'>
-                  <div className='flex items-center gap-2'>
-                    <div className='bg-gray-400 flex justify-center items-center rounded-full w-8 h-8'>
-                      <User/>
-                    </div>
-                    <div>
-                      <p className='text-xs'>Arijit On Nov 22, 2025</p>
-                      <div className='flex items-center'>
-                        <p className='text-sm font-semibold'>5</p>
-                        <Star className='w-3 h-4'/>
-                      </div>
-                    </div>
-                  </div>
-                  <p className='mt-2 font-semibold'>Excellent Car</p>
-                  <div className='text-[13px] mt-2'>Good car, Modern design in a reasonable & budget friendly price, I recommend people to
-                     buy it as its newly launched & hyundai services are good & their resale value is 
-                     considered one of the best in the world. Dont think twice & go for it with some new gen
-                      technology & new modern fit for the people. Thank you
-                  </div>
-              </div>
-              <div className='border p-4 rounded-lg'>
-                  <div className='flex items-center gap-2'>
-                    <div className='bg-gray-400 flex justify-center items-center rounded-full w-8 h-8'>
-                      <User/>
-                    </div>
-                    <div>
-                      <p className='text-xs'>Arijit On Nov 22, 2025</p>
-                      <div className='flex items-center'>
-                        <p className='text-sm font-semibold'>5</p>
-                        <Star className='w-3 h-4'/>
-                      </div>
-                    </div>
-                  </div>
-                  <p className='mt-2 font-semibold'>Excellent Car</p>
-                  <div className='text-[13px] mt-2'>Good car, Modern design in a reasonable & budget friendly price, I recommend people to
-                     buy it as its newly launched & hyundai services are good & their resale value is 
-                     considered one of the best in the world. Dont think twice & go for it with some new gen
-                      technology & new modern fit for the people. Thank you
-                  </div>
-              </div>
-            </div>
-          </div> */}
-           <Reviews carId={carVariant?._id ?? ''} reviews={carVariant.reviews} />
+          <div id='reviews'>
+            <Reviews carId={carVariant?._id ?? ''} reviews={carVariant.reviews} />
+          </div>
             </div>
 
             <aside className="hidden lg:block">

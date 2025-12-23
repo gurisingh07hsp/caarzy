@@ -67,14 +67,14 @@ export default function HomePage() {
         <div>
           <HeroSection searchTerm={searchTerm} onSearchChange={setSearchTerm} />
           <HomeFilter/>
-          <PopularBrands cars={models}/>
+          <BrandShowcase brands={mockBrands} />
           <PopularCars cars={models}/>
           <ElectricCars cars={models}/>
           <UpcomingCars cars={models}/>
           <Testimonials />
           <PopularQuestions/>
           <CompareSection comparisons={comparisons} />
-          <BrandShowcase brands={mockBrands} />
+          <PopularBrands cars={models}/>
           <BlogSection blogs={blogs} />
         </div>
     </div>

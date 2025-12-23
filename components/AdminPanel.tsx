@@ -7,6 +7,7 @@ import AddCar from './AddCar';
 import toast from "react-hot-toast";
 import { Edit, Eye, Filter, Search, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { mockBrands } from '@/data/mockBrands';
 
 interface AdminPanelProps {
   models: Model[];
@@ -72,16 +73,8 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
   const [interiorPreviews, setInteriorPreviews] = useState<string[]>([]);
   
   const [uploadingImages, setUploadingImages] = useState(false);
-
-  // const imageList = useMemo(() => images.split(/\s*,\s*/).filter(Boolean), [images]);
   const prosList = useMemo(() => pros.split(/\s*,\s*/).filter(Boolean), [pros]);
   const consList = useMemo(() => cons.split(/\s*,\s*/).filter(Boolean), [cons]);
-
-
-
-  // useEffect(()=> {
-  //   setForm({...form, images: imageList});
-  // },[imageList]);
 
   useEffect(()=> {
     setForm({...form, colors: colors});
@@ -90,6 +83,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
   useEffect(()=> {
     setForm({...form, pros: prosList});
   },[prosList]);
+
   useEffect(()=> {
     setForm({...form, cons: consList});
   },[consList]);
@@ -333,11 +327,9 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
   // Edit Models
   const handleEditModel = (model: Model) => {
     setForm({...form, ...model})
-    // const imgs = model.images.join(",");
     const pros = model.pros.join(',');
     const cons = model.cons.join(',');
     setIsEditing(true);
-    // setImages(imgs);
     setPros(pros);
     setCons(cons);
     setColors(model.colors);
@@ -356,7 +348,6 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
         });
         if (response.status === 200) {
           toast.success(response.data.message);
-          // router.refresh();
         }
       } catch (error) {
         toast.error('Failed to delete model');
@@ -375,7 +366,6 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
         });
         if (response.status === 200) {
           toast.success(response.data.message);
-          // router.refresh();
         }
       } catch (error) {
         toast.error('Failed to delete car');
@@ -401,7 +391,15 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
         <form onSubmit={(e)=> handleModelSubmit(e)}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <input value={form.modelName} onChange={(e)=> setForm({...form, modelName: e.target.value.toLowerCase()})} placeholder="Model name" className="border rounded-lg px-3 py-2" required />
-        <input value={form.brand} onChange={(e)=> setForm({...form, brand: e.target.value.toLowerCase()})}  placeholder="Brand" className="border rounded-lg px-3 py-2" required />
+        {/* <input value={form.brand} onChange={(e)=> setForm({...form, brand: e.target.value.toLowerCase()})}  placeholder="Brand" className="border rounded-lg px-3 py-2" required /> */}
+        <select className='text-xl border rounded-lg px-3 py-2' required
+        value={form.brand}
+        onChange={(e)=> setForm({...form, brand: e.target.value})}>
+          <option value='' disabled>Select Brand</option>
+          {mockBrands.map((brand,index)=>(
+            <option key={index} value={brand.name.toLowerCase().replace('-',' ')}>{brand.name}</option>
+          ))}
+        </select>
         <select value={form.bodyType} onChange={(e)=> setForm({...form, bodyType: e.target.value})}  className="border rounded-lg px-3 py-2">
           {['SUV','Hatchback','Sedan','Coupe','Convertible','Wagon', 'Luxury', 'Pickup truck'].map((c) => (
             <option key={c} value={c.toLowerCase()}>{c}</option>
