@@ -87,12 +87,12 @@ const VariantDetails = () => {
   return (
     <div>
         {carVariant && model ? (
-            <div className='max-w-7xl flex lg:flex-row flex-col gap-8 mx-auto'>
-              <div className='lg:w-[700px]'>
+            <div className='max-w-7xl flex lg:flex-row flex-col justify-between mx-2 lg:mx-auto'>
+              <div className='lg:w-[800px]'>
                 <div className='md:h-[460px]'>
-                    <img src={`${model.images[activeIndex]}`} alt="model" className='w-[100%] h-[100%] rounded-lg' />
+                    <img src={`${model.images[activeIndex]}`} alt="model" className='w-[100%] h-[100%] object-cover rounded-lg' />
                 </div>
-            <div className="mt-3 overflow-x-auto">
+            <div className="mt-3 overflow-x-auto mb-8">
             <div className="flex gap-3 w-max">
               {model?.images?.map((src: string, idx: number) => (
                 <button
@@ -106,30 +106,30 @@ const VariantDetails = () => {
             </div>
           </div>
 
-                  <div className='flex gap-2 my-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2'>
+        <div className='flex gap-2 my-4 overflow-x-auto scrollbar-hide snap-x snap-mandatorypb-2'>
           <button 
             onClick={() => {setSelectedTab('description'); router.push('#description')}} 
-            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'description' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'description' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
           >
             Description
           </button>
           
           <button 
             onClick={() => {setSelectedTab('overview'); router.push('#overview')}} 
-            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'overview' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'overview' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
           >
             Overview
           </button>
           
           <button 
             onClick={() => {setSelectedTab('features'); router.push('#features')}} 
-            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'features' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'features' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
           >
             Features
           </button>
           <button 
             onClick={() => {setSelectedTab('images'); router.push(`pictures`)}} 
-            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'images' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'images' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
           >
             Images
           </button>
@@ -137,14 +137,14 @@ const VariantDetails = () => {
           
           <button 
             onClick={() => {setSelectedTab('reviews'); router.push('#reviews')}} 
-            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'reviews' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'reviews' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
           >
             Reviews
           </button>
         </div>
 
         <p className="text-slate-600 mb-2 px-4">{model?.brand?.charAt(0).toUpperCase() + model?.brand?.slice(1)} • {model.bodyType == 'suv' ? 'SUV' : model?.bodyType?.charAt(0).toUpperCase() + model?.bodyType?.slice(1)}</p>
-        <h1 className="text-3xl font-bold text-slate-900 mb-2 px-4">{carVariant?.name?.charAt(0).toUpperCase() + carVariant?.name?.slice(1)}</h1>
+        <h1 className="lg:text-3xl text-xl font-bold text-slate-900 mb-2 px-4">{carVariant?.name?.charAt(0).toUpperCase() + carVariant?.name?.slice(1)}</h1>
 
         <div className='flex items-center gap-4 px-4'>
           <div className='flex items-center gap-1'>
@@ -187,7 +187,7 @@ const VariantDetails = () => {
           <div className="rounded-2xl overflow-hidden">
             <div className="grid gap-0">
               <div className="p-4">
-                <p className="text-2xl font-bold text-[#FF7101]">₹{(carVariant.price as any /100000).toFixed(2)}Lakh</p>
+                <p className="lg:text-2xl text-xl font-bold text-[#FF7101]">₹{(carVariant.price as any /100000).toFixed(2)}Lakh</p>
                 <p className="text-xs text-gray-600 mb-1">On-Road Price</p>
                 <div className="mt-3 flex items-center gap-3">
                   {/* <button onClick={() => setEmiOpen(true)} className="text-blue-600 hover:underline">EMI Calculator</button> */}
@@ -200,7 +200,7 @@ const VariantDetails = () => {
         <hr id='overview'/>
 
         <div className='mt-4 px-4'>
-          <h2 className='text-2xl font-medium'>Car Overview</h2>
+          <h2 className='md:text-2xl text-lg font-medium'>Car Overview</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mt-8">
 
           <div className='flex items-center gap-2'>
@@ -296,14 +296,14 @@ const VariantDetails = () => {
 
           <div id='description' className='p-4 max-w-4xl mt-4'>
             <hr className='my-4'/>
-            <h2 className='text-2xl font-medium'>Description</h2>
+            <h2 className='md:text-2xl text-lg font-medium'>Description</h2>
             <p className='text-slate-700 mt-4'>{carVariant.description}</p>
           </div>
 
           <hr className='my-4 mx-4'/>
           {carVariant.priceBreakup && (
             <div className='px-4 max-w-4xl mb-4'>
-                 <h2 className='text-2xl font-medium'>{carVariant.name} price breakdown</h2>
+                 <h2 className='md:text-2xl text-lg font-medium'>{carVariant.name} price breakdown</h2>
                  <div className='text-sm text-slate-700 flex flex-col gap-y-4 mt-4'>
                     <div className='flex justify-between'>
                         <p>Ex-Showroom price</p>
@@ -330,14 +330,14 @@ const VariantDetails = () => {
           <hr className='mx-4 my-4'/>
           <div id='features' className='max-w-4xl'>
             <div className='py-3'>
-                <h2 className='text-2xl font-medium ms-4'>Specifications & Features</h2>
+                <h2 className='md:text-2xl text-xl font-medium ms-4'>Specifications & Features</h2>
             </div>
 
             <div>
               <Section title="Engine & Transmission" id="Engine & Transmission" 
               expandedSections={expandedSections}
               toggleSection={toggleSection}>
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-x-4'>
+              <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                     {[
                       ["Engine Type", carVariant.engineAndTransmission.engineType],
                       ["Displacement", carVariant.engineAndTransmission.displacement],
@@ -351,9 +351,9 @@ const VariantDetails = () => {
                       ["Gearbox", carVariant.engineAndTransmission.gearbox],
                       ["Drive Type", carVariant.engineAndTransmission.driveType],
                     ].map(([label, value], idx) => (
-                      <div key={idx} className='flex items-center'>
-                        <div className="px-4 py-2 text-sm">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p className='text-[#696665] text-sm'>{label}</p>
+                      <div key={idx} className='border p-2 rounded-md'>
+                        <p className='text-[#696665] text-sm'>{label}:</p>
+                        <div className="text-sm pt-1">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
                       </div>
                     ))}
                     </div>
@@ -363,16 +363,16 @@ const VariantDetails = () => {
               <Section title="Fuel & Performance" id="Fuel & Performance" 
               expandedSections={expandedSections}
               toggleSection={toggleSection}>
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-x-4'>
+              <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                     {[
                       ["Fuel Type", carVariant.fuelAndPerformance.fuelType],
                       ["Petrol Mileage ARAI", carVariant.fuelAndPerformance.petrolMileageARAI],
                       ["Petrol Fuel Tank Capacity", carVariant.fuelAndPerformance.petrolFuelTankCapacity],
                       ["Emission Norm Compliance", carVariant.fuelAndPerformance.emissionNormCompliance],
                     ].map(([label, value], idx) => (
-                      <div key={idx} className='flex items-center'>
-                        <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p className='text-[#696665] text-sm'>{label}</p>
+                      <div key={idx} className='border p-2 rounded-md'>
+                        <p className='text-[#696665] text-sm'>{label}:</p>
+                        <div className="text-sm pt-1">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
                       </div>
                     ))}
                     </div>
@@ -382,18 +382,20 @@ const VariantDetails = () => {
               <Section title="Suspension, Steering & Brakes" id="Suspension, Steering & Brakes" 
               expandedSections={expandedSections}
               toggleSection={toggleSection}>
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-x-4'>
+              <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                     {[
                         ["Front Suspension", carVariant.suspensionAndSteeringAndBrakes.frontSuspension],
                         ["Rear Suspension", carVariant.suspensionAndSteeringAndBrakes.rearSuspension],
                         ["Steering Type", carVariant.suspensionAndSteeringAndBrakes.steeringType],
                         ["Steering Column", carVariant.suspensionAndSteeringAndBrakes.steeringColumn],
+                        ["Turning Radius", carVariant.suspensionAndSteeringAndBrakes.turningRadius],
                         ["Front Brake Type", carVariant.suspensionAndSteeringAndBrakes.frontBrakeType],
-                        ["Rear Brake Type", carVariant.suspensionAndSteeringAndBrakes.rearBrakeType]
+                        ["Rear Brake Type", carVariant.suspensionAndSteeringAndBrakes.rearBrakeType],
+                        ["Boot Space Rear Seat Folding", carVariant.suspensionAndSteeringAndBrakes.bootSpaceRearSeatFolding],
                       ].map(([label, value], idx) => (
-                      <div key={idx} className='flex items-center'>
-                        <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p className='text-[#696665] text-sm'>{label}</p>
+                    <div key={idx} className='border p-2 rounded-md'>
+                        <p className='text-[#696665] text-sm'>{label}:</p>
+                        <div className="text-sm pt-1">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
                       </div>
                     ))}
                     </div>
@@ -403,19 +405,20 @@ const VariantDetails = () => {
               <Section title="Dimensions & Capacity" id="Dimensions & Capacity" 
               expandedSections={expandedSections}
               toggleSection={toggleSection}>
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-x-4'>
+              <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                     {[
                         ["Length", carVariant.dimensionsAndCapacity.length],
                         ["Width", carVariant.dimensionsAndCapacity.Width],
                         ["Height", carVariant.dimensionsAndCapacity.height],
                         ["Boot Space", carVariant.dimensionsAndCapacity.bootSpace],
                         ["Seating Capacity", carVariant.dimensionsAndCapacity.seatingCapacity],
+                        ["Ground Clearance Unladen", carVariant.dimensionsAndCapacity.groundClearanceUnladen],
                         ["Wheel Base", carVariant.dimensionsAndCapacity.wheelBase],
                         ["No. of Doors", carVariant.dimensionsAndCapacity.numOfDoors]
                       ].map(([label, value], idx) => (
-                      <div key={idx} className='flex items-center'>
-                        <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p className='text-[#696665] text-sm'>{label}</p>
+                    <div key={idx} className='border p-2 rounded-md'>
+                        <p className='text-[#696665] text-sm'>{label}:</p>
+                        <div className="text-sm pt-1">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
                       </div>
                     ))}
                     </div>
@@ -425,7 +428,7 @@ const VariantDetails = () => {
               <Section title="Comfort & Convenience" id="Comfort & Convenience" 
               expandedSections={expandedSections}
               toggleSection={toggleSection}>
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-x-4'>
+              <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                     {[
                           ["Power Steering", carVariant.comfortAndConvenience.powerSteering],
                           ["Air Conditioner", carVariant.comfortAndConvenience.airConditioner],
@@ -435,12 +438,15 @@ const VariantDetails = () => {
                           ["Ventilated Seats", carVariant.comfortAndConvenience.ventilatedSeats],
                           ["Electric Adjustable Seats", carVariant.comfortAndConvenience.electricAdjustableSeats],
                           ["Automatic Climate Control", carVariant.comfortAndConvenience.automaticClimateControl],
+                          ["Air Quality Control", carVariant.comfortAndConvenience.airQualityControl],
                           ["Accessory Power Outlet", carVariant.comfortAndConvenience.accessoryPowerOutlet],
                           ["Trunk Light", carVariant.comfortAndConvenience.trunkLight],
                           ["Vanity Mirror", carVariant.comfortAndConvenience.vanityMirror],
+                          ["Rear Reading Lamp", carVariant.comfortAndConvenience.rearReadingLamp],
                           ["Rear Seat Headrest", carVariant.comfortAndConvenience.rearSeatHeadrest],
                           ["Adjustable Headrest", carVariant.comfortAndConvenience.adjustableHeadrest],
                           ["Rear Seat Centre Arm Rest", carVariant.comfortAndConvenience.rearSeatCentreArmRest],
+                          ["Height Adjustable Front Seat Belts", carVariant.comfortAndConvenience.heightAdjustableFrontSeatBelts],
                           ["Rear AC Vents", carVariant.comfortAndConvenience.rearACVents],
                           ["Cruise Control", carVariant.comfortAndConvenience.cruiseControl],
                           ["Parking Sensors", carVariant.comfortAndConvenience.parkingSensors],
@@ -453,6 +459,8 @@ const VariantDetails = () => {
                           ["Paddle Shifters", carVariant.comfortAndConvenience.paddleShifters],
                           ["USB Charger", carVariant.comfortAndConvenience.usbCharger],
                           ["Central Console Armrest", carVariant.comfortAndConvenience.centralConsoleArmrest],
+                          ["Tailgate Ajar Warning", carVariant.comfortAndConvenience.tailgateAjarWarning],
+                          ["Hands-Free Tailgate", carVariant.comfortAndConvenience.handsFreeTailgate],
                           ["Drive Modes", carVariant.comfortAndConvenience.driveModes],
                           ["Idle Start-Stop System", carVariant.comfortAndConvenience.idleStartStopSystem],
                           ["Rear Window Sunblind", carVariant.comfortAndConvenience.rearWindowSunblind],
@@ -463,9 +471,9 @@ const VariantDetails = () => {
                           ["Power Windows", carVariant.comfortAndConvenience.powerWindows],
                           ["Cup Holders", carVariant.comfortAndConvenience.cupholders],
                         ].map(([label, value], idx) => (
-                      <div key={idx} className='flex items-center'>
-                        <div className="px-2 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5 '><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p className='text-[#696665] text-sm'>{label}</p>
+                    <div key={idx} className='border p-2 rounded-md'>
+                        <p className='text-[#696665] text-sm'>{label}:</p>
+                        <div className="text-sm pt-1">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
                       </div>
                     ))}
                     </div>
@@ -475,17 +483,19 @@ const VariantDetails = () => {
               <Section title="Interior" id="Interior" 
               expandedSections={expandedSections}
               toggleSection={toggleSection}>
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-x-4'>
+              <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                     {[
                       ["Tachometer", carVariant.interior.tachometer],
+                      ["Leather Wrapped Steering Wheel", carVariant.interior.leatherWrappedSteeringWheel],
+                      ["Leather wrap gear-shift selector", carVariant.interior.leatherwrapgearshiftselector],
                       ["Glove Box", carVariant.interior.gloveBox],
                       ["Digital Cluster", carVariant.interior.digitalCluster],
                       ["Digital Cluster Size", carVariant.interior.digitalClusterSize],
                       ["Upholstery", carVariant.interior.upholstery],
                     ].map(([label, value], idx) => (
-                      <div key={idx} className='flex items-center'>
-                        <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p className='text-[#696665] text-sm'>{label}</p>
+                    <div key={idx} className='border p-2 rounded-md'>
+                        <p className='text-[#696665] text-sm'>{label}:</p>
+                        <div className="text-sm pt-1">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
                       </div>
                     ))}
                     </div>
@@ -495,8 +505,9 @@ const VariantDetails = () => {
               <Section title="Exterior" id="Exterior" 
               expandedSections={expandedSections}
               toggleSection={toggleSection}>
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-x-4'>
+              <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                     {[
+                        ["Rain Sensing Wiper", carVariant.exterior.rainSensingWiper],
                         ["Rear Window Wiper", carVariant.exterior.rearWindowWiper],
                         ["Rear Window Washer", carVariant.exterior.rearWindowWasher],
                         ["Rear Window Defogger", carVariant.exterior.rearWindowDefogger],
@@ -505,23 +516,30 @@ const VariantDetails = () => {
                         ["Power Antenna", carVariant.exterior.powerAntenna],
                         ["Rear Spoiler", carVariant.exterior.rearSpoiler],
                         ["Outside Rear View Mirror Turn Indicators", carVariant.exterior.outsideRearViewMirrorTurnIndicators],
+                        ["Integrated Antenna", carVariant.exterior.integratedAntenna],
                         ["Chrome Grille", carVariant.exterior.chromeGrille],
                         ["Projector Headlamps", carVariant.exterior.projectorHeadlamps],
+                        ["Cornering Foglamps", carVariant.exterior.corneringFoglamps],
                         ["Roof Rails", carVariant.exterior.roofRails],
                         ["Automatic Headlamps", carVariant.exterior.automaticHeadlamps],
+                        ["Fog Lights", carVariant.exterior.fogLights],
                         ["Antenna", carVariant.exterior.antenna],
                         ["Sunroof", carVariant.exterior.sunroof],
+                        ["Boot Opening", carVariant.exterior.bootOpening],
                         ["Puddle Lamps", carVariant.exterior.puddleLamps],
                         ["Outside Rear View Mirror (ORVM)", carVariant.exterior.outsideRearViewMirror],
                         ["Tyre Size", carVariant.exterior.tyreSize],
                         ["Tyre Type", carVariant.exterior.tyreType],
                         ["Wheel Size", carVariant.exterior.wheelSize],
                         ["LED DRLs", carVariant.exterior.ledDRLs],
+                        ["LED Headlamps", carVariant.exterior.ledHeadlamps],
                         ["LED Taillights", carVariant.exterior.ledTaillights],
+                        ["LED Fog Lamps", carVariant.exterior.ledFogLamps],
+                        ["Additional Features", carVariant.exterior.additionalFeatures],
                       ].map(([label, value], idx) => (
-                      <div key={idx} className='flex items-center'>
-                        <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p className='text-[#696665] text-sm'>{label}</p>
+                      <div key={idx} className='border p-2 rounded-md'>
+                        <p className='text-[#696665] text-sm'>{label}:</p>
+                        <div className="text-sm pt-1">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
                       </div>
                     ))}
                     </div>
@@ -530,39 +548,42 @@ const VariantDetails = () => {
               <Section title="Safety" id="Safety" 
               expandedSections={expandedSections}
               toggleSection={toggleSection}>
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-x-4'>
+              <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                     {[
-                          ["Anti-lock Braking System (ABS)", carVariant.safety.antilockBrakingSystem],
-                          ["Central Locking", carVariant.safety.centralLocking],
-                          ["Child Safety Locks", carVariant.safety.childSafetyLocks],
-                          ["Anti-Theft Alarm", carVariant.safety.antiTheftAlarm],
-                          ["No. of Airbags", carVariant.safety.numOfAirbags],
-                          ["Driver Airbag", carVariant.safety.driverAirbag],
-                          ["Passenger Airbag", carVariant.safety.passengerAirbag],
-                          ["Side Airbag", carVariant.safety.sideAirbag],
-                          ["Side Airbag-Rear", carVariant.safety.sideAirbagRear],
-                          ["Day & Night Rear View Mirror", carVariant.safety.dayandNightRearViewMirror],
-                          ["Curtain Airbag", carVariant.safety.curtainAirbag],
-                          ["Electronic Brakeforce Distribution (EBD)", carVariant.safety.electronicBrakeforceDistribution],
-                          ["Seat Belt Warning", carVariant.safety.seatBeltWarning],
-                          ["Door Ajar Warning", carVariant.safety.doorAjarWarning],
-                          ["Traction Control", carVariant.safety.tractionControl],
-                          ["Tyre Pressure Monitoring System (TPMS)", carVariant.safety.tyrePressureMonitoringSystem],
-                          ["Engine Immobilizer", carVariant.safety.engineImmobilizer],
-                          ["Electronic Stability Control (ESC)", carVariant.safety.electronicStabilityControl],
-                          ["Rear Camera", carVariant.safety.rearCamera],
-                          ["Speed Alert", carVariant.safety.speedAlert],
-                          ["Speed Sensing Auto Door Lock", carVariant.safety.speedSensingAutoDoorLock],
-                          ["ISOFIX Child Seat Mounts", carVariant.safety.iSOFIXChildSeatMounts],
-                          ["Pretensioners & Force Limiter Seatbelts", carVariant.safety.pretensionersandForceLimiterSeatbelts],
-                          ["Blind Spot Camera", carVariant.safety.blindSpotCamera],
-                          ["Hill Assist", carVariant.safety.hillAssist],
-                          ["Impact Sensing Auto Door Unlock", carVariant.safety.impactSensingAutoDoorUnlock],
-                          ["360 View Camera", carVariant.safety._360ViewCamera],
+                        ["Anti-lock Braking System (ABS)", carVariant.safety.antilockBrakingSystem],
+                        ["Brake Assist", carVariant.safety.brakeAssist],
+                        ["Central Locking", carVariant.safety.centralLocking],
+                        ["Child Safety Locks", carVariant.safety.childSafetyLocks],
+                        ["Anti-Theft Alarm", carVariant.safety.antiTheftAlarm],
+                        ["No. of Airbags", carVariant.safety.numOfAirbags],
+                        ["Driver Airbag", carVariant.safety.driverAirbag],
+                        ["Passenger Airbag", carVariant.safety.passengerAirbag],
+                        ["Side Airbag", carVariant.safety.sideAirbag],
+                        ["Side Airbag-Rear", carVariant.safety.sideAirbagRear],
+                        ["Day & Night Rear View Mirror", carVariant.safety.dayandNightRearViewMirror],
+                        ["Curtain Airbag", carVariant.safety.curtainAirbag],
+                        ["Electronic Brakeforce Distribution (EBD)", carVariant.safety.electronicBrakeforceDistribution],
+                        ["Seat Belt Warning", carVariant.safety.seatBeltWarning],
+                        ["Door Ajar Warning", carVariant.safety.doorAjarWarning],
+                        ["Traction Control", carVariant.safety.tractionControl],
+                        ["Tyre Pressure Monitoring System (TPMS)", carVariant.safety.tyrePressureMonitoringSystem],
+                        ["Engine Immobilizer", carVariant.safety.engineImmobilizer],
+                        ["Electronic Stability Control (ESC)", carVariant.safety.electronicStabilityControl],
+                        ["Rear Camera", carVariant.safety.rearCamera],
+                        ["Speed Alert", carVariant.safety.speedAlert],
+                        ["Speed Sensing Auto Door Lock", carVariant.safety.speedSensingAutoDoorLock],
+                        ["ISOFIX Child Seat Mounts", carVariant.safety.iSOFIXChildSeatMounts],
+                        ["Heads-Up Display (HUD)", carVariant.safety.headsUpDisplay],
+                        ["Pretensioners & Force Limiter Seatbelts", carVariant.safety.pretensionersandForceLimiterSeatbelts],
+                        ["Blind Spot Camera", carVariant.safety.blindSpotCamera],
+                        ["Hill Descent Control", carVariant.safety.hillDescentControl],
+                        ["Hill Assist", carVariant.safety.hillAssist],
+                        ["Impact Sensing Auto Door Unlock", carVariant.safety.impactSensingAutoDoorUnlock],
+                        ["360 View Camera", carVariant.safety._360ViewCamera],
                         ].map(([label, value], idx) => (
-                      <div key={idx} className='flex items-center'>
-                        <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p className='text-[#696665] text-sm'>{label}</p>
+                    <div key={idx} className='border p-2 rounded-md'>
+                        <p className='text-[#696665] text-sm'>{label}:</p>
+                        <div className="text-sm pt-1">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
                       </div>
                     ))}
                     </div>
@@ -572,7 +593,7 @@ const VariantDetails = () => {
               <Section title="Entertainment & Communication" id="Entertainment & Communication" 
               expandedSections={expandedSections}
               toggleSection={toggleSection}>
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-x-4'>
+              <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                     {[
                         ["Radio", carVariant.entertainmentAndCommunication.radio],
                         ["Wireless Phone Charging", carVariant.entertainmentAndCommunication.wirelessPhoneCharging],
@@ -584,11 +605,12 @@ const VariantDetails = () => {
                         ["No. of Speakers", carVariant.entertainmentAndCommunication.numOfSpeakers],
                         ["Usb Ports", carVariant.entertainmentAndCommunication.usbPorts],
                         ["Additional Features", carVariant.entertainmentAndCommunication.additionalFeatures],
+                        ["Tweeters", carVariant.entertainmentAndCommunication.tweeters],
                         ["Speakers", carVariant.entertainmentAndCommunication.speakers],
                       ].map(([label, value], idx) => (
-                      <div key={idx} className='flex items-center'>
-                        <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p className='text-[#696665] text-sm'>{label}</p>
+                    <div key={idx} className='border p-2 rounded-md'>
+                        <p className='text-[#696665] text-sm'>{label}:</p>
+                        <div className="text-sm pt-1">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
                       </div>
                     ))}
                     </div>
@@ -598,7 +620,7 @@ const VariantDetails = () => {
               <Section title="ADAS Feature" id="ADAS Feature" 
               expandedSections={expandedSections}
               toggleSection={toggleSection}>
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-x-4'>
+              <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                     {[
                         ["Blind Spot Monitor", carVariant.ADASFeature.blindSpotMonitor],
                         ["Forward Collision Warning", carVariant.ADASFeature.forwardCollisionWarning],
@@ -615,9 +637,9 @@ const VariantDetails = () => {
                         ["Rear Cross Traffic Alert", carVariant.ADASFeature.rearCrossTrafficAlert],
                         ["Rear Cross Traffic Collision-Avoidance Assist", carVariant.ADASFeature.rearCrossTrafficCollisionAvoidanceAssist],
                       ].map(([label, value], idx) => (
-                      <div key={idx} className='flex items-center'>
-                        <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p className='text-[#696665] text-sm'>{label}</p>
+                      <div key={idx} className='border p-2 rounded-md'>
+                        <p className='text-[#696665] text-sm'>{label}:</p>
+                        <div className="text-sm pt-1">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
                       </div>
                     ))}
                     </div>
@@ -626,7 +648,7 @@ const VariantDetails = () => {
               <Section title="Advance Internet Feature" id="Advance Internet Feature" 
               expandedSections={expandedSections}
               toggleSection={toggleSection}>
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-x-4'>
+              <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                     {[
                         ["Over the Air (OTA) Updates", carVariant.advanceInternetFeature.overAirUpdates],
                         ["Remote Vehicle Ignition Start/Stop", carVariant.advanceInternetFeature.remoteVehicleIgnitionStartStop],
@@ -636,9 +658,9 @@ const VariantDetails = () => {
                         ["Google / Alexa Connectivity ", carVariant.advanceInternetFeature.googleAlexaConnectivity],
                         ["SOS Button", carVariant.advanceInternetFeature.SOSButton],
                       ].map(([label, value], idx) => (
-                      <div key={idx} className='flex items-center'>
-                        <div className="px-4 py-2">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
-                        <p className='text-[#696665] text-sm'>{label}</p>
+                     <div key={idx} className='border p-2 rounded-md'>
+                        <p className='text-[#696665] text-sm'>{label}:</p>
+                        <div className="text-sm pt-1">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
                       </div>
                     ))}
                     </div>
@@ -647,12 +669,37 @@ const VariantDetails = () => {
             </div>
 
           </div>
+
+          <div className="block lg:hidden mt-6 lg:w-96">
+          <div className="sticky top-24 border border-gray-200 px-4 py-6 rounded-2xl">
+            <div>
+              <h2 className='text-xl font-medium'>Popular Cars</h2>
+              <p className='text-[#696665] mt-1'>showing more cars you might like</p>
+            </div>
+
+            <div className='mt-8 space-y-2'>
+              {popularCars.map((pmodel: any)=>(
+                <div key={pmodel._id} onClick={()=>router.push(`/${pmodel.brand}/${pmodel.modelName}`)} className={`flex gap-4 cursor-pointer hover:text-[#FF7101] ${model._id == pmodel._id ? 'hidden' : 'block'}`}>
+                  <div>
+                    <img src={pmodel.images[0]} alt={pmodel.modelName} className='w-28 h-20 rounded-lg' />
+                  </div>
+                  <div>
+                    <h2>{pmodel.modelName}</h2>
+                    <p className='text-[#FF7101]'>₹{(pmodel.variant[0].price as any /100000).toFixed(2)}L</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+
           <div id='reviews'>
             <Reviews carId={carVariant?._id ?? ''} reviews={carVariant.reviews} />
           </div>
             </div>
 
-            <aside className="hidden lg:block">
+          <aside className="hidden lg:block lg:w-96">
           <div className="sticky top-24 border border-gray-200 px-4 py-6 rounded-2xl">
             <div>
               <h2 className='text-xl font-medium'>Popular Cars</h2>

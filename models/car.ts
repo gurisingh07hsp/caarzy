@@ -29,8 +29,10 @@ export interface ICar extends Omit<mongoose.Document, 'model'> {
     rearSuspension: string;
     steeringType: string;
     steeringColumn: string;
+    turningRadius: string;
     frontBrakeType: string;
     rearBrakeType: string;
+    bootSpaceRearSeatFolding: string;
   };
   dimensionsAndCapacity: {
     length: string;
@@ -38,6 +40,7 @@ export interface ICar extends Omit<mongoose.Document, 'model'> {
     height: string;
     bootSpace: string;
     seatingCapacity: string;
+    groundClearanceUnladen: string;
     wheelBase: string;
     numOfDoors: number;
   };
@@ -50,12 +53,15 @@ export interface ICar extends Omit<mongoose.Document, 'model'> {
     ventilatedSeats: boolean;
     electricAdjustableSeats: boolean;
     automaticClimateControl: boolean;
+    airQualityControl: boolean;
     accessoryPowerOutlet: boolean;
     trunkLight: boolean;
     vanityMirror: boolean;
+    rearReadingLamp: boolean;
     rearSeatHeadrest: string;
     adjustableHeadrest: boolean;
     rearSeatCentreArmRest: boolean;
+    heightAdjustableFrontSeatBelts: boolean;
     rearACVents: boolean;
     cruiseControl: boolean;
     parkingSensors: string;
@@ -68,6 +74,8 @@ export interface ICar extends Omit<mongoose.Document, 'model'> {
     paddleShifters: boolean
     usbCharger: string;
     centralConsoleArmrest: boolean;
+    tailgateAjarWarning: boolean;
+    handsFreeTailgate: boolean;
     driveModes: boolean;
     idleStartStopSystem: boolean;
     rearWindowSunblind: boolean;
@@ -80,12 +88,15 @@ export interface ICar extends Omit<mongoose.Document, 'model'> {
   };
   interior: {
     tachometer: boolean;
+    leatherWrappedSteeringWheel: boolean;
+    leatherwrapgearshiftselector: boolean;
     gloveBox: boolean;
     digitalCluster: boolean;
     digitalClusterSize: string;
     upholstery: string;
   };
   exterior: {
+    rainSensingWiper: boolean;
     rearWindowWiper: boolean;
     rearWindowWasher: boolean;
     rearWindowDefogger: boolean;
@@ -94,22 +105,30 @@ export interface ICar extends Omit<mongoose.Document, 'model'> {
     powerAntenna: boolean;
     rearSpoiler: boolean;
     outsideRearViewMirrorTurnIndicators: boolean;
+    integratedAntenna: boolean;
     chromeGrille: boolean;
     projectorHeadlamps: boolean;
+    corneringFoglamps: boolean;
     roofRails: boolean;
     automaticHeadlamps: boolean;
+    fogLights: boolean;
     antenna: string;
     sunroof: boolean;
+    bootOpening: string;
     puddleLamps: boolean;
     outsideRearViewMirror: string;
     tyreSize: string;
     tyreType: string;
     wheelSize: string;
     ledDRLs: boolean;
+    ledHeadlamps: boolean;
     ledTaillights: boolean;
+    ledFogLamps: boolean;
+    additionalFeatures: string;
   };
   safety: {
     antilockBrakingSystem: boolean;
+    brakeAssist: boolean;
     centralLocking: boolean
     childSafetyLocks: boolean;
     antiTheftAlarm: boolean;
@@ -119,7 +138,7 @@ export interface ICar extends Omit<mongoose.Document, 'model'> {
     sideAirbag: boolean;
     sideAirbagRear: boolean;
     dayandNightRearViewMirror: boolean;
-    curtainAirbag: boolean;
+    curtainAirbag: boolean; 
     electronicBrakeforceDistribution: boolean;
     seatBeltWarning: boolean;
     doorAjarWarning: boolean;
@@ -131,7 +150,9 @@ export interface ICar extends Omit<mongoose.Document, 'model'> {
     speedAlert: boolean;
     speedSensingAutoDoorLock: boolean;
     iSOFIXChildSeatMounts: boolean;
+    headsUpDisplay: boolean;
     pretensionersandForceLimiterSeatbelts: string;
+    hillDescentControl: boolean
     blindSpotCamera: boolean;
     hillAssist: boolean;
     impactSensingAutoDoorUnlock: boolean;
@@ -147,6 +168,7 @@ export interface ICar extends Omit<mongoose.Document, 'model'> {
     appleCarPlay: boolean;
     numOfSpeakers: number;
     usbPorts: boolean;
+    tweeters: string;
     additionalFeatures: string;
     speakers: string;
   };
@@ -224,8 +246,10 @@ const carSchema = new mongoose.Schema<ICar>({
     rearSuspension: {type: String},
     steeringType: {type: String},
     steeringColumn: {type: String},
+    turningRadius: {type: String},
     frontBrakeType: {type: String},
     rearBrakeType: {type: String},
+    bootSpaceRearSeatFolding: {type: String},
   },
   dimensionsAndCapacity: {
     length: {type: String},
@@ -233,6 +257,7 @@ const carSchema = new mongoose.Schema<ICar>({
     height: {type: String},
     bootSpace: {type: String},
     seatingCapacity: {type: String},
+    groundClearanceUnladen: {type: String},
     wheelBase: {type: String},
     numOfDoors: {type: Number},
   },
@@ -245,9 +270,11 @@ const carSchema = new mongoose.Schema<ICar>({
     ventilatedSeats: {type: Boolean},
     electricAdjustableSeats: {type: Boolean},
     automaticClimateControl: {type: Boolean},
+    airQualityControl: {type: Boolean},
     accessoryPowerOutlet: {type: Boolean},
     trunkLight: {type: Boolean},
     vanityMirror: {type: Boolean},
+    rearReadingLamp: {type: Boolean},
     rearSeatHeadrest: {type: String},
     adjustableHeadrest: {type: Boolean},
     rearSeatCentreArmRest: {type: Boolean},
@@ -263,6 +290,9 @@ const carSchema = new mongoose.Schema<ICar>({
     paddleShifters: {type: Boolean},
     usbCharger: {type: String},
     centralConsoleArmrest: {type: Boolean},
+    tailgateAjarWarning: {type: Boolean},
+    handsFreeTailgate: {type: Boolean},
+    heightAdjustableFrontSeatBelts: {type: Boolean},
     driveModes: {type: Boolean},
     idleStartStopSystem: {type: Boolean},
     rearWindowSunblind: {type: Boolean},
@@ -275,21 +305,28 @@ const carSchema = new mongoose.Schema<ICar>({
   },
   interior: {
     tachometer: { type: Boolean },
+    leatherWrappedSteeringWheel: { type: Boolean },
+    leatherwrapgearshiftselector: { type: Boolean },
     gloveBox: { type: Boolean },
     digitalCluster: { type: Boolean },
     digitalClusterSize: { type: String },
     upholstery: { type: String },
   },
   exterior: {
+    rainSensingWiper: { type: Boolean },
     rearWindowWiper: { type: Boolean },
     rearWindowWasher: { type: Boolean },
     rearWindowDefogger: { type: Boolean },
     wheelCovers: { type: Boolean },
     alloyWheels: { type: Boolean },
+    integratedAntenna: { type: Boolean },
     powerAntenna: { type: Boolean },
+    fogLights: { type: Boolean },
+    corneringFoglamps: { type: Boolean },
     rearSpoiler: { type: Boolean },
     outsideRearViewMirrorTurnIndicators: { type: Boolean },
     chromeGrille: { type: Boolean },
+    bootOpening: { type: String },
     projectorHeadlamps: { type: Boolean },
     roofRails: { type: Boolean },
     automaticHeadlamps: { type: Boolean },
@@ -301,10 +338,14 @@ const carSchema = new mongoose.Schema<ICar>({
     tyreType: { type: String },
     wheelSize: { type: String },
     ledDRLs: { type: Boolean },
+    ledHeadlamps: { type: Boolean },
     ledTaillights: { type: Boolean },
+    ledFogLamps: { type: Boolean },
+    additionalFeatures: { type: Boolean },
   },
   safety: {
     antilockBrakingSystem: { type: Boolean },
+    brakeAssist: { type: Boolean },
     centralLocking: { type: Boolean },
     childSafetyLocks: { type: Boolean },
     antiTheftAlarm: { type: Boolean },
@@ -322,12 +363,14 @@ const carSchema = new mongoose.Schema<ICar>({
     tyrePressureMonitoringSystem: { type: Boolean },
     engineImmobilizer: { type: Boolean },
     electronicStabilityControl: { type: Boolean },
+    headsUpDisplay: { type: Boolean },
     rearCamera: { type: Boolean },
     speedAlert: { type: Boolean },
     speedSensingAutoDoorLock: { type: Boolean },
     iSOFIXChildSeatMounts: { type: Boolean },
     pretensionersandForceLimiterSeatbelts: { type: String },
     blindSpotCamera: { type: Boolean },
+    hillDescentControl: { type: Boolean },
     hillAssist: { type: Boolean },
     impactSensingAutoDoorUnlock: { type: Boolean },
     _360ViewCamera: { type: Boolean },
@@ -342,6 +385,7 @@ const carSchema = new mongoose.Schema<ICar>({
     appleCarPlay: { type: Boolean },
     numOfSpeakers: { type: Number },
     usbPorts: { type: Boolean },
+    tweeters: {type: String},
     additionalFeatures: { type: String },
     speakers: { type: String },
   },

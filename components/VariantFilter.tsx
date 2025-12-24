@@ -22,32 +22,31 @@ export function VariantFilter({ selectedFuel, onFuelChange, selectedTransmission
         </span>
       </div>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex gap-3">
         <div className="flex items-center gap-2 flex-wrap">
-          {fuelOptions.map((opt) => (
-            <button
-              key={opt}
-              onClick={() => onFuelChange(opt)}
-              className={`px-3 py-1.5 rounded-lg border text-sm ${
-                selectedFuel === opt ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-700 hover:border-gray-300'
-              }`}
-            >
-              {opt}
-            </button>
+
+          <select
+          value={selectedFuel}
+          onChange={(e)=> onFuelChange(e.target.value as VariantFilterProps['selectedFuel'])}
+          className='border px-2 py-1 rounded-sm'
+          >
+          {fuelOptions.map((opt)=>(
+            <option key={opt} value={opt}>{opt}</option>
           ))}
+        </select>
+
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          {transmissionOptions.map((opt) => (
-            <button
-              key={opt}
-              onClick={() => onTransmissionChange(opt)}
-              className={`px-3 py-1.5 rounded-lg border text-sm ${
-                selectedTransmission === opt ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-700 hover:border-gray-300'
-              }`}
-            >
-              {opt}
-            </button>
+
+        <select
+          value={selectedTransmission}
+          onChange={(e)=> onTransmissionChange(e.target.value as VariantFilterProps['selectedTransmission'])}
+          className='border px-2 py-1 rounded-sm'
+          >
+          {transmissionOptions.map((opt)=>(
+            <option key={opt} value={opt}>{opt}</option>
           ))}
+        </select>
         </div>
       </div>
     </div>

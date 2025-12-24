@@ -157,7 +157,7 @@ export function CarDetail() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <div className="lg:max-w-7xl mx-auto lg:px-4 px-2">
       {loading ? (
         <div className='h-[100vh] w-[100%] flex justify-center items-center'>Loading...</div>
       ) : (
@@ -169,7 +169,7 @@ export function CarDetail() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-xl p-6">
+          <div className="bg-white rounded-xl p-2 lg:p-6">
         {/* Gallery */}
         <div className="mb-6">
           <div className="relative rounded-xl overflow-hidden bg-gray-100">
@@ -209,41 +209,41 @@ export function CarDetail() {
         <div className='flex gap-2 my-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2'>
           <button 
             onClick={() => {setSelectedTab('description'); router.push('#description')}} 
-            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'description' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'description' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
           >
             Description
           </button>
           
           <button 
             onClick={() => {setSelectedTab('overview'); router.push('#overview')}} 
-            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'overview' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'overview' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
           >
             Overview
           </button>
           
           <button 
             onClick={() => {setSelectedTab('images'); router.push(`${car.modelName}/pictures`)}} 
-            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'images' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'images' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
           >
             Images
           </button>
           
           <button 
             onClick={() => {setSelectedTab('pros&cons'); router.push('#pros&cons')}} 
-            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'pros&cons' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'pros&cons' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
           >
             Pros & Cons
           </button>
           
           <button 
             onClick={() => {setSelectedTab('reviews'); router.push('#reviews')}} 
-            className={`px-4 min-w-[144px] py-3 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'reviews' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'reviews' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
           >
             Reviews
           </button>
         </div>
         <p className="text-slate-600 mb-2 px-4">{car?.brand?.charAt(0).toUpperCase() + car?.brand?.slice(1)} • {car.bodyType == 'suv' ? 'SUV' : car?.bodyType?.charAt(0).toUpperCase() + car?.bodyType?.slice(1)}</p>
-        <h1 className="text-3xl font-bold text-slate-900 mb-2 px-4">{car?.modelName?.charAt(0).toUpperCase() + car?.modelName?.slice(1)}</h1>
+        <h1 className="md:text-3xl text-xl font-bold text-slate-900 mb-2 px-4">{car?.modelName?.charAt(0).toUpperCase() + car?.modelName?.slice(1)}</h1>
 
         <div className='flex items-center gap-4 px-4'>
           <div className='flex items-center gap-1'>
@@ -290,7 +290,7 @@ export function CarDetail() {
         <hr />
 
         <div className='mt-4'>
-          <h2 className='text-xl font-medium'>Car Overview</h2>
+          <h2 className='lg:text-xl text-lg font-medium'>Car Overview</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mt-8">
 
           <div className='flex items-center gap-2'>
@@ -420,11 +420,10 @@ export function CarDetail() {
           </div>
         </div>
 
-        {/* Right Sidebar for Ads */}
         <aside className="hidden lg:block">
           <div className="sticky top-24 border border-gray-200 px-4 py-6 rounded-2xl">
             <div>
-              <h2 className='text-xl font-medium'>Popular Cars</h2>
+              <h2 className='lg:text-xl text-lg font-medium'>Popular Cars</h2>
               <p className='text-[#696665] mt-1'>showing more cars you might like</p>
             </div>
 
@@ -441,26 +440,17 @@ export function CarDetail() {
                 </div>
               ))}
             </div>
-            {/* <div className="h-64 w-full bg-gray-100 border rounded-xl flex items-center justify-center text-gray-500">
-              <span>Ad 300×600</span>
-            </div>
-            <div className="h-48 w-full bg-gray-100 border rounded-xl flex items-center justify-center text-gray-500">
-              <span>Ad 300×250</span>
-            </div>
-            <div className="h-48 w-full bg-gray-100 border rounded-xl flex items-center justify-center text-gray-500">
-              <span>Ad 300×250</span>
-            </div> */}
           </div>
         </aside>
       </div>
 
       <div id='description' className='mt-4 border border-gray-200 p-5 rounded-2xl'>
-        <p className='text-xl font-medium'>Description</p>
+        <p className='lg:text-xl text-lg font-medium'>Description</p>
         <p className="text-slate-700 mt-4">{car.description}</p>
       </div>
       
   <div id='pros&cons' className="mt-6 border border-gray-200 p-5 rounded-2xl max-w-2xl">
-    <h2 className="text-xl font-medium mb-4">
+    <h2 className="lg:text-xl text-lg font-medium mb-4">
     Pros & Cons of{" "}
     <span className="capitalize">{car.brand}</span>{" "}
     <span className="capitalize">{car.modelName}</span>
@@ -496,6 +486,30 @@ export function CarDetail() {
 
   </div>
 </div>
+
+
+        <aside className="lg:hidden block mt-4">
+          <div className="sticky top-24 border border-gray-200 px-4 py-6 rounded-2xl">
+            <div>
+              <h2 className='lg:text-xl text-lg font-medium'>Popular Cars</h2>
+              <p className='text-[#696665] mt-1'>showing more cars you might like</p>
+            </div>
+
+            <div className='mt-8 space-y-2'>
+              {popularCars.map((pcar: any)=>(
+                <div key={pcar._id} onClick={()=>router.push(`/${pcar.brand}/${pcar.modelName}`)} className={`flex gap-4 cursor-pointer hover:text-[#FF7101] ${car._id == pcar._id ? 'hidden' : 'block'}`}>
+                  <div>
+                    <img src={pcar.images[0]} alt={pcar.modelName} className='w-28 h-20 rounded-lg' />
+                  </div>
+                  <div>
+                    <h2>{pcar.modelName}</h2>
+                    <p className='text-[#FF7101]'>₹{(pcar?.variant[0]?.price as any /100000).toFixed(2)}L</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </aside>
 
       {/* Similar price segment compare table */}
       {/* <div className="mt-12 bg-white rounded-xl border border-gray-200 overflow-hidden">

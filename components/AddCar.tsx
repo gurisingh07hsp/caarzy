@@ -42,8 +42,10 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       rearSuspension: '',
       steeringType: '',
       steeringColumn: '',
+      turningRadius: '',
       frontBrakeType: '',
       rearBrakeType: '',
+      bootSpaceRearSeatFolding: ''
     },
     dimensionsAndCapacity: {
       length: '',
@@ -51,6 +53,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       height: '',
       bootSpace: '',
       seatingCapacity: '',
+      groundClearanceUnladen: '',
       wheelBase: '',
       numOfDoors: 0,
     },
@@ -63,10 +66,13 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       ventilatedSeats: false,
       electricAdjustableSeats: false,
       automaticClimateControl: false,
+      airQualityControl: false,
       accessoryPowerOutlet: false,
       trunkLight: false,
       vanityMirror: false,
+      rearReadingLamp: false,
       rearSeatHeadrest: '',
+      heightAdjustableFrontSeatBelts: false,
       adjustableHeadrest: false,
       rearSeatCentreArmRest: false,
       rearACVents: false,
@@ -81,6 +87,8 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       paddleShifters: false,
       usbCharger: '',
       centralConsoleArmrest: false,
+      tailgateAjarWarning: false,
+      handsFreeTailgate: false,
       driveModes: false,
       idleStartStopSystem: false,
       rearWindowSunblind: false,
@@ -93,12 +101,15 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     },
     interior: {
       tachometer: false,
+      leatherWrappedSteeringWheel: false,
+      leatherwrapgearshiftselector: false,
       gloveBox: false,
       digitalCluster: false,
       digitalClusterSize: '',
       upholstery: '',
     },
     exterior: {
+      rainSensingWiper: false,
       rearWindowWiper: false,
       rearWindowWasher: false,
       rearWindowDefogger: false,
@@ -107,22 +118,30 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       powerAntenna: false,
       rearSpoiler: false,
       outsideRearViewMirrorTurnIndicators: false,
+      integratedAntenna: false,
       chromeGrille: false,
       projectorHeadlamps: false,
+      corneringFoglamps: false,
       roofRails: false,
       automaticHeadlamps: false,
+      fogLights: false,
       antenna: '',
       sunroof: false,
       puddleLamps: false,
+      bootOpening: '',
       outsideRearViewMirror: '',
       tyreSize: '',
       tyreType: '',
       wheelSize:'',
       ledDRLs: false,
+      ledHeadlamps: false,
       ledTaillights: false,
+      ledFogLamps: false,
+      additionalFeatures: '',
     },
     safety: {
-      antilockBrakingSystem: false,
+     antilockBrakingSystem: false,
+      brakeAssist: false,
       centralLocking: false,
       childSafetyLocks: false,
       antiTheftAlarm: false,
@@ -144,8 +163,10 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       speedAlert: false,
       speedSensingAutoDoorLock: false,
       iSOFIXChildSeatMounts: false,
+      headsUpDisplay: false,
       pretensionersandForceLimiterSeatbelts: '',
       blindSpotCamera: false,
+      hillDescentControl: false,
       hillAssist: false,
       impactSensingAutoDoorUnlock: false,
       _360ViewCamera: false,
@@ -161,6 +182,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       numOfSpeakers: 0,
       usbPorts: false,
       additionalFeatures: '',
+      tweeters: '',
       speakers: '',
     },
     ADASFeature: {
@@ -300,8 +322,10 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       rearSuspension: '',
       steeringType: '',
       steeringColumn: '',
+      turningRadius: '',
       frontBrakeType: '',
       rearBrakeType: '',
+      bootSpaceRearSeatFolding: ''
     },
     dimensionsAndCapacity: {
       length: '',
@@ -309,6 +333,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       height: '',
       bootSpace: '',
       seatingCapacity: '',
+      groundClearanceUnladen: '',
       wheelBase: '',
       numOfDoors: 0,
     },
@@ -321,10 +346,13 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       ventilatedSeats: false,
       electricAdjustableSeats: false,
       automaticClimateControl: false,
+      airQualityControl: false,
       accessoryPowerOutlet: false,
       trunkLight: false,
       vanityMirror: false,
+      rearReadingLamp: false,
       rearSeatHeadrest: '',
+      heightAdjustableFrontSeatBelts: false,
       adjustableHeadrest: false,
       rearSeatCentreArmRest: false,
       rearACVents: false,
@@ -339,6 +367,8 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       paddleShifters: false,
       usbCharger: '',
       centralConsoleArmrest: false,
+      tailgateAjarWarning: false,
+      handsFreeTailgate: false,
       driveModes: false,
       idleStartStopSystem: false,
       rearWindowSunblind: false,
@@ -351,12 +381,15 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     },
     interior: {
       tachometer: false,
+      leatherWrappedSteeringWheel: false,
+      leatherwrapgearshiftselector: false,
       gloveBox: false,
       digitalCluster: false,
       digitalClusterSize: '',
       upholstery: '',
     },
     exterior: {
+      rainSensingWiper: false,
       rearWindowWiper: false,
       rearWindowWasher: false,
       rearWindowDefogger: false,
@@ -365,22 +398,30 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       powerAntenna: false,
       rearSpoiler: false,
       outsideRearViewMirrorTurnIndicators: false,
+      integratedAntenna: false,
       chromeGrille: false,
       projectorHeadlamps: false,
+      corneringFoglamps: false,
       roofRails: false,
       automaticHeadlamps: false,
+      fogLights: false,
       antenna: '',
       sunroof: false,
       puddleLamps: false,
+      bootOpening: '',
       outsideRearViewMirror: '',
       tyreSize: '',
       tyreType: '',
       wheelSize:'',
       ledDRLs: false,
+      ledHeadlamps: false,
       ledTaillights: false,
+      ledFogLamps: false,
+    additionalFeatures: '',
     },
     safety: {
       antilockBrakingSystem: false,
+      brakeAssist: false,
       centralLocking: false,
       childSafetyLocks: false,
       antiTheftAlarm: false,
@@ -402,8 +443,10 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       speedAlert: false,
       speedSensingAutoDoorLock: false,
       iSOFIXChildSeatMounts: false,
+      headsUpDisplay: false,
       pretensionersandForceLimiterSeatbelts: '',
       blindSpotCamera: false,
+      hillDescentControl: false,
       hillAssist: false,
       impactSensingAutoDoorUnlock: false,
       _360ViewCamera: false,
@@ -419,6 +462,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       numOfSpeakers: 0,
       usbPorts: false,
       additionalFeatures: '',
+      tweeters: '',
       speakers: '',
     },
     ADASFeature: {
@@ -717,7 +761,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
         toggleSection={toggleSection}
         >
           <div className="grid lg:grid-cols-3 gap-3">
-            {(["frontSuspension", "rearSuspension", "steeringType", "steeringColumn", "frontBrakeType", "rearBrakeType"] as const).map((key) => (
+            {(["frontSuspension", "rearSuspension", "steeringType", "steeringColumn", "turningRadius", "frontBrakeType", "rearBrakeType", "bootSpaceRearSeatFolding"] as const).map((key) => (
               <input
                 key={key}
                 value={carForm?.suspensionAndSteeringAndBrakes[key]}
@@ -735,7 +779,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
         toggleSection={toggleSection}
         >
           <div className="grid lg:grid-cols-4 gap-3">
-            {(["length", "Width", "height", "bootSpace", "seatingCapacity", "wheelBase"] as const).map((key) => (
+            {(["length", "Width", "height", "bootSpace", "seatingCapacity", "wheelBase","groundClearanceUnladen"] as const).map((key) => (
               <input
                 key={key}
                 value={carForm?.dimensionsAndCapacity[key]}
@@ -774,7 +818,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
             ))}
           </div>
           <div className="grid lg:grid-cols-4 gap-3">
-            {(["powerSteering", "airConditioner", "heater", "heightAdjustableDriverSeat", "ventilatedSeats", "electricAdjustableSeats", "automaticClimateControl", "accessoryPowerOutlet", "trunkLight", "vanityMirror", "adjustableHeadrest", "rearSeatCentreArmRest", "rearACVents", "cruiseControl", "smartAccessCardEntry", "keyLessEntry", "engineStartStopButton", "cooledGlovebox", "voiceCommands", "paddleShifters", "centralConsoleArmrest", "driveModes", "idleStartStopSystem", "rearWindowSunblind", "automaticHeadlamps", "followMeHomeHeadlamps", "voiceassistedsunroof", "driveModeTypes"] as const).map((key) => (
+            {(["powerSteering", "airConditioner", "heater", "heightAdjustableDriverSeat", "ventilatedSeats", "electricAdjustableSeats", "automaticClimateControl", "airQualityControl", "accessoryPowerOutlet", "trunkLight", "rearReadingLamp", "vanityMirror", "adjustableHeadrest", "heightAdjustableFrontSeatBelts", "rearSeatCentreArmRest", "rearACVents", "cruiseControl", "smartAccessCardEntry", "keyLessEntry", "engineStartStopButton", "cooledGlovebox", "voiceCommands", "paddleShifters", "centralConsoleArmrest", "tailgateAjarWarning", "handsFreeTailgate", "driveModes", "idleStartStopSystem", "rearWindowSunblind", "automaticHeadlamps", "followMeHomeHeadlamps", "voiceassistedsunroof", "driveModeTypes"] as const).map((key) => (
               <label key={key} className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -807,7 +851,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
             />
           </div>
           <div className="grid lg:grid-cols-3 gap-3">
-            {(["tachometer", "gloveBox", "digitalCluster"] as const).map((key) => (
+            {(["tachometer", "gloveBox", "leatherWrappedSteeringWheel", "leatherwrapgearshiftselector", "digitalCluster"] as const).map((key) => (
               <label key={key} className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -826,7 +870,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
         toggleSection={toggleSection}
         >
           <div className="grid lg:grid-cols-4 gap-3 mb-4">
-            {(["antenna", "outsideRearViewMirror", "tyreSize", "tyreType", "wheelSize"] as const).map((key) => (
+            {(["antenna", "bootOpening", "outsideRearViewMirror", "tyreSize", "tyreType", "wheelSize", "additionalFeatures"] as const).map((key) => (
               <input
                 key={key}
                 value={carForm.exterior[key]}
@@ -837,7 +881,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
             ))}
           </div>
           <div className="grid lg:grid-cols-4 gap-3">
-            {(["rearWindowWiper", "rearWindowWasher", "rearWindowDefogger", "wheelCovers", "alloyWheels", "powerAntenna", "rearSpoiler", "outsideRearViewMirrorTurnIndicators", "chromeGrille", "projectorHeadlamps", "roofRails", "automaticHeadlamps", "sunroof", "puddleLamps", "ledDRLs", "ledTaillights"] as const).map((key) => (
+            {(["rainSensingWiper","rearWindowWiper", "rearWindowWasher", "rearWindowDefogger", "wheelCovers", "alloyWheels", "integratedAntenna", "powerAntenna", "rearSpoiler", "corneringFoglamps", "fogLights", "outsideRearViewMirrorTurnIndicators", "chromeGrille", "projectorHeadlamps", "roofRails", "automaticHeadlamps", "sunroof","puddleLamps", "ledDRLs", "ledHeadlamps", "ledTaillights", "ledFogLamps"] as const).map((key) => (
               <label key={key} className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -872,7 +916,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
             />
           </div>
           <div className="grid lg:grid-cols-4 gap-3">
-            {(["antilockBrakingSystem", "centralLocking", "childSafetyLocks", "antiTheftAlarm", "driverAirbag", "passengerAirbag", "sideAirbag", "sideAirbagRear", "dayandNightRearViewMirror", "curtainAirbag", "electronicBrakeforceDistribution", "seatBeltWarning", "doorAjarWarning", "tractionControl", "tyrePressureMonitoringSystem", "engineImmobilizer", "electronicStabilityControl", "rearCamera", "speedAlert", "speedSensingAutoDoorLock", "iSOFIXChildSeatMounts", "blindSpotCamera", "hillAssist", "impactSensingAutoDoorUnlock", "_360ViewCamera"] as const).map((key) => (
+            {(["antilockBrakingSystem", "brakeAssist", "centralLocking", "childSafetyLocks", "antiTheftAlarm", "driverAirbag", "passengerAirbag", "sideAirbag", "sideAirbagRear", "dayandNightRearViewMirror", "curtainAirbag", "electronicBrakeforceDistribution", "seatBeltWarning", "doorAjarWarning", "tractionControl", "tyrePressureMonitoringSystem", "engineImmobilizer", "electronicStabilityControl", "rearCamera", "speedAlert", "speedSensingAutoDoorLock", "iSOFIXChildSeatMounts", "headsUpDisplay", "blindSpotCamera", "hillDescentControl", "hillAssist", "impactSensingAutoDoorUnlock", "_360ViewCamera"] as const).map((key) => (
               <label key={key} className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -902,6 +946,12 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
               value={carForm.entertainmentAndCommunication.speakers}
               onChange={(e) => updateCarField("entertainmentAndCommunication.speakers", e.target.value)}
               placeholder="Speakers Details"
+              className="border rounded-lg px-3 py-2"
+            />
+            <input
+              value={carForm.entertainmentAndCommunication.tweeters}
+              onChange={(e) => updateCarField("entertainmentAndCommunication.tweeters", e.target.value)}
+              placeholder="Tweeters Details"
               className="border rounded-lg px-3 py-2"
             />
             <div className='flex flex-col'>
