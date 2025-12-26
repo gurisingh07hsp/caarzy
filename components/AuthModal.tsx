@@ -2,6 +2,8 @@ import React from 'react'
 import { useState } from 'react';
 import axios from 'axios';
 import { useUser } from '@/context/UserContext';
+import {signIn} from "next-auth/react";
+import { FcGoogle } from "react-icons/fc";
 interface PageProps {
     closeModal: (value: boolean) => void;
 }
@@ -97,7 +99,9 @@ const AuthModal = ({closeModal}:PageProps) => {
                 <div className='w-[50%] border'></div>
             </div>
             <div className='flex justify-center mt-2'>
-                <button className='border rounded-lg py-2 w-[90%]'>Continue with Google</button>
+                <button onClick={() => signIn("google", { callbackUrl: "/" })} className='flex items-center justify-center border rounded-lg py-2 w-[90%]'>
+                <FcGoogle className="mr-2 size-5" />
+                Continue with Google</button>
             </div>
         </div>
     </div>

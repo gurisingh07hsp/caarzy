@@ -29,7 +29,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     exteriorImages: string[];
     interiorImages: string[];
     description: string;
-    colors: string[];
+    colors: {colorCode: string, colorName: string}[];
     pros: string[];
     cons: string[];
     isFeatured: boolean,
@@ -44,7 +44,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     exteriorImages: [],
     interiorImages: [],
     description: '',
-    colors: [],
+    colors: [{colorCode: '', colorName: ''}],
     pros: [],
     cons: [],
     isFeatured: false,
@@ -59,11 +59,14 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
   const [interiorImageFiles, setInteriorImageFiles] = useState<File[]>([]);
   const [pros, setPros] = useState<string>('');
   const [cons, setCons] = useState<string>('');
-  const [colors, setColors] = useState<string[]>([]);
+  const [colors, setColors] = useState<{colorCode: string, colorName: string}[]>([]);
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState<string>('');
   const [isEditing, setIsEditing] = useState(false);
-  const [newColor, setNewColor] = useState('');
+  const [newColor, setNewColor] = useState({
+    colorCode: '',
+    colorName: '',
+  });
   const [searchModelQuery, setSearchModelQuery] = useState('');
   const [searchCarQuery, setSearchCarQuery] = useState('');
 
@@ -78,6 +81,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
 
   useEffect(()=> {
     setForm({...form, colors: colors});
+    console.log(form);
   },[colors]);
 
   useEffect(()=> {
@@ -88,14 +92,32 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     setForm({...form, cons: consList});
   },[consList]);
 
-  function addColor() {
-    if (!colors.includes(newColor)) setColors((c) => [...c, newColor]);
-    setNewColor('');
+function addColor() {
+  // prevent empty values
+  if (newColor.colorName == '' || newColor.colorCode == '') return;
+
+  // check if color already exists
+  const exists = colors.some(
+    (color) =>
+      color.colorName.toLowerCase() === newColor.colorName.toLowerCase()
+  );
+
+  if (!exists) {
+    setColors((prev) => [...prev, newColor]);
   }
 
-  function removeColor(c: string) {
-    setColors((list) => list.filter((x) => x !== c));
-  }
+  // reset input
+  setNewColor({
+    colorCode: '',
+    colorName: '',
+  });
+}
+
+function removeColor(colorName: string) {
+  setColors((prev) =>
+    prev.filter((color) => color.colorName !== colorName)
+  );
+}
 
   const resetData = ()=>{
     setForm({
@@ -122,7 +144,10 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     setInteriorPreviews([]);
     setPros('');
     setCons('');
-    setNewColor('');
+    setNewColor({
+      colorCode: '',
+      colorName: ''
+    });
     setIsEditing(false);
     setId('');
   }
@@ -326,13 +351,17 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
 
   // Edit Models
   const handleEditModel = (model: Model) => {
-    setForm({...form, ...model})
+    const { colors, ...modelWithoutColors } = model;
+    setForm({...form, ...modelWithoutColors})
     const pros = model.pros.join(',');
     const cons = model.cons.join(',');
     setIsEditing(true);
     setPros(pros);
     setCons(cons);
-    setColors(model.colors);
+    const formattedColors = Array.isArray(model.colors) && typeof model.colors[0] === 'object' 
+      ? (model.colors as unknown as {colorCode: string, colorName: string}[])
+      : [{colorCode: '', colorName: ''}];
+    setColors(formattedColors);
     setId(model._id as string);
   }
 
@@ -602,14 +631,15 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
       <div>
         <label className="block mt-4 text-sm font-medium text-gray-700 mb-2">Colors</label>
         <div className="flex lg:flex-row flex-col lg:items-center gap-2">
-          <input type="text" value={newColor} onChange={(e) => setNewColor(e.target.value)} className="py-2 px-2 border rounded-lg" />
+          <input type="text" value={newColor.colorCode} onChange={(e) => setNewColor({...newColor, colorCode: e.target.value})} className="py-2 px-2 border rounded-lg" />
+          <input type="text" value={newColor.colorName} onChange={(e) => setNewColor({...newColor, colorName: e.target.value})} className="py-2 px-2 border rounded-lg" />
           <button type="button" onClick={addColor} className="px-3 py-2 rounded bg-orange-500 text-white hover:bg-orange-600">Add Color</button>
         </div>
         <div className="flex flex-wrap gap-2 mt-3">
-          {colors.map((c) => (
-            <button key={c} type="button" onClick={() => removeColor(c)} className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-sm">
-              <span className="w-4 h-4 rounded-full border" style={{ backgroundColor: c }} />
-              {c}
+          {colors.map((c: any) => (
+            <button key={c.colorName} type="button" onClick={() => removeColor(c.colorName)} className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-sm">
+              <span className="w-4 h-4 rounded-full border" style={{ backgroundColor: c.colorCode }} />
+              {c.colorName}
               <span className="text-gray-500">×</span>
             </button>
           ))}

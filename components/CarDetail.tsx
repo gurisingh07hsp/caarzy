@@ -483,9 +483,20 @@ export function CarDetail() {
         ))}
       </ul>
     </div>
-
   </div>
 </div>
+
+  <div className='lg:max-w-2xl h-32 border mt-8 rounded-2xl p-4'>
+    <h2 className='lg:text-xl text-lg font-medium'>Colours</h2>
+    <div className='mt-4 space-x-2 space-y-2'>
+    {car.colors.map((c: any) => (
+      <div key={c.colorName} className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-sm">
+        <span className="w-4 h-4 rounded-full border" style={{ backgroundColor: c.colorCode }} />
+        {c.colorName}
+      </div>
+      ))}
+    </div>
+  </div>
 
 
         <aside className="lg:hidden block mt-4">
@@ -510,51 +521,6 @@ export function CarDetail() {
             </div>
           </div>
         </aside>
-
-      {/* Similar price segment compare table */}
-      {/* <div className="mt-12 bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div className="px-4 py-4 border-b">
-          <h3 className="text-lg font-semibold">Compare with similar price segment cars</h3>
-        </div>
-        {(() => {
-          const similar = mockCars
-            .filter(c => c._id !== car._id && Math.abs(c.price - car.price) <= car.price * 0.25)
-            .sort((a,b) => a.price - b.price)
-            .slice(0, 6);
-          return (
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-sm">
-                <thead className="bg-gray-50 text-gray-600">
-                  <tr>
-                    <th className="text-left px-4 py-3 font-medium">Car</th>
-                    <th className="text-left px-4 py-3 font-medium">Image</th>
-                    <th className="text-left px-4 py-3 font-medium">On-Road Price</th>
-                    <th className="text-left px-4 py-3 font-medium">Fuel</th>
-                    <th className="text-left px-4 py-3 font-medium">Mileage</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {similar.map((s) => (
-                    <tr key={s._id} className="border-t">
-                      <td className="px-4 py-3 whitespace-nowrap font-medium text-gray-900">{s.brand} {s.name}</td>
-                      <td className="px-4 py-3">
-                       
-                        <img src={s.images[0]} alt={s.name} className="w-28 h-16 object-cover rounded" />
-                      </td>
-                      <td className="px-4 py-3">₹{(s.price/100000).toFixed(2)} Lakh</td>
-                      <td className="px-4 py-3">{s.fuelType}</td>
-                      <td className="px-4 py-3">{s.mileage} km/l</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              {similar.length === 0 && (
-                <div className="px-4 py-6 text-sm text-gray-600">No similar cars found near this price.</div>
-              )}
-            </div>
-          );
-        })()}
-      </div> */}
       {breakupOpen && renderBreakup()}
 
 

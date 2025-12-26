@@ -341,7 +341,7 @@ const carSchema = new mongoose.Schema<ICar>({
     ledHeadlamps: { type: Boolean },
     ledTaillights: { type: Boolean },
     ledFogLamps: { type: Boolean },
-    additionalFeatures: { type: Boolean },
+    additionalFeatures: { type: String },
   },
   safety: {
     antilockBrakingSystem: { type: Boolean },

@@ -9,7 +9,7 @@ export interface IModel extends mongoose.Document {
   interiorImages: string[];
   variant: mongoose.Types.ObjectId[]; 
   description: string;
-  colors: string[];
+  colors: {colorCode: string, colorName: string}[];
   pros: string[];
   cons: string[];
   isFeatured: boolean;
@@ -27,7 +27,7 @@ const modelSchema = new mongoose.Schema<IModel>({
     interiorImages: {type: [String]},
     variant: [{type: mongoose.Schema.Types.ObjectId, ref: 'Car'}],
     description: {type: String},
-    colors: {type: [String]},
+    colors: [{colorCode:{type: String}, colorName:{type: String}}],
     pros: {type: [String]},
     cons: {type: [String]},
     isFeatured: {type: Boolean},

@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer'
 import { UserProvider } from '@/context/UserContext'
 import { Toaster } from "react-hot-toast";
 import { Header } from '@/components/Header'
+import { Providers } from './Providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,10 +24,12 @@ export default function RootLayout({
       <body className={inter.className} suppressHydrationWarning>
         <main className="min-h-screen">
         <Toaster position="top-right" />
+        <Providers>
           <UserProvider>
           <Header/>
           {children}
           </UserProvider>
+          </Providers>
         </main>
         <Footer />
       </body>

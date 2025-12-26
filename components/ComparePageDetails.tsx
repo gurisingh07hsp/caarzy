@@ -409,6 +409,10 @@ const ComparePageDetails = () => {
                       selectedVariant1?.suspensionAndSteeringAndBrakes?.steeringColumn,
                       selectedVariant2?.suspensionAndSteeringAndBrakes?.steeringColumn
                     ],
+                    ["Turning Radius",
+                      selectedVariant1?.suspensionAndSteeringAndBrakes.turningRadius,
+                      selectedVariant2?.suspensionAndSteeringAndBrakes.turningRadius
+                    ],
                     [
                       "Front Brake Type",
                       selectedVariant1?.suspensionAndSteeringAndBrakes?.frontBrakeType,
@@ -418,7 +422,12 @@ const ComparePageDetails = () => {
                       "Rear Brake Type",
                       selectedVariant1?.suspensionAndSteeringAndBrakes?.rearBrakeType,
                       selectedVariant2?.suspensionAndSteeringAndBrakes?.rearBrakeType
-                    ]
+                    ],
+                     [
+                      "Boot Space Rear Seat Folding", 
+                      selectedVariant1?.suspensionAndSteeringAndBrakes.bootSpaceRearSeatFolding,
+                      selectedVariant2?.suspensionAndSteeringAndBrakes.bootSpaceRearSeatFolding
+                    ],
                   ].map(([label, value1, value2], idx) => (
                       <div key={idx} className="space-y-2 mb-4">
                       <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
@@ -463,6 +472,11 @@ const ComparePageDetails = () => {
                       "Seating Capacity",
                       selectedVariant1?.dimensionsAndCapacity?.seatingCapacity,
                       selectedVariant2?.dimensionsAndCapacity?.seatingCapacity
+                    ],
+                    [
+                      "Ground Clearance Unladen", 
+                      selectedVariant1?.dimensionsAndCapacity.groundClearanceUnladen,
+                      selectedVariant2?.dimensionsAndCapacity.groundClearanceUnladen
                     ],
                     [
                       "Wheel Base",
@@ -534,6 +548,11 @@ const ComparePageDetails = () => {
                       selectedVariant2?.comfortAndConvenience?.automaticClimateControl
                     ],
                     [
+                      "Air Quality Control", 
+                      selectedVariant1?.comfortAndConvenience.airQualityControl,
+                      selectedVariant2?.comfortAndConvenience.airQualityControl
+                    ],
+                    [
                       "Accessory Power Outlet",
                       selectedVariant1?.comfortAndConvenience?.accessoryPowerOutlet,
                       selectedVariant2?.comfortAndConvenience?.accessoryPowerOutlet
@@ -547,6 +566,10 @@ const ComparePageDetails = () => {
                       "Vanity Mirror",
                       selectedVariant1?.comfortAndConvenience?.vanityMirror,
                       selectedVariant2?.comfortAndConvenience?.vanityMirror
+                    ],
+                    ["Rear Reading Lamp", 
+                      selectedVariant1?.comfortAndConvenience?.rearReadingLamp,
+                      selectedVariant2?.comfortAndConvenience?.rearReadingLamp
                     ],
                     [
                       "Rear Seat Headrest",
@@ -562,6 +585,11 @@ const ComparePageDetails = () => {
                       "Rear Seat Centre Arm Rest",
                       selectedVariant1?.comfortAndConvenience?.rearSeatCentreArmRest,
                       selectedVariant2?.comfortAndConvenience?.rearSeatCentreArmRest
+                    ],
+                     [
+                      "Height Adjustable Front Seat Belts", 
+                      selectedVariant1?.comfortAndConvenience.heightAdjustableFrontSeatBelts,
+                      selectedVariant2?.comfortAndConvenience.heightAdjustableFrontSeatBelts
                     ],
                     [
                       "Rear AC Vents",
@@ -622,6 +650,16 @@ const ComparePageDetails = () => {
                       "Central Console Armrest",
                       selectedVariant1?.comfortAndConvenience?.centralConsoleArmrest,
                       selectedVariant2?.comfortAndConvenience?.centralConsoleArmrest
+                    ],
+                    [
+                      "Tailgate Ajar Warning", 
+                      selectedVariant1?.comfortAndConvenience.tailgateAjarWarning,
+                      selectedVariant2?.comfortAndConvenience.tailgateAjarWarning
+                    ],
+                    [
+                      "Hands-Free Tailgate", 
+                      selectedVariant1?.comfortAndConvenience.handsFreeTailgate,
+                      selectedVariant2?.comfortAndConvenience.handsFreeTailgate
                     ],
                     [
                       "Drive Modes",
@@ -694,6 +732,16 @@ const ComparePageDetails = () => {
                       selectedVariant2?.interior?.tachometer
                     ],
                     [
+                      "Leather Wrapped Steering Wheel", 
+                      selectedVariant1?.interior.leatherWrappedSteeringWheel,
+                      selectedVariant2?.interior.leatherWrappedSteeringWheel
+                    ],
+                    [
+                      "Leather wrap gear-shift selector", 
+                      selectedVariant1.interior.leatherwrapgearshiftselector,
+                      selectedVariant2.interior.leatherwrapgearshiftselector
+                    ],
+                    [
                       "Glove Box",
                       selectedVariant1?.interior?.gloveBox,
                       selectedVariant2?.interior?.gloveBox
@@ -723,6 +771,22 @@ const ComparePageDetails = () => {
                       </div>
                   ))}
                   </div>
+                  <div className="flex justify-around">
+                    <div className="space-y-4">
+                      {car1.interiorImages.map((src: string,index: number)=> (
+                        <div key={index}>
+                          <img src={src} alt='interior images' className="w-44 h-28" />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="space-y-4">
+                      {car2.interiorImages.map((src: string, index: number)=> (
+                        <div key={index}>
+                          <img src={src} alt='interior images' className="w-44 h-28" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
             </Section>
         </div>
 
@@ -732,6 +796,11 @@ const ComparePageDetails = () => {
             toggleSection={toggleSection}>
             <div className=''>
                   {[
+                    [
+                      "Rain Sensing Wiper", 
+                      selectedVariant1?.exterior.rainSensingWiper,
+                      selectedVariant2?.exterior.rainSensingWiper
+                    ],
                     [
                       "Rear Window Wiper",
                       selectedVariant1?.exterior?.rearWindowWiper,
@@ -773,6 +842,11 @@ const ComparePageDetails = () => {
                       selectedVariant2?.exterior?.outsideRearViewMirrorTurnIndicators
                     ],
                     [
+                      "Integrated Antenna", 
+                      selectedVariant1.exterior.integratedAntenna,
+                      selectedVariant2.exterior.integratedAntenna
+                    ],
+                    [
                       "Chrome Grille",
                       selectedVariant1?.exterior?.chromeGrille,
                       selectedVariant2?.exterior?.chromeGrille
@@ -781,6 +855,11 @@ const ComparePageDetails = () => {
                       "Projector Headlamps",
                       selectedVariant1?.exterior?.projectorHeadlamps,
                       selectedVariant2?.exterior?.projectorHeadlamps
+                    ],
+                    [
+                      "Cornering Foglamps", 
+                      selectedVariant1.exterior.corneringFoglamps,
+                      selectedVariant2.exterior.corneringFoglamps
                     ],
                     [
                       "Roof Rails",
@@ -793,6 +872,11 @@ const ComparePageDetails = () => {
                       selectedVariant2?.exterior?.automaticHeadlamps
                     ],
                     [
+                      "Fog Lights", 
+                      selectedVariant1.exterior.fogLights,
+                      selectedVariant2.exterior.fogLights
+                    ],
+                    [
                       "Antenna",
                       selectedVariant1?.exterior?.antenna,
                       selectedVariant2?.exterior?.antenna
@@ -801,6 +885,10 @@ const ComparePageDetails = () => {
                       "Sunroof",
                       selectedVariant1?.exterior?.sunroof,
                       selectedVariant2?.exterior?.sunroof
+                    ],
+                    ["Boot Opening", 
+                      selectedVariant1?.exterior.bootOpening,
+                      selectedVariant2?.exterior.bootOpening
                     ],
                     [
                       "Puddle Lamps",
@@ -833,10 +921,25 @@ const ComparePageDetails = () => {
                       selectedVariant2?.exterior?.ledDRLs
                     ],
                     [
+                      "LED Headlamps", 
+                      selectedVariant1?.exterior.ledHeadlamps,
+                      selectedVariant2?.exterior.ledHeadlamps
+                    ],
+                    [
                       "LED Taillights",
                       selectedVariant1?.exterior?.ledTaillights,
                       selectedVariant2?.exterior?.ledTaillights
-                    ]
+                    ],
+                    [
+                      "LED Fog Lamps", 
+                      selectedVariant1?.exterior.ledFogLamps,
+                      selectedVariant2?.exterior.ledFogLamps
+                    ],
+                    [
+                      "Additional Features", 
+                      selectedVariant1?.exterior.additionalFeatures,
+                      selectedVariant2?.exterior.additionalFeatures
+                    ],
                   ]
                   .map(([label, value1, value2], idx) => (
                       <div key={idx} className="space-y-2 mb-4">
@@ -847,6 +950,22 @@ const ComparePageDetails = () => {
                       </div>
                       </div>
                   ))}
+                  </div>
+                  <div className="flex gap-2 justify-around">
+                    <div className="space-y-4">
+                      {car1.exteriorImages.map((src: string,index: number)=> (
+                        <div key={index}>
+                          <img src={src} alt='interior images' className="w-44 h-28" />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="space-y-4">
+                      {car2.exteriorImages.map((src: string, index: number)=> (
+                        <div key={index}>
+                          <img src={src} alt='interior images' className="w-44 h-28" />
+                        </div>
+                      ))}
+                    </div>
                   </div>
             </Section>
         </div>
@@ -862,6 +981,11 @@ const ComparePageDetails = () => {
                       "Anti-lock Braking System (ABS)",
                       selectedVariant1?.safety?.antilockBrakingSystem,
                       selectedVariant2?.safety?.antilockBrakingSystem
+                    ],
+                    [
+                      "Brake Assist", 
+                      selectedVariant1?.safety.brakeAssist,
+                      selectedVariant2?.safety.brakeAssist
                     ],
                     [
                       "Central Locking",
@@ -969,6 +1093,11 @@ const ComparePageDetails = () => {
                       selectedVariant2?.safety?.iSOFIXChildSeatMounts
                     ],
                     [
+                      "Heads-Up Display (HUD)", 
+                      selectedVariant1?.safety.headsUpDisplay,
+                      selectedVariant2?.safety.headsUpDisplay
+                    ],
+                    [
                       "Pretensioners & Force Limiter Seatbelts",
                       selectedVariant1?.safety?.pretensionersandForceLimiterSeatbelts,
                       selectedVariant2?.safety?.pretensionersandForceLimiterSeatbelts
@@ -977,6 +1106,11 @@ const ComparePageDetails = () => {
                       "Blind Spot Camera",
                       selectedVariant1?.safety?.blindSpotCamera,
                       selectedVariant2?.safety?.blindSpotCamera
+                    ],
+                    [
+                      "Hill Descent Control", 
+                      selectedVariant1?.safety.hillDescentControl,
+                      selectedVariant2?.safety.hillDescentControl
                     ],
                     [
                       "Hill Assist",
@@ -1063,6 +1197,11 @@ const ComparePageDetails = () => {
                       selectedVariant2?.entertainmentAndCommunication?.additionalFeatures
                     ],
                     [
+                      "Tweeters", 
+                      selectedVariant1?.entertainmentAndCommunication.tweeters,
+                      selectedVariant2?.entertainmentAndCommunication.tweeters,
+                    ],
+                    [
                       "Speakers",
                       selectedVariant1?.entertainmentAndCommunication?.speakers,
                       selectedVariant2?.entertainmentAndCommunication?.speakers
@@ -1086,8 +1225,63 @@ const ComparePageDetails = () => {
             toggleSection={toggleSection}>
             <div className=''>
                   {[
-                      ["Blind Spot Monitor", selectedVariant1.ADASFeature.blindSpotMonitor, selectedVariant2.ADASFeature.blindSpotMonitor],
-                    ].map(([label, value1, value2], idx) => (
+                    ["Blind Spot Monitor",
+                      selectedVariant1?.ADASFeature?.blindSpotMonitor,
+                      selectedVariant2?.ADASFeature?.blindSpotMonitor
+                    ],
+                    ["Forward Collision Warning",
+                      selectedVariant1?.ADASFeature?.forwardCollisionWarning,
+                      selectedVariant2?.ADASFeature?.forwardCollisionWarning
+                    ],
+                    ["Automatic Emergency Braking",
+                      selectedVariant1?.ADASFeature?.automaticEmergencyBraking,
+                      selectedVariant2?.ADASFeature?.automaticEmergencyBraking
+                    ],
+                    ["Speed Assist System",
+                      selectedVariant1?.ADASFeature?.speedAssistSystem,
+                      selectedVariant2?.ADASFeature?.speedAssistSystem
+                    ],
+                    ["Traffic Sign Recognition",
+                      selectedVariant1?.ADASFeature?.trafficSignRecognition,
+                      selectedVariant2?.ADASFeature?.trafficSignRecognition
+                    ],
+                    ["Blind Spot Collision Avoidance Assist",
+                      selectedVariant1?.ADASFeature?.blindSpotCollisionAvoidanceAssist,
+                      selectedVariant2?.ADASFeature?.blindSpotCollisionAvoidanceAssist
+                    ],
+                    ["Lane Departure Warning",
+                      selectedVariant1?.ADASFeature?.laneDepartureWarning,
+                      selectedVariant2?.ADASFeature?.laneDepartureWarning
+                    ],
+                    ["Lane Keep Assist",
+                      selectedVariant1?.ADASFeature?.laneKeepAssist,
+                      selectedVariant2?.ADASFeature?.laneKeepAssist
+                    ],
+                    ["Lane Departure Prevention Assist",
+                      selectedVariant1?.ADASFeature?.laneDeparturePreventionAssist,
+                      selectedVariant2?.ADASFeature?.laneDeparturePreventionAssist
+                    ],
+                    ["Driver Attention Warning",
+                      selectedVariant1?.ADASFeature?.driverAttentionWarning,
+                      selectedVariant2?.ADASFeature?.driverAttentionWarning
+                    ],
+                    ["Adaptive Cruise Control",
+                      selectedVariant1?.ADASFeature?.adaptiveCruiseControl,
+                      selectedVariant2?.ADASFeature?.adaptiveCruiseControl
+                    ],
+                    ["Adaptive High Beam Assist",
+                      selectedVariant1?.ADASFeature?.adaptiveHighBeamAssist,
+                      selectedVariant2?.ADASFeature?.adaptiveHighBeamAssist
+                    ],
+                    ["Rear Cross Traffic Alert",
+                      selectedVariant1?.ADASFeature?.rearCrossTrafficAlert,
+                      selectedVariant2?.ADASFeature?.rearCrossTrafficAlert
+                    ],
+                    ["Rear Cross Traffic Collision-Avoidance Assist",
+                      selectedVariant1?.ADASFeature?.rearCrossTrafficCollisionAvoidanceAssist,
+                      selectedVariant2?.ADASFeature?.rearCrossTrafficCollisionAvoidanceAssist
+                    ],
+                  ].map(([label, value1, value2], idx) => (
                     <div key={idx} className="space-y-2 mb-4">
                     <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
                     <div className="px-4 py-2 border flex justify-around rounded-lg">
@@ -1120,7 +1314,27 @@ const ComparePageDetails = () => {
                       "Inbuilt APPs",
                       selectedVariant1?.advanceInternetFeature?.inbuiltApps,
                       selectedVariant2?.advanceInternetFeature?.inbuiltApps
-                    ]
+                    ],
+                    [
+                      "Navigation with Live Traffic", 
+                      selectedVariant1?.advanceInternetFeature.navigationwithLiveTraffic,
+                      selectedVariant2?.advanceInternetFeature.navigationwithLiveTraffic
+                    ],
+                    [
+                      "E-Call & I-Call", 
+                      selectedVariant1?.advanceInternetFeature.ecallAndIcall,
+                      selectedVariant2?.advanceInternetFeature.ecallAndIcall
+                    ],
+                    [
+                      "Google / Alexa Connectivity ", 
+                      selectedVariant1?.advanceInternetFeature.googleAlexaConnectivity,
+                      selectedVariant2?.advanceInternetFeature.googleAlexaConnectivity
+                    ],
+                    [
+                      "SOS Button", 
+                      selectedVariant1?.advanceInternetFeature.SOSButton,
+                      selectedVariant2?.advanceInternetFeature.SOSButton
+                    ],
                   ].map(([label, value1, value2], idx) => (
                     <div key={idx} className="space-y-2 mb-4">
                     <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
