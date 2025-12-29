@@ -57,13 +57,13 @@ export function AdminDashboard({
 
   const sidebarItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'cars', label: 'My Cars', icon: List },
+    { id: 'add-car', label: 'Add Car', icon: Plus },
+    // { id: 'cars', label: 'My Cars', icon: List },
     { id: 'compare cars', label: 'Compare Cars', icon: Package},
     { id: 'blogs', label: 'My Blogs', icon: FileText },
-    { id: 'favorites', label: 'My Favorites', icon: Heart },
-    { id: 'reviews', label: 'My Reviews', icon: MessageSquare },
-    { id: 'profile', label: 'My Profile', icon: User },
-    { id: 'add-car', label: 'Add Car', icon: Plus },
+    // { id: 'favorites', label: 'My Favorites', icon: Heart },
+    // { id: 'reviews', label: 'My Reviews', icon: MessageSquare },
+    // { id: 'profile', label: 'My Profile', icon: User },
   ];
 
   const renderContent = () => {

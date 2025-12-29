@@ -5,9 +5,15 @@ import { Model } from '@/types/Car';
 import axios from 'axios';
 import AddCar from './AddCar';
 import toast from "react-hot-toast";
-import { Edit, Eye, Filter, Search, Trash2 } from 'lucide-react';
+import { Edit, Eye, Search, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { mockBrands } from '@/data/mockBrands';
+import dynamic from 'next/dynamic';
+
+const TiptapEditor = dynamic(() => import('@/components/TipTapEditor'), {
+  ssr: false,
+  loading: () => <p>Loading editor...</p>
+});
 
 interface AdminPanelProps {
   models: Model[];
@@ -54,7 +60,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
 
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [operation, setOperation] = useState<'add' | 'update'>('add');
-  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imageFiles, setImageFiles] = useState<File[]>([])
   const [exteriorImageFiles, setExteriorImageFiles] = useState<File[]>([]);
   const [interiorImageFiles, setInteriorImageFiles] = useState<File[]>([]);
   const [pros, setPros] = useState<string>('');
@@ -435,7 +441,14 @@ function removeColor(colorName: string) {
           ))}
         </select>
       </div>
-      <textarea value={form.description} onChange={(e)=> setForm({...form, description: e.target.value})} placeholder="Description" className="border mt-4 rounded-lg px-3 py-2 w-full min-h-32" />
+      
+      <div className='mt-4'>
+        <TiptapEditor
+          value={form.description}
+          onChange={(description: any) => setForm({ ...form, description: description })}
+        />
+      </div>
+      {/* <textarea value={form.description} onChange={(e)=> setForm({...form, description: e.target.value})} placeholder="Description" className="border mt-4 rounded-lg px-3 py-2 w-full min-h-32" /> */}
 
 
         {/* Featured Images */}

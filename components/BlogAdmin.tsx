@@ -2,8 +2,16 @@
 
 import React, { useState, useRef } from 'react';
 import { BlogPost } from '@/types/BlogPost';
-import { Plus, Edit, Trash2, Eye, Calendar, User, Tag, Upload, Image, Bold, Italic, List, Link, Quote, Type } from 'lucide-react';
+import { Plus, Edit, Trash2, Calendar, User, Tag, Upload, Image, Bold, Italic, List, Link, Quote} from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import dynamic from 'next/dynamic';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+
+const TiptapEditor = dynamic(() => import('@/components/TipTapEditor'), {
+  ssr: false,
+  loading: () => <p>Loading editor...</p>
+});
 
 interface BlogAdminProps {
   blogs: BlogPost[];
@@ -15,6 +23,10 @@ interface BlogAdminProps {
 export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: BlogAdminProps) {
   const [showForm, setShowForm] = useState(false);
   const [editingBlog, setEditingBlog] = useState<BlogPost | null>(null);
+  const [featuredImageFiles, setFeaturedImageFiles] = useState<File[]>([]);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [featuredPreviews, setFeaturedPreviews] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     title: '',
     excerpt: '',
@@ -32,11 +44,6 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
     slug: '',
     canonicalUrl: '',
   });
-  
-  const [uploadingImage, setUploadingImage] = useState(false);
-  const [uploadingFeaturedImage, setUploadingFeaturedImage] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const featuredImageInputRef = useRef<HTMLInputElement>(null);
 
   // Generate URL slug from title
   const generateSlug = (title: string) => {
@@ -86,106 +93,134 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
     });
     setEditingBlog(null);
     setShowForm(false);
+    setFeaturedImageFiles([]);
+    setImageFiles([]);
+    setImagePreviews([]);
+    setFeaturedPreviews([]);
+
   };
 
-  // Image upload functionality
-  const handleImageUpload = async (file: File, type: 'image' | 'featuredImage') => {
-    if (!file) return;
-    
-    const uploadingState = type === 'image' ? setUploadingImage : setUploadingFeaturedImage;
-    uploadingState(true);
-    
+      // Upload single image to Cloudinary
+  const uploadImageToCloudinary = async (file: File): Promise<string | null> => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!); // Replace with your Cloudinary upload preset
+    // formData.append('cloud_name', 'your_cloud_name'); // Replace with your Cloudinary cloud name
+
     try {
-      // In a real app, you would upload to a service like Cloudinary, AWS S3, etc.
-      // For demo purposes, we'll create a data URL
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        if (type === 'image') {
-          setFormData(prev => ({ ...prev, image: result }));
-        } else {
-          setFormData(prev => ({ ...prev, featuredImage: result }));
-        }
-        uploadingState(false);
-      };
-      reader.readAsDataURL(file);
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, // Replace with your cloud name
+        formData
+      );
+
+    let url = response.data.secure_url;
+    url = url.replace(
+      '/upload/',
+      '/upload/f_webp,q_auto:best,w_1920/'
+    );
+    
+    return url;
     } catch (error) {
       console.error('Error uploading image:', error);
-      uploadingState(false);
+      toast.error('Failed to upload image');
+      return null;
     }
   };
 
-  // Content formatting functions
-  const formatText = (format: string) => {
-    const textarea = document.getElementById('content') as HTMLTextAreaElement;
-    if (!textarea) return;
+  // Upload multiple images
+  const uploadMultipleImages = async (files: File[]): Promise<string[]> => {
+    const uploadPromises = files.map(file => uploadImageToCloudinary(file));
+    const results = await Promise.all(uploadPromises);
+    return results.filter((url): url is string => url !== null);
+  };
+
+
+// Handle file selection with preview
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: 'featuredImage' | 'image'
+  ) => {
+    const files = Array.from(e.target.files || []);
     
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const selectedText = formData.content.substring(start, end);
-    const before = formData.content.substring(0, start);
-    const after = formData.content.substring(end);
-    
-    let formattedText = '';
-    
-    switch (format) {
-      case 'bold':
-        formattedText = `**${selectedText}**`;
-        break;
-      case 'italic':
-        formattedText = `*${selectedText}*`;
-        break;
-      case 'h1':
-        formattedText = `# ${selectedText}`;
-        break;
-      case 'h2':
-        formattedText = `## ${selectedText}`;
-        break;
-      case 'h3':
-        formattedText = `### ${selectedText}`;
-        break;
-      case 'h4':
-        formattedText = `#### ${selectedText}`;
-        break;
-      case 'h5':
-        formattedText = `##### ${selectedText}`;
-        break;
-      case 'quote':
-        formattedText = `> ${selectedText}`;
-        break;
-      case 'list':
-        formattedText = `- ${selectedText}`;
-        break;
-      case 'link':
-        const url = prompt('Enter URL:');
-        if (url) {
-          formattedText = `[${selectedText}](${url})`;
-        } else {
-          return;
-        }
-        break;
+    if (files.length === 0) return;
+
+    // Create preview URLs
+    const previewUrls = files.map(file => URL.createObjectURL(file));
+
+    switch (type) {
       case 'image':
-        const imageUrl = prompt('Enter image URL:');
-        if (imageUrl) {
-          formattedText = `![${selectedText}](${imageUrl})`;
-        } else {
-          return;
-        }
+        setImageFiles(prev => [...prev, ...files]);
+        setImagePreviews(prev => [...prev, ...previewUrls]);
+        break;
+      case 'featuredImage':
+        setFeaturedImageFiles(prev => [...prev, ...files]);
+        setFeaturedPreviews(prev => [...prev, ...previewUrls]);
         break;
     }
-    
-    const newContent = before + formattedText + after;
-    setFormData(prev => ({ ...prev, content: newContent }));
-    
-    // Restore cursor position
-    setTimeout(() => {
-      textarea.focus();
-      textarea.setSelectionRange(start + formattedText.length, start + formattedText.length);
-    }, 0);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Remove image from preview (before upload)
+  const removePreviewImage = (
+    index: number,
+    type: 'featuredImage' | 'image'
+  ) => {
+    switch (type) {
+      case 'image':
+        setImageFiles(prev => prev.filter((_, i) => i !== index));
+        setImagePreviews(prev => {
+          URL.revokeObjectURL(prev[index]);
+          return prev.filter((_, i) => i !== index);
+        });
+        break;
+      case 'featuredImage':
+        setFeaturedImageFiles(prev => prev.filter((_, i) => i !== index));
+        setFeaturedPreviews(prev => {
+          URL.revokeObjectURL(prev[index]);
+          return prev.filter((_, i) => i !== index);
+        });
+        break;
+    }
+  };
+
+  // Remove uploaded image (after upload)
+  const removeUploadedImage = (
+    type: 'featuredImage' | 'image'
+  ) => {
+    switch (type) {
+      case 'image':
+        setFormData(prev => ({
+          ...prev,
+          image: ''
+        }));
+        break;
+      case 'featuredImage':
+        setFormData(prev => ({
+          ...prev,
+          featuredImage: ''
+        }));
+        break;
+    }
+  };
+
+
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
+
+
+          // Upload all new images to Cloudinary
+      const [imageUrls,featuredUrls] = await Promise.all([
+        uploadMultipleImages(imageFiles),
+        uploadMultipleImages(featuredImageFiles),
+      ]);
+
+      // Combine existing images with newly uploaded ones
+      const updatedForm = {
+        ...formData,
+        featuredImage: featuredUrls[0],
+        image: imageUrls[0],
+      };
+
+      console.log('updatedForm : ', updatedForm);
 
     if (editingBlog) {
        const newBlog: BlogPost = {
@@ -196,8 +231,8 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
         author: formData.author,
         publishDate: ((editingBlog as any)?.publishDate) || new Date().toISOString().split('T')[0],
         category: formData.category,
-        image: formData.image,
-        featuredImage: formData.featuredImage,
+        image: updatedForm.image,
+        featuredImage: updatedForm.featuredImage,
         readTime: formData.readTime,
         tags: formData.tags,
         metaTitle: formData.metaTitle || formData.title,
@@ -215,8 +250,8 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
         author: formData.author,
         publishDate: ((editingBlog as any)?.publishDate) || new Date().toISOString().split('T')[0],
         category: formData.category,
-        image: formData.image,
-        featuredImage: formData.featuredImage,
+        image: updatedForm.image,
+        featuredImage: updatedForm.featuredImage,
         readTime: formData.readTime,
         tags: formData.tags,
         metaTitle: formData.metaTitle || formData.title,
@@ -357,91 +392,135 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
 
             {/* Featured Image Upload */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <input
-                    type="url"
-                    value={formData.featuredImage}
-                    onChange={(e) => setFormData(prev => ({ ...prev, featuredImage: e.target.value }))}
-                    placeholder="Or enter image URL"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                  />
-                </div>
-                <button
-                  type="button"
-                  onClick={() => featuredImageInputRef.current?.click()}
-                  disabled={uploadingFeaturedImage}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 disabled:opacity-50"
-                >
-                  <Upload className="h-4 w-4" />
-                  {uploadingFeaturedImage ? 'Uploading...' : 'Upload'}
-                </button>
-                <input
-                  ref={featuredImageInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) handleImageUpload(file, 'featuredImage');
-                  }}
-                  className="hidden"
-                />
-              </div>
-              {formData.featuredImage && (
-                <div className="mt-2">
-                  <img
-                    src={formData.featuredImage}
-                    alt="Featured preview"
-                    className="w-32 h-20 object-cover rounded-lg border"
-                  />
-                </div>
-              )}
-            </div>
+              <div>
 
-            {/* Content Image Upload */}
+
+        {/* Featured Images */}
+        <div>
+          <label className="block mt-4 text-sm font-medium text-gray-700 mb-1">
+            Featured Images
+          </label>
+          <input 
+            type='file' 
+            multiple 
+            accept="image/*"
+            onChange={(e) => handleFileChange(e, 'featuredImage')} 
+            className="border rounded-lg px-3 py-2 w-full" 
+          />
+          
+          {/* Existing uploaded images */}
+          {formData.featuredImage && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Content Image</label>
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <input
-                    type="url"
-                    value={formData.image}
-                    onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
-                    placeholder="Or enter image URL"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                    required
-                  />
-                </div>
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={uploadingImage}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 disabled:opacity-50"
-                >
-                  <Upload className="h-4 w-4" />
-                  {uploadingImage ? 'Uploading...' : 'Upload'}
-                </button>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) handleImageUpload(file, 'image');
-                  }}
-                  className="hidden"
-                />
+              <p className="text-xs text-gray-500 mt-2">Uploaded Images:</p>
+              <div className="flex gap-2 mt-2 overflow-x-auto">
+                  <div className="relative group">
+                    <img 
+                      src={formData.featuredImage} 
+                      alt="uploaded" 
+                      className="w-20 h-20 object-cover rounded border-2 border-green-500" 
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeUploadedImage('featuredImage')}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      ×
+                    </button>
+                  </div>
               </div>
-              {formData.image && (
-                <div className="mt-2">
-                  <img
-                    src={formData.image}
-                    alt="Content preview"
-                    className="w-32 h-20 object-cover rounded-lg border"
-                  />
-                </div>
-              )}
+            </div>
+          )}
+          
+          {/* Preview new images */}
+          {featuredPreviews.length > 0 && (
+            <div>
+              <p className="text-xs text-gray-500 mt-2">New Images (not uploaded yet):</p>
+              <div className="flex gap-2 mt-2 overflow-x-auto">
+                {featuredPreviews.map((src, idx) => (
+                  <div key={idx} className="relative group">
+                    <img 
+                      src={src} 
+                      alt="preview" 
+                      className="w-20 h-20 object-cover rounded border-2 border-blue-500" 
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removePreviewImage(idx,'featuredImage')}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+
+
+                {/* Exterior Images */}
+        <div>
+          <label className="block mt-4 text-sm font-medium text-gray-700 mb-1">
+            Content Image
+          </label>
+          <input 
+            type='file' 
+            multiple 
+            accept="image/*"
+            onChange={(e) => handleFileChange(e, 'image')} 
+            className="border rounded-lg px-3 py-2 w-full" 
+          />
+          
+          {formData.image && (
+            <div>
+              <p className="text-xs text-gray-500 mt-2">Uploaded Images:</p>
+              <div className="flex gap-2 mt-2 overflow-x-auto">
+                  <div className="relative group">
+                    <img 
+                      src={formData.image} 
+                      alt="uploaded" 
+                      className="w-20 h-20 object-cover rounded border-2 border-green-500" 
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeUploadedImage('image')}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      ×
+                    </button>
+                  </div>
+              </div>
+            </div>
+          )}
+          
+          {imagePreviews.length > 0 && (
+            <div>
+              <p className="text-xs text-gray-500 mt-2">New Images (not uploaded yet):</p>
+              <div className="flex gap-2 mt-2 overflow-x-auto">
+                {imagePreviews.map((src, idx) => (
+                  <div key={idx} className="relative group">
+                    <img 
+                      src={src} 
+                      alt="preview" 
+                      className="w-20 h-20 object-cover rounded border-2 border-blue-500" 
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removePreviewImage(idx, 'image')}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+
+              </div>
             </div>
 
             <div>
@@ -457,123 +536,10 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Content</label>
-              
-              {/* Content Formatting Toolbar */}
-              <div className="border border-gray-300 rounded-t-lg bg-gray-50 p-2 flex flex-wrap gap-1">
-                <button
-                  type="button"
-                  onClick={() => formatText('bold')}
-                  className="p-2 hover:bg-gray-200 rounded text-gray-700 hover:text-gray-900"
-                  title="Bold"
-                >
-                  <Bold className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => formatText('italic')}
-                  className="p-2 hover:bg-gray-200 rounded text-gray-700 hover:text-gray-900"
-                  title="Italic"
-                >
-                  <Italic className="h-4 w-4" />
-                </button>
-                <div className="w-px h-6 bg-gray-300 mx-1"></div>
-                <button
-                  type="button"
-                  onClick={() => formatText('h1')}
-                  className="p-2 hover:bg-gray-200 rounded text-gray-700 hover:text-gray-900 font-bold"
-                  title="Heading 1"
-                >
-                  H1
-                </button>
-                <button
-                  type="button"
-                  onClick={() => formatText('h2')}
-                  className="p-2 hover:bg-gray-200 rounded text-gray-700 hover:text-gray-900 font-bold text-sm"
-                  title="Heading 2"
-                >
-                  H2
-                </button>
-                <button
-                  type="button"
-                  onClick={() => formatText('h3')}
-                  className="p-2 hover:bg-gray-200 rounded text-gray-700 hover:text-gray-900 font-bold text-xs"
-                  title="Heading 3"
-                >
-                  H3
-                </button>
-                <button
-                  type="button"
-                  onClick={() => formatText('h4')}
-                  className="p-2 hover:bg-gray-200 rounded text-gray-700 hover:text-gray-900 font-bold text-xs"
-                  title="Heading 4"
-                >
-                  H4
-                </button>
-                <button
-                  type="button"
-                  onClick={() => formatText('h5')}
-                  className="p-2 hover:bg-gray-200 rounded text-gray-700 hover:text-gray-900 font-bold text-xs"
-                  title="Heading 5"
-                >
-                  H5
-                </button>
-                <button
-                  type="button"
-                  onClick={() => formatText('quote')}
-                  className="p-2 hover:bg-gray-200 rounded text-gray-700 hover:text-gray-900"
-                  title="Quote"
-                >
-                  <Quote className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => formatText('list')}
-                  className="p-2 hover:bg-gray-200 rounded text-gray-700 hover:text-gray-900"
-                  title="List"
-                >
-                  <List className="h-4 w-4" />
-                </button>
-                <div className="w-px h-6 bg-gray-300 mx-1"></div>
-                <button
-                  type="button"
-                  onClick={() => formatText('link')}
-                  className="p-2 hover:bg-gray-200 rounded text-gray-700 hover:text-gray-900"
-                  title="Add Link"
-                >
-                  <Link className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => formatText('image')}
-                  className="p-2 hover:bg-gray-200 rounded text-gray-700 hover:text-gray-900"
-                  title="Add Image"
-                >
-                  <Image className="h-4 w-4" />
-                </button>
-              </div>
-              
-              <textarea
-                id="content"
+              <TiptapEditor
                 value={formData.content}
-                onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-b-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 border-t-0"
-                rows={8}
-                placeholder="Write your blog content here... Use the toolbar above to format text or select text and click a formatting button."
-                required
+                onChange={(content: any) => setFormData({ ...formData, content: content })}
               />
-              
-              {/* Content Preview */}
-              {formData.content && (
-                <div className="mt-2 p-3 bg-gray-50 rounded-lg">
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">Preview:</h4>
-                  <div className="prose prose-sm max-w-none">
-                    {/* <pre className="whitespace-pre-wrap text-sm text-gray-600">
-                      {formData.content}
-                    </pre> */}
-                    <ReactMarkdown>{formData.content}</ReactMarkdown>
-                  </div>
-                </div>
-              )}
             </div>
 
             <div>
@@ -772,8 +738,8 @@ export function BlogAdmin({ blogs, onAddBlog, onUpdateBlog, onDeleteBlog }: Blog
         </div>
         
         <div className="divide-y divide-gray-200">
-        {blogs.map((blog) => (
-            <div key={blog._id} className="p-6 hover:bg-gray-50 transition-colors overflow-x-auto">
+        {blogs.map((blog,index) => (
+            <div key={index} className="p-6 hover:bg-gray-50 transition-colors overflow-x-auto">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex lg:flex-row flex-col lg:items-center gap-4 mb-2">

@@ -446,7 +446,12 @@ export function CarDetail() {
 
       <div id='description' className='mt-4 border border-gray-200 p-5 rounded-2xl'>
         <p className='lg:text-xl text-lg font-medium'>Description</p>
-        <p className="text-slate-700 mt-4">{car.description}</p>
+        <div
+          className="quill-content prose prose-sm sm:prose lg:prose-lg w-full max-w-full"
+          dangerouslySetInnerHTML={{
+            __html: car.description,
+          }}
+        />
       </div>
       
   <div id='pros&cons' className="mt-6 border border-gray-200 p-5 rounded-2xl max-w-2xl">

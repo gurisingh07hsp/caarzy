@@ -297,7 +297,12 @@ const VariantDetails = () => {
           <div id='description' className='p-4 max-w-4xl mt-4'>
             <hr className='my-4'/>
             <h2 className='md:text-2xl text-lg font-medium'>Description</h2>
-            <p className='text-slate-700 mt-4'>{carVariant.description}</p>
+            <div
+              className="quill-content prose prose-sm sm:prose lg:prose-lg w-full max-w-full"
+              dangerouslySetInnerHTML={{
+                __html: carVariant.description,
+              }}
+            />
           </div>
 
           <hr className='my-4 mx-4'/>

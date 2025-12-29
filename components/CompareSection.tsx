@@ -64,9 +64,9 @@ export function CompareSection({ comparisons }: CompareSectionProps) {
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
                     {comparison.car1.modelName}
                   </h3>
-                  <p className="text-lg font-semibold text-gray-900">
+                  {/* <p className="text-lg font-semibold text-gray-900">
                     ₹{(comparison.car1.price as any / 100000).toFixed(2)}L
-                  </p>
+                  </p> */}
                 </div>
 
                 {/* Right Car Details */}
@@ -75,9 +75,9 @@ export function CompareSection({ comparisons }: CompareSectionProps) {
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
                     {comparison.car2.modelName}
                   </h3>
-                  <p className="text-lg font-semibold text-gray-900">
+                  {/* <p className="text-lg font-semibold text-gray-900">
                     ₹{(comparison.car2.price as any / 100000).toFixed(2)}L
-                  </p>
+                  </p> */}
                 </div>
               </div>
 

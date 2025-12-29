@@ -5,6 +5,12 @@ import { Model } from '@/types/Car';
 import axios from 'axios';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import toast from "react-hot-toast";
+import dynamic from 'next/dynamic';
+
+const TiptapEditor = dynamic(() => import('@/components/TipTapEditor'), {
+  ssr: false,
+  loading: () => <p>Loading editor...</p>
+});
 
 interface AddCarProps {
   selectedCar: Car | null;
@@ -676,12 +682,16 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
             />
           </div>
 
-          <textarea
+          <TiptapEditor
+            value={carForm.description}
+            onChange={(description: any) => setCarForm({ ...carForm, description: description })}
+          />
+          {/* <textarea
             value={carForm.description}
             onChange={(e) => updateCarField("description", e.target.value)}
             placeholder="Description"
             className="border rounded-lg px-3 py-2 w-full min-h-24"
-          />
+          /> */}
 
           <div className="grid md:grid-cols-3 gap-4 items-center mt-4">
             <label className="flex items-center gap-2">
