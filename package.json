@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.15",
     "@tiptap/extension-color": "^3.14.0",
     "@tiptap/extension-highlight": "^3.14.0",
     "@tiptap/extension-image": "^3.14.0",
@@ -24,6 +25,7 @@
     "axios": "^1.13.2",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.12",
     "jsonwebtoken": "^9.0.2",
@@ -32,6 +34,7 @@
     "motion": "^12.23.13",
     "next": "^16.0.8",
     "next-auth": "^4.24.13",
+    "nodemailer": "^7.0.12",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hot-toast": "^2.6.0",
@@ -43,6 +46,7 @@
     "@eslint/js": "^9.9.1",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "24.3.1",
+    "@types/nodemailer": "^7.0.4",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.1",
