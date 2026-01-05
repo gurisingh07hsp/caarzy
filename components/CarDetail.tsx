@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { VariantFilter } from './VariantFilter';
 import { EmiCalculator } from './EmiCalculator';
 import { CarIcon } from 'lucide-react';
@@ -395,7 +395,7 @@ export function CarDetail() {
         </div>
 
         {/* Variant list */}
-        <div className='overflow-x-auto'>
+        <div className='overflow-x-auto max-h-96'>
         <div className="mt-6 overflow-hidden w-[665px] rounded-xl border border-gray-200">
           <div className="grid grid-cols-12 bg-gray-50 text-gray-600 text-sm font-medium px-4 py-3">
             <div className="col-span-6">Variants</div>
@@ -454,7 +454,7 @@ export function CarDetail() {
         />
       </div>
       
-  <div id='pros&cons' className="mt-6 border border-gray-200 p-5 rounded-2xl max-w-2xl">
+  <div id='pros&cons' className="mt-6 border border-gray-200 p-5 rounded-2xl max-w-5xl">
     <h2 className="lg:text-xl text-lg font-medium mb-4">
     Pros & Cons of{" "}
     <span className="capitalize">{car.brand}</span>{" "}
@@ -491,7 +491,7 @@ export function CarDetail() {
   </div>
 </div>
 
-  <div className='lg:max-w-2xl h-32 border mt-8 rounded-2xl p-4'>
+  <div className='lg:max-w-2xl border mt-8 rounded-2xl p-4'>
     <h2 className='lg:text-xl text-lg font-medium'>Colours</h2>
     <div className='mt-4 space-x-2 space-y-2'>
     {car.colors.map((c: any) => (
