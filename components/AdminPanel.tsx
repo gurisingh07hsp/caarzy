@@ -858,7 +858,7 @@ function removeColor(colorName: string) {
                     <div className="flex items-center">
                       <div className="ml-3 sm:ml-4 min-w-0">
                         <div className="text-sm font-medium text-gray-900 break-words whitespace-normal">{car.name}</div>
-                        <div className="text-xs sm:text-sm text-gray-500 truncate">{`${car?.description?.slice(0,25)}...`}</div>
+                        {/* <div className="text-xs sm:text-sm text-gray-500 truncate">{`${car?.description?.slice(0,25)}...`}</div> */}
                       </div>
                     </div>
                   </td>

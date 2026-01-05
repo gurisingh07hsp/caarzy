@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export function Footer() {
   return (
@@ -69,7 +70,7 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* About Auto Decar */}
             <div>
-              <h4 className="text-white font-bold text-lg mb-4">About Auto Decar</h4>
+              <h4 className="text-white font-bold text-lg mb-4">About Caarzy</h4>
               <ul className="space-y-2 text-sm">
                 <li><Link href="/about" className="text-gray-400 hover:text-white">About us</Link></li>
                 <li><Link href="#" className="text-gray-400 hover:text-white">Compare Listings</Link></li>
@@ -132,15 +133,12 @@ export function Footer() {
           <div className="flex flex-col sm:flex-row items-center justify-between">
             {/* Logo */}
             <div className="flex items-center mb-4 sm:mb-0">
-              <div className="bg-orange-500 p-2 rounded-lg mr-3">
-                <span role="img" aria-label="steering wheel" className="text-white text-xl">🚗</span>
-              </div>
-              <span className="text-2xl font-bold text-white">AutoDeal</span>
+              <Image src={'/caarzylogo.png'} alt='logo' width={150} height={50} className='md:w-[150px] md:h-[50px] w-[120px] h-[70px] object-contain' />
             </div>
 
             {/* Copyright */}
             <p className="text-gray-400 text-sm mb-4 sm:mb-0">
-              © 2024 Auto Decar. All rights reserved
+              © 2024 Caarzy. All rights reserved
             </p>
 
             {/* Social Media Icons */}

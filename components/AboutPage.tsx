@@ -5,7 +5,7 @@ export function AboutPage() {
   <section className="bg-gradient-to-r from-orange-500 to-red-500 text-white">
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
       <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">
-        About AutoDeal
+        About Caarzy
       </h1>
       <p className="text-lg sm:text-xl max-w-2xl mx-auto opacity-90">
         Your smart companion to compare, explore, and choose the perfect car
@@ -23,12 +23,12 @@ export function AboutPage() {
           Who We Are
         </h2>
         <p className="text-slate-700 leading-relaxed mb-4">
-          AutoDeal is a car comparison platform designed to simplify your car
+          Caarzy is a car comparison platform designed to simplify your car
           buying journey. We bring together detailed specifications, pricing,
           and features of various car models in one place.
         </p>
         <p className="text-slate-700 leading-relaxed">
-          Whether you’re a first-time buyer or a car enthusiast, AutoDeal helps
+          Whether you’re a first-time buyer or a car enthusiast, Caarzy helps
           you make informed decisions without confusion or pressure.
         </p>
       </div>
@@ -37,7 +37,7 @@ export function AboutPage() {
       <div className="flex justify-center">
         <div className="bg-white shadow-xl rounded-2xl p-8 max-w-sm w-full">
           <h3 className="text-xl font-semibold text-slate-900 mb-3">
-            Why AutoDeal?
+            Why Caarzy?
           </h3>
           <ul className="space-y-3 text-slate-700">
             <li className="flex items-center gap-2">
@@ -66,7 +66,7 @@ export function AboutPage() {
       </h2>
       <p className="text-slate-700 max-w-3xl mx-auto leading-relaxed">
         Our mission is to make car buying simple, transparent, and enjoyable.
-        AutoDeal empowers users with accurate data and smart comparisons so
+        Caarzy empowers users with accurate data and smart comparisons so
         they can choose the right car without stress.
       </p>
     </div>

@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import AuthModal from './AuthModal';
 import { useUser } from '@/context/UserContext';
-import { Car, Search, Menu, X, Heart, User, LogOut } from 'lucide-react';
+import {Menu, X, User, LogOut } from 'lucide-react';
+import Image from 'next/image';
 
 export function Header() {
   const {isLoggedIn, user, logout} = useUser();
@@ -17,12 +18,7 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <div className="bg-orange-500 p-2 rounded-lg mr-3">
-              <Car className="h-6 w-6 text-white" />
-            </div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              AutoDeal
-            </h1>
+            <Image src={'/caarzylogo.png'} alt='logo' width={150} height={50} className='md:w-[150px] md:h-[50px] w-[120px] h-[70px] object-contain' />
           </Link>
           
           {/* Navigation */}

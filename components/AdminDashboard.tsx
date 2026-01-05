@@ -1,22 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { Car, Model } from '@/types/Car';
 import { BlogPost } from '@/types/BlogPost';
 import { 
   LayoutDashboard, 
   Car as CarIcon, 
-  Heart, 
-  MessageSquare, 
   Package, 
-  User, 
   Plus,
   LogOut,
   FileText,
   BarChart3,
   Settings,
-  List,
   Menu,
   X
 } from 'lucide-react';
@@ -24,6 +20,7 @@ import { AdminPanel } from './AdminPanel';
 import { BlogAdmin } from './BlogAdmin';
 import { cn } from '@/lib/utils';
 import AdminComparePage from './AdminComparePage';
+import { useUser } from '@/context/UserContext';
 
 interface AdminDashboardProps {
   cars: Car[];
@@ -54,6 +51,7 @@ export function AdminDashboard({
 }: AdminDashboardProps) {
   const [currentPage, setCurrentPage] = useState<AdminPage>('dashboard');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {logout} = useUser();
 
   const sidebarItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -141,13 +139,13 @@ export function AdminDashboard({
 
         
         <div className="p-4 border-t border-gray-700">
-          <Link
-            href="/"
+          <button
+            onClick={logout}
             className="w-full flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition-all duration-200"
           >
             <LogOut className="h-5 w-5 mr-3" />
             Logout
-          </Link>
+          </button>
         </div>
       </div>
 
