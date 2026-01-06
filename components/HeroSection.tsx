@@ -1,7 +1,5 @@
 'use client';
 
-import React, { useState } from 'react';
-
 interface HeroSectionProps {
   searchTerm: string;
   onSearchChange: (term: string) => void;
@@ -11,8 +9,6 @@ export function HeroSection({ searchTerm, onSearchChange }: HeroSectionProps) {
 
   return (
     <div className="bg-white max-w-7xl lg:px-0 px-2 mx-auto mt-2">
-      {/* Hero Background */}
-      {/* url(https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=1600) */}
       <div className='relative h-[530px] w-full'>
         <div 
           className="h-[500px] w-full inset-0 bg-cover bg-center bg-no-repeat rounded-3xl"
@@ -50,7 +46,7 @@ export function HeroSection({ searchTerm, onSearchChange }: HeroSectionProps) {
               <div className='w-full h-full absolute left-5 bg-white rounded-l-lg border-none'>
                 <div className='lg:mt-8 mt-2 ms-6 flex lg:flex-row flex-col justify-between'>
                   <div className='max-w-80'>
-                    <h1 className='lg:text-4xl'>Quality <b className='text-[#FF3F25]'>Cars</b> with <b className='text-[#FF3F25]'>Unbeatable</b> Deals</h1>
+                    <h1 className='lg:text-4xl'>Quality <b className='main-text-color'>Cars</b> with <b className='main-text-color'>Unbeatable</b> Deals</h1>
                   </div>
                   <div>
                     <div className='max-w-36 lg:text-sm text-xs lg:mt-0 mt-2 text-[#595959]'>We help you find the right car.</div>

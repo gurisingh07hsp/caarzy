@@ -8,11 +8,11 @@ const PopularQuestions = () => {
             <div>
                 <h2 className='lg:text-5xl text-2xl font-bold mt-10'>Popular Questions</h2>
                 <div className='lg:mt-20 mt-10 lg:mx-0 mx-auto space-y-3 text-sm lg:text-lg'>
-                    <p className='flex justify-between items-center bg-white px-4 lg:py-6 py-1 lg:w-[650px] md:w-[350px] font-semibold'>What should I consider when buying a used car? <ArrowUpRight className='text-[#FF3F25]' size={28}/></p>
-                    <p className='flex justify-between items-center bg-white px-4 lg:py-6 py-1 lg:w-[650px] md:w-[350px] font-semibold'>Do you offer financing options for purchasing a used car? <ArrowUpRight className='text-[#FF3F25]' size={28}/></p>
-                    <p className='flex justify-between items-center bg-white px-4 lg:py-6 py-1 lg:w-[650px] md:w-[350px] font-semibold'>Can I trade in my current vehicle when buying a car from Wheeliant? <ArrowUpRight className='text-[#FF3F25]' size={28}/></p>
-                    <p className='flex justify-between items-center bg-white px-4 lg:py-6 py-1 lg:w-[650px] md:w-[350px] font-semibold'>Can I test drive the cars before making a purchase? <ArrowUpRight className='text-[#FF3F25]' size={28}/></p>
-                    <p className='flex justify-between items-center bg-white px-4 lg:py-6 py-1 lg:w-[650px] md:w-[350px] font-semibold'>What warranties or guarantees do you offer on your vehicles? <ArrowUpRight className='text-[#FF3F25]' size={28}/></p>
+                    <p className='flex justify-between items-center bg-white px-4 lg:py-6 py-1 lg:w-[650px] md:w-[350px] font-semibold'>What should I consider when buying a used car? <ArrowUpRight className='main-text-color' size={28}/></p>
+                    <p className='flex justify-between items-center bg-white px-4 lg:py-6 py-1 lg:w-[650px] md:w-[350px] font-semibold'>Do you offer financing options for purchasing a used car? <ArrowUpRight className='main-text-color' size={28}/></p>
+                    <p className='flex justify-between items-center bg-white px-4 lg:py-6 py-1 lg:w-[650px] md:w-[350px] font-semibold'>Can I trade in my current vehicle when buying a car from Wheeliant? <ArrowUpRight className='main-text-color' size={28}/></p>
+                    <p className='flex justify-between items-center bg-white px-4 lg:py-6 py-1 lg:w-[650px] md:w-[350px] font-semibold'>Can I test drive the cars before making a purchase? <ArrowUpRight className='main-text-color' size={28}/></p>
+                    <p className='flex justify-between items-center bg-white px-4 lg:py-6 py-1 lg:w-[650px] md:w-[350px] font-semibold'>What warranties or guarantees do you offer on your vehicles? <ArrowUpRight className='main-text-color' size={28}/></p>
                 </div>
             </div>
 

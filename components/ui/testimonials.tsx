@@ -152,7 +152,7 @@ const Testimonials = () => {
           </button>
           <button 
             onClick={handleNext}
-            className="w-8 h-8 flex justify-center items-center text-white rounded-full border bg-[#FF3F25] hover:bg-[#E63620] transition-colors"
+            className="w-8 h-8 flex justify-center items-center text-white rounded-full border main-bg-color hover:bg-[#E63620] transition-colors"
             aria-label="Next testimonials"
           >
             <ArrowRight/>
@@ -199,7 +199,7 @@ const Testimonials = () => {
             onClick={() => setCurrentIndex(i)}
             className={`w-2 h-2 rounded-full transition-all ${
               i === currentIndex 
-                ? 'bg-[#FF3F25] w-6' 
+                ? 'main-bg-color w-6' 
                 : 'bg-gray-300 hover:bg-gray-400'
             }`}
             aria-label={`Go to page ${i + 1}`}

@@ -84,11 +84,11 @@ const ComparePageDetails = () => {
 
             {/* Badges */}
             <div className="absolute top-3 left-3 flex gap-2">
-              {/* {isFeatured && ( */}
-              <span className="bg-[#FF7101] text-white text-xs font-semibold px-2 py-1 rounded-2xl">
+              {car1.isFeatured && (
+              <span className="main-bg-color text-white text-xs font-semibold px-2 py-1 rounded-2xl">
                 Featured
               </span>
-              {/* )} */}
+              )}
               {/* {isSold && ( */}
               <span className="bg-[#B9B9B9] text-white text-xs font-semibold px-3 py-1 rounded-2xl flex items-center gap-1">
                 <Image size={12} />
@@ -98,7 +98,7 @@ const ComparePageDetails = () => {
             </div>
 
             <div className="absolute top-3 right-3 flex gap-2">
-              <span className="bg-[#FF7101] text-white text-xs font-semibold px-2 py-1 rounded-md">
+              <span className="main-bg-color text-white text-xs font-semibold px-2 py-1 rounded-md">
                 {"2024"}
               </span>
             </div>
@@ -107,7 +107,7 @@ const ComparePageDetails = () => {
           {/* Content Section */}
           <div className="p-4">
             {/* Category */}
-            <p className="text-[#FF7101] text-sm font-medium mb-1">{car1.bodyType === 'suv' ? 'SUV' : car1.category.charAt(0).toUpperCase() + car1.category.slice(1)}</p>
+            <p className="main-text-color text-sm font-medium mb-1">{car1.bodyType === 'suv' ? 'SUV' : car1.category.charAt(0).toUpperCase() + car1.category.slice(1)}</p>
 
             {/* Car Name */}
             <h3 className="text-lg font-medium text-gray-900 mb-1">{car1.brand.charAt(0).toUpperCase() + car1.brand.slice(1)} {car1.modelName.charAt(0).toUpperCase() + car1.modelName.slice(1)}</h3>
@@ -127,7 +127,7 @@ const ComparePageDetails = () => {
                     fill="#696665"
                   />
                 </svg>
-                <span>{selectedVariant1.fuelAndPerformance.petrolMileageARAI} km</span>
+                <span>{selectedVariant1.fuelAndPerformance.petrolMileageARAI}</span>
               </div>
               <div className="flex items-center gap-1 text-sm text-gray-600">
                 <svg
@@ -164,7 +164,7 @@ const ComparePageDetails = () => {
             {/* Price */}
             <div className="mb-4">
               <div className="flex items-center gap-2">
-                <span className="text-[#FF7101] font-bold text-xl">₹{(selectedVariant1.price as any / 100000).toFixed(2)}L</span>
+                <span className="main-text-color font-bold text-xl">₹{(selectedVariant1.price as any / 100000).toFixed(2)}L</span>
             <span className="text-gray-400 text-sm line-through">₹{(selectedVariant1.originalPrice as any / 100000).toFixed(2)}L</span>
               </div>
             </div>
@@ -208,11 +208,11 @@ const ComparePageDetails = () => {
 
             {/* Badges */}
             <div className="absolute top-3 left-3 flex gap-2">
-              {/* {isFeatured && ( */}
-              <span className="bg-[#FF7101] text-white text-xs font-semibold px-2 py-1 rounded-2xl">
+              {car1.isFeatured && (
+              <span className="main-bg-color text-white text-xs font-semibold px-2 py-1 rounded-2xl">
                 Featured
               </span>
-              {/* )} */}
+               )}
               {/* {isSold && ( */}
               <span className="bg-[#B9B9B9] text-white text-xs font-semibold px-3 py-1 rounded-2xl flex items-center gap-1">
                 <Image size={12} />
@@ -222,7 +222,7 @@ const ComparePageDetails = () => {
             </div>
 
             <div className="absolute top-3 right-3 flex gap-2">
-              <span className="bg-[#FF7101] text-white text-xs font-semibold px-2 py-1 rounded-md">
+              <span className="main-bg-color text-white text-xs font-semibold px-2 py-1 rounded-md">
                 {"2024"}
               </span>
             </div>
@@ -231,7 +231,7 @@ const ComparePageDetails = () => {
           {/* Content Section */}
           <div className="p-4">
             {/* Category */}
-            <p className="text-[#FF7101] text-sm font-medium mb-1">{car2.bodyType === 'suv' ? 'SUV' : car2.category.charAt(0).toUpperCase() + car2.category.slice(1)}</p>
+            <p className="main-text-color text-sm font-medium mb-1">{car2.bodyType === 'suv' ? 'SUV' : car2.category.charAt(0).toUpperCase() + car2.category.slice(1)}</p>
 
             {/* Car Name */}
             <h3 className="text-lg font-medium text-gray-900 mb-1">{car2.brand.charAt(0).toUpperCase() + car2.brand.slice(1)} {car2.modelName.charAt(0).toUpperCase() + car2.modelName.slice(1)}</h3>
@@ -251,7 +251,7 @@ const ComparePageDetails = () => {
                     fill="#696665"
                   />
                 </svg>
-                <span>{selectedVariant2.fuelAndPerformance.petrolMileageARAI} km</span>
+                <span>{selectedVariant2.fuelAndPerformance.petrolMileageARAI}</span>
               </div>
               <div className="flex items-center gap-1 text-sm text-gray-600">
                 <svg
@@ -288,7 +288,7 @@ const ComparePageDetails = () => {
             {/* Price */}
             <div className="mb-4">
               <div className="flex items-center gap-2">
-                <span className="text-[#FF7101] font-bold text-xl">₹{(selectedVariant2.price as any / 100000).toFixed(2)}L</span>
+                <span className="main-text-color font-bold text-xl">₹{(selectedVariant2.price as any / 100000).toFixed(2)}L</span>
             <span className="text-gray-400 text-sm line-through">₹{(selectedVariant2.originalPrice as any / 100000).toFixed(2)}L</span>
               </div>
             </div>

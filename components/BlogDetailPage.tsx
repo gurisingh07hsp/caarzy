@@ -59,7 +59,7 @@ const BlogDetailPage = () => {
                     <div className='flex flex-wrap items-center gap-5'>
                       <div className='flex items-center gap-1'>
                         <User className='w-4 h-4 text-gray-400'/>
-                        <p className='text-[#FF7101]'>{blog.author}</p>
+                        <p className='main-text-color'>{blog.author}</p>
                       </div>
                       <div className='flex items-center gap-1'>
                         <Calendar className="w-3 h-3 ms-2 sm:w-4 sm:h-4 mr-1 text-gray-400 flex-shrink-0" />
@@ -119,7 +119,7 @@ const BlogDetailPage = () => {
                             <img src={blog.featuredImage} alt="" className='w-28 h-20 object-cover rounded-lg' />
                           </div>
                           <div>
-                            <h2 onClick={()=> router.push(`${blog.slug}`)} className='cursor-pointer hover:text-[#FF7101]'>{blog.title}</h2>
+                            <h2 onClick={()=> router.push(`${blog.slug}`)} className='cursor-pointer hover:text-[#e8151f]'>{blog.title}</h2>
                             <div className='flex items-center gap-1'>
                               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.5 8.5V8C1.5 7.60218 1.65804 7.22064 1.93934 6.93934C2.22064 6.65804 2.60218 6.5 3 6.5H13C13.3978 6.5 13.7794 6.65804 14.0607 6.93934C14.342 7.22064 14.5 7.60218 14.5 8V8.5M8.70667 4.20667L7.29333 2.79333C7.20048 2.70037 7.09022 2.62661 6.96886 2.57628C6.84749 2.52595 6.71739 2.50003 6.586 2.5H3C2.60218 2.5 2.22064 2.65804 1.93934 2.93934C1.65804 3.22064 1.5 3.60218 1.5 4V12C1.5 12.3978 1.65804 12.7794 1.93934 13.0607C2.22064 13.342 2.60218 13.5 3 13.5H13C13.3978 13.5 13.7794 13.342 14.0607 13.0607C14.342 12.7794 14.5 12.3978 14.5 12V6C14.5 5.60218 14.342 5.22064 14.0607 4.93934C13.7794 4.65804 13.3978 4.5 13 4.5H9.414C9.14887 4.49977 8.89402 4.39426 8.70667 4.20667Z" stroke="#B6B6B6" strokeLinecap="round" strokeLinejoin="round"/>

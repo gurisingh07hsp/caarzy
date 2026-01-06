@@ -84,7 +84,7 @@ export function CompareSection({ comparisons }: CompareSectionProps) {
               {/* Compare Button */}
               <button
                 onClick={()=> router.push(`/compare/${comparison.car1.modelName.replace(/\s+/, '-')}-and-${comparison.car2.modelName}`)}
-               className="w-full mt-6 bg-white border-2 border-orange-500 text-orange-500 font-semibold py-3 px-4 rounded-lg hover:bg-orange-50 transition-colors">
+               className="w-full mt-6 bg-white border-2 border-[#e8151f] main-text-color font-semibold py-3 px-4 rounded-lg hover:bg-red-50 transition-colors">
                 {comparison.car1.modelName} Vs {comparison.car2.modelName}
               </button>
             </div>

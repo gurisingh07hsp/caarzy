@@ -25,7 +25,7 @@ const HomeFilter = () => {
         <input type="text" className='px-2' value={modelName} onChange={(e)=> setModelName(e.target.value)}/>
       </div>
       <div className='lg:ms-8 ms-4'>
-        <button className='w-full h-full bg-[#FF3F25] rounded-r-2xl text-white'
+        <button className='w-full h-full main-bg-color rounded-r-2xl text-white'
         onClick={()=> router.push(`/${brand}/${modelName.toLowerCase()}`)}>Search Car</button>
       </div>
     </div>

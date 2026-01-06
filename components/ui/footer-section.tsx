@@ -118,7 +118,7 @@ export function Footer() {
                   placeholder="Your email address"
                   className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
-                <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                <button className="w-full main-bg-color text-white font-bold py-2 px-4 rounded-lg transition-colors">
                   Send
                 </button>
               </div>

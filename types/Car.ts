@@ -222,7 +222,7 @@ export interface Car {
    };
    isLatest: boolean;
    isFeatured?: boolean;
-   reviews: [{rating: number, username: string, title: string, experience: string, postedAt: Date}]
+   reviews?: [{rating: number, username: string, title: string, experience: string, postedAt: Date}]
    launchDate: Date;
 }
 

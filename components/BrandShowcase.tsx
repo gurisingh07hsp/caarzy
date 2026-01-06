@@ -23,7 +23,7 @@ export function BrandShowcase({ brands }: BrandShowcaseProps) {
       </div>
       <button
        onClick={()=> {num == 6 ? setNum(brands.length) : setNum(6); router.push('#brands')}}
-       className='font-bold mt-2 flex items-center text-[#FF7101]'>{ num < 7 ? <>View All Brands <ArrowDown size={20}/></> : <>Less Brands <ArrowUp size={20}/></>}</button>
+       className='font-bold mt-2 flex items-center main-text-color'>{ num < 7 ? <>View All Brands <ArrowDown size={20}/></> : <>Less Brands <ArrowUp size={20}/></>}</button>
     </section>
   );
 }

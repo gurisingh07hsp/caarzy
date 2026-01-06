@@ -109,27 +109,27 @@ const VariantDetails = () => {
         <div className='flex gap-2 my-4 overflow-x-auto scrollbar-hide snap-x snap-mandatorypb-2'>
           <button 
             onClick={() => {setSelectedTab('description'); router.push('#description')}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'description' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'description' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Description
           </button>
           
           <button 
             onClick={() => {setSelectedTab('overview'); router.push('#overview')}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'overview' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'overview' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Overview
           </button>
           
           <button 
             onClick={() => {setSelectedTab('features'); router.push('#features')}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'features' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'features' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Features
           </button>
           <button 
             onClick={() => {setSelectedTab('images'); router.push(`pictures`)}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'images' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'images' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Images
           </button>
@@ -137,7 +137,7 @@ const VariantDetails = () => {
           
           <button 
             onClick={() => {setSelectedTab('reviews'); router.push('#reviews')}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'reviews' ? 'bg-[#FF7101] text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#FF7101] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'reviews' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Reviews
           </button>
@@ -187,7 +187,7 @@ const VariantDetails = () => {
           <div className="rounded-2xl overflow-hidden">
             <div className="grid gap-0">
               <div className="p-4">
-                <p className="lg:text-2xl text-xl font-bold text-[#FF7101]">₹{(carVariant.price as any /100000).toFixed(2)}Lakh</p>
+                <p className="lg:text-2xl text-xl font-bold main-text-color">₹{(carVariant.price as any /100000).toFixed(2)}Lakh</p>
                 <p className="text-xs text-gray-600 mb-1">On-Road Price</p>
                 <div className="mt-3 flex items-center gap-3">
                   {/* <button onClick={() => setEmiOpen(true)} className="text-blue-600 hover:underline">EMI Calculator</button> */}
@@ -223,7 +223,7 @@ const VariantDetails = () => {
             </svg>
             <div className="flex items-center gap-16">
               <p className='text-[#696665] w-20'>Power:</p>
-              {carVariant.engineAndTransmission.maxPower}bhp
+              {carVariant.engineAndTransmission.maxPower.split(' ')[0]} bhp
             </div>
           </div>
 
@@ -246,7 +246,7 @@ const VariantDetails = () => {
             </svg>
             <div className="flex items-center gap-16">
               <p className='text-[#696665] w-20'>Torque:</p>
-                {carVariant.engineAndTransmission.maxTorque}Nm
+                {carVariant.engineAndTransmission.maxTorque.split(' ')[0]} Nm
             </div>
           </div>
 
@@ -257,7 +257,7 @@ const VariantDetails = () => {
             </svg>
             <div className="flex items-center gap-16">
               <p className='text-[#696665] w-20'>Mileage:</p>
-              {carVariant.fuelAndPerformance.petrolMileageARAI}Km
+              {carVariant.fuelAndPerformance.petrolMileageARAI}
             </div>
           </div>
 
@@ -684,13 +684,13 @@ const VariantDetails = () => {
 
             <div className='mt-8 space-y-2'>
               {popularCars.map((pmodel: any)=>(
-                <div key={pmodel._id} onClick={()=>router.push(`/${pmodel.brand}/${pmodel.modelName}`)} className={`flex gap-4 cursor-pointer hover:text-[#FF7101] ${model._id == pmodel._id ? 'hidden' : 'block'}`}>
+                <div key={pmodel._id} onClick={()=>router.push(`/${pmodel.brand}/${pmodel.modelName}`)} className={`flex gap-4 cursor-pointer hover:text-[#e8151f] ${model._id == pmodel._id ? 'hidden' : 'block'}`}>
                   <div>
                     <img src={pmodel.images[0]} alt={pmodel.modelName} className='w-28 h-20 rounded-lg' />
                   </div>
                   <div>
                     <h2>{pmodel.modelName}</h2>
-                    <p className='text-[#FF7101]'>₹{(pmodel.variant[0].price as any /100000).toFixed(2)}L</p>
+                    <p className='main-text-color'>₹{(pmodel.variant[0].price as any /100000).toFixed(2)}L</p>
                   </div>
                 </div>
               ))}
@@ -700,7 +700,7 @@ const VariantDetails = () => {
 
 
           <div id='reviews'>
-            <Reviews carId={carVariant?._id ?? ''} reviews={carVariant.reviews} />
+            <Reviews carId={carVariant?._id ?? ''} reviews={carVariant.reviews || []} />
           </div>
             </div>
 
@@ -713,13 +713,13 @@ const VariantDetails = () => {
 
             <div className='mt-8 space-y-2'>
               {popularCars.map((pmodel: any)=>(
-                <div key={pmodel._id} onClick={()=>router.push(`/${pmodel.brand}/${pmodel.modelName}`)} className={`flex gap-4 cursor-pointer hover:text-[#FF7101] ${model._id == pmodel._id ? 'hidden' : 'block'}`}>
+                <div key={pmodel._id} onClick={()=>router.push(`/${pmodel.brand}/${pmodel.modelName}`)} className={`flex gap-4 cursor-pointer hover:text-[#e8151f] ${model._id == pmodel._id ? 'hidden' : 'block'}`}>
                   <div>
                     <img src={pmodel.images[0]} alt={pmodel.modelName} className='w-28 h-20 rounded-lg' />
                   </div>
                   <div>
                     <h2>{pmodel.modelName}</h2>
-                    <p className='text-[#FF7101]'>₹{(pmodel.variant[0].price as any /100000).toFixed(2)}L</p>
+                    <p className='main-text-color'>₹{(pmodel.variant[0].price as any /100000).toFixed(2)}L</p>
                   </div>
                 </div>
               ))}

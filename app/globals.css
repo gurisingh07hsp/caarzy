@@ -51,6 +51,14 @@
   }
 }
 
+.main-bg-color {
+  background-color: #e8151f;
+}
+
+.main-text-color {
+  color: #e8151f;
+}
+
 @layer base {
   * {
     @apply border-border;

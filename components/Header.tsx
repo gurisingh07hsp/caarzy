@@ -25,27 +25,27 @@ export function Header() {
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               href="/"
-              className="text-gray-700 hover:text-orange-500 font-medium transition-colors"
+              className="text-gray-700 hover:text-[#e8151f] font-medium transition-colors"
             >
               Home
             </Link>          
             <Link
               href="/blog"
-              className="text-gray-700 hover:text-orange-500 font-medium transition-colors"
+              className="text-gray-700 hover:text-[#e8151f] font-medium transition-colors"
             >
               Blog
             </Link>
             
             <Link
               href="/contact"
-              className="text-gray-700 hover:text-orange-500 font-medium transition-colors"
+              className="text-gray-700 hover:text-[#e8151f] font-medium transition-colors"
             >
               Contact
             </Link>
             {isLoggedIn && user?.role === 'admin' && (
               <Link
                 href="/admin"
-                className="text-gray-700 hover:text-orange-500 font-medium transition-colors"
+                className="text-gray-700 hover:text-[#e8151f] font-medium transition-colors"
               >
                 Admin
               </Link>
