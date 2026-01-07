@@ -4,6 +4,7 @@ import { CarCard } from './CarCard'
 import { useParams } from 'next/navigation';
 import axios from 'axios';
 import { Model } from '@/types/Car';
+import CarLoadingComponent from './CarLoadingComponent';
 
 const BrandCarsPage = () => {
     const [cars, setCars] = useState<Model[]>([]);
@@ -23,7 +24,7 @@ const BrandCarsPage = () => {
 
     if(loading){
         return(
-            <div>Loading...</div>
+            <CarLoadingComponent/>
         )
     }
   return (

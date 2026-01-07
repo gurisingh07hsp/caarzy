@@ -150,6 +150,7 @@ function removeColor(colorName: string) {
     setInteriorPreviews([]);
     setPros('');
     setCons('');
+    setColors([]);
     setNewColor({
       colorCode: '',
       colorName: ''

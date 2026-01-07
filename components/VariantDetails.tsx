@@ -6,6 +6,7 @@ import axios from 'axios';
 import { CheckIcon, XIcon, ChevronUp, ChevronDown } from 'lucide-react';
 import { Reviews } from './Reviews';
 import { useRouter } from 'next/navigation';
+import CarLoadingComponent from './CarLoadingComponent';
 const VariantDetails = () => {
     const { variant } = useParams();
     const [carVariant, setCarVariant] = useState<Car | null>(null);
@@ -77,7 +78,7 @@ const VariantDetails = () => {
 
     if(loading){
         return(
-            <div>Loading...</div>
+            <CarLoadingComponent/>
         )
     }
 

@@ -6,6 +6,7 @@ import { AdminDashboard } from '@/components/AdminDashboard';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import CarLoadingComponent from '@/components/CarLoadingComponent';
 
 export default function AdminPage() {
   const router = useRouter();
@@ -152,11 +153,7 @@ export default function AdminPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="max-w-md w-full bg-white rounded-xl p-8 text-center">
-          <h1 className="text-2xl">Loading...</h1>
-        </div>
-      </div>
+      <CarLoadingComponent/>
     );
   }
 

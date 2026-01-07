@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useEffect} from 'react'
 import { useParams } from "next/navigation";
 import { useRouter } from 'next/navigation';
+import CarLoadingComponent from './CarLoadingComponent';
 import Link from 'next/link';
 
 export function CarDetail() {
@@ -117,7 +118,7 @@ export function CarDetail() {
     if(loading){
       return (
         <div>
-          Loading....
+          <CarLoadingComponent/>
         </div>
       )
     }
@@ -159,7 +160,8 @@ export function CarDetail() {
   return (
     <div className="lg:max-w-7xl mx-auto lg:px-4 px-2">
       {loading ? (
-        <div className='h-[100vh] w-[100%] flex justify-center items-center'>Loading...</div>
+        <CarLoadingComponent/>
+        // <div className='h-[100vh] w-[100%] flex justify-center items-center'></div>
       ) : (
         <div>
           {car == null ? (

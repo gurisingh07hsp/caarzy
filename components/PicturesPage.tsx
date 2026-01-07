@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import axios from 'axios';
 import { CarIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import CarLoadingComponent from './CarLoadingComponent';
 const PicturesPage = () => {
     const { brand, name } = useParams();
     const router = useRouter();
@@ -29,7 +30,7 @@ const PicturesPage = () => {
 
   if(loading){
     return (
-        <div>Loading...</div>
+        <CarLoadingComponent/>
     )
   }
   return (

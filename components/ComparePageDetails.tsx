@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import { Car } from "@/types/Car";
 import { useRouter } from "next/navigation";
+import CarLoadingComponent from "./CarLoadingComponent";
 const ComparePageDetails = () => {
     const { slug } = useParams();
           type SectionId =
@@ -71,7 +72,7 @@ const ComparePageDetails = () => {
 
     if(loading){
       return (
-        <div>loading...</div>
+        <CarLoadingComponent/>
       )
     }
 

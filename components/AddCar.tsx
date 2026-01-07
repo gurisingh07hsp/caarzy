@@ -20,6 +20,7 @@ interface AddCarProps {
 
 const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     const [carForm, setCarForm] = useState<Car>({
+    
     model: '',
     name: '',
     price: '',
@@ -225,7 +226,6 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     },
     isLatest: false,
     isFeatured: false,
-    reviews: [{rating: 0, username: '', title: '', experience: '', postedAt: new Date()}],
     launchDate: new Date(),
   })
 
@@ -508,6 +508,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     reviews: [{rating: 0, username: '', title: '', experience: '', postedAt: new Date()}],
     launchDate: new Date(),
   });
+  // setCarForm({ ...carForm, description: '' });
   setOperation('add');
   }
 
