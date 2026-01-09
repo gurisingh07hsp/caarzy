@@ -20,7 +20,6 @@ interface AddCarProps {
 
 const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     const [carForm, setCarForm] = useState<Car>({
-    
     model: '',
     name: '',
     price: '',

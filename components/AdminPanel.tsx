@@ -437,7 +437,7 @@ function removeColor(colorName: string) {
           ))}
         </select>
         <select value={form.bodyType} onChange={(e)=> setForm({...form, bodyType: e.target.value})}  className="border rounded-lg px-3 py-2">
-          {['SUV','Hatchback','Sedan','Coupe','Convertible','Wagon', 'Luxury', 'Pickup truck'].map((c) => (
+          {['SUV','MUV','Hatchback','Sedan','Coupe','Convertible','Wagon', 'Luxury', 'Pickup truck'].map((c) => (
             <option key={c} value={c.toLowerCase()}>{c}</option>
           ))}
         </select>

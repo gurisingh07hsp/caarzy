@@ -14,9 +14,9 @@ const CarsPage = () => {
             const response = await axios.get(`/api/managemodels`, {params: {bodyType: bodyType?.toString().replace('-', ' ')}});
             if(response.status == 200){
                 setCars(response.data.models);
+                setLoading(false);
             }
         }
-        setLoading(false);
         fetchcars();
     },[])
 

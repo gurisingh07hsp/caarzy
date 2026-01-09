@@ -19,7 +19,7 @@ export function UpcomingCars({ cars}: UpcomingCarsProps) {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {list.map((car) => (
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer">
+          <div key={car._id} className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer">
       {/* Image Section with Badges */}
       <div className="relative aspect-video w-full bg-gray-100 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -28,8 +28,8 @@ export function UpcomingCars({ cars}: UpcomingCarsProps) {
         {/* Badges */}
         <div className="absolute top-3 left-3 flex gap-2">
           {car.launchDate && (
-            <span className="bg-[#FF7101] text-white text-xs font-semibold px-2 py-1 rounded-2xl">
-              Expected Date{car && car.launchDate && new Date(car.launchDate).getDate()}
+            <span className="main-bg-color text-white text-xs font-semibold px-2 py-1 rounded-2xl">
+              Expected Date {car && car.launchDate && new Date(car.launchDate).toLocaleDateString('en-IN', { day:'numeric', month: 'short', year: 'numeric' })}
             </span>
            )}
           {/* {isSold && ( */}
@@ -52,7 +52,7 @@ export function UpcomingCars({ cars}: UpcomingCarsProps) {
       {/* Content Section */}
       <div className="p-4">
         {/* Category */}
-        <p className="text-[#FF7101] text-sm font-medium mb-1">{car.bodyType === 'suv' ? 'SUV' : car.category.charAt(0).toUpperCase() + car.category.slice(1)}</p>
+        <p className="main-text-color text-sm font-medium mb-1">{car.bodyType === 'suv' ? 'SUV' : car.bodyType.charAt(0).toUpperCase() + car.bodyType.slice(1)}</p>
         
         {/* Car Name */}
         <h3 className="text-lg font-medium text-gray-900 mb-1">{car.brand.charAt(0).toUpperCase() + car.brand.slice(1)} {car.modelName.charAt(0).toUpperCase() + car.modelName.slice(1)}</h3>
@@ -82,7 +82,7 @@ export function UpcomingCars({ cars}: UpcomingCarsProps) {
         {/* Price */}
         <div className="mb-4">
           <div className="flex items-center gap-2">
-            <span className="text-[#FF7101] font-bold text-xl">₹{(car.variant[0].price as any / 100000).toFixed(2)}L</span>
+            <span className="main-text-color font-bold text-xl">₹{(car.variant[0].price as any / 100000).toFixed(2)}L</span>
             <span className="text-gray-400 text-sm line-through">₹{(car.variant[0].originalPrice as any / 100000).toFixed(2)}L</span>
           </div>
         </div>
