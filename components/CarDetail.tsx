@@ -9,6 +9,7 @@ import { useParams } from "next/navigation";
 import { useRouter } from 'next/navigation';
 import CarLoadingComponent from './CarLoadingComponent';
 import Link from 'next/link';
+import {capitalizeString} from '../hook/utils';
 
 export function CarDetail() {
   const [selectedFuel, setSelectedFuel] = useState<'All' | 'Petrol' | 'Diesel' | 'Electric' | 'Hybrid' | 'CNG'>('All');
@@ -245,7 +246,7 @@ export function CarDetail() {
           </button>
         </div>
         <p className="text-slate-600 mb-2 px-4">{car?.brand?.charAt(0).toUpperCase() + car?.brand?.slice(1)} • {car.bodyType == 'suv' ? 'SUV' : car?.bodyType?.charAt(0).toUpperCase() + car?.bodyType?.slice(1)}</p>
-        <h1 className="md:text-3xl text-xl font-bold text-slate-900 mb-2 px-4">{car?.modelName?.charAt(0).toUpperCase() + car?.modelName?.slice(1)}</h1>
+        <h1 className="md:text-3xl text-xl font-bold text-slate-900 mb-2 px-4">{capitalizeString(car?.modelName)}</h1>
 
         <div className='flex items-center gap-4 px-4'>
           <div className='flex items-center gap-1'>

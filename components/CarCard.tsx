@@ -2,6 +2,7 @@
 import { Model } from '@/types/Car';
 import { useRouter } from 'next/navigation';
 import { Image } from 'lucide-react';
+import {capitalizeString} from '../hook/utils';
 
 interface CarCardProps {
   car: Model;
@@ -48,7 +49,7 @@ export function CarCard({car}: CarCardProps) {
         <p className="main-text-color text-sm font-medium mb-1">{car.bodyType === 'suv' ? 'SUV' : car.bodyType.charAt(0).toUpperCase() + car.bodyType.slice(1)}</p>
         
         {/* Car Name */}
-        <h3 className="text-lg font-medium text-gray-900 mb-1">{car.brand.charAt(0).toUpperCase() + car.brand.slice(1)} {car.modelName.charAt(0).toUpperCase() + car.modelName.slice(1)}</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-1">{car.brand.charAt(0).toUpperCase() + car.brand.slice(1)} {capitalizeString(car.modelName)}</h3>
         
         {/* Specifications */}
         <div className="flex gap-4 items-center space-y-1 mb-4">
