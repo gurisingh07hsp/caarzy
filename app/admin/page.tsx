@@ -25,7 +25,7 @@ export default function AdminPage() {
     }catch(error){
         router.push('/');
     }
-    setLoading(false);
+    
   }
 
   const fetchModels = async() => {
@@ -34,6 +34,7 @@ export default function AdminPage() {
       if(response.status == 200){
         setModels(response.data.models);
         console.log(response.data);
+        setLoading(false);
       }
     }catch(error){
       console.log(error);
@@ -82,6 +83,7 @@ export default function AdminPage() {
     fetchComparisons();
     fetchBlogs();
     isAdmin();
+   
   }, []);
 
   const handleAddCar = async(car: Car) => {
