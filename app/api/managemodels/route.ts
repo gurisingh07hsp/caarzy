@@ -10,12 +10,15 @@ export async function GET(req: Request){
         const { searchParams } = new URL(req.url);
         const bodyType = searchParams.get('bodyType');
         const brand = searchParams.get('brand');
+        const category = searchParams.get('category');
+        const limit = Number(searchParams.get('limit'));
 
         let filter: any = {};
         if (bodyType) filter.bodyType = bodyType;
         if (brand) filter.brand = brand;
+        if (category) filter.category = category;
 
-        const models = await Model.find(filter).populate('variant');
+        const models = await Model.find(filter).populate('variant').sort({ launchDate: -1 }).limit(limit); ;
         if(models){
             return new Response(
             JSON.stringify({ success: true, models}),

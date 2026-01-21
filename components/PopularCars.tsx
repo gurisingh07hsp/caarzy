@@ -17,8 +17,8 @@ export function PopularCars({cars}: PopularCarsProps) {
         <h2 className="md:text-2xl text-lg font-bold text-slate-900 font-sans">Popular Cars</h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {list.map((car) => (
-          <CarCard key={car._id} car={car}/>
+            {list.map((car,index) => (
+          <CarCard key={index} car={car}/>
         ))}
       </div>
     </section>

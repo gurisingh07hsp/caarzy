@@ -19,8 +19,8 @@ export function UpcomingCars({ cars}: UpcomingCarsProps) {
         <h2 className="md:text-2xl text-lg font-bold text-slate-900 font-sans">Upcoming Cars</h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {list.map((car) => (
-          <div key={car._id} className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer">
+        {list.map((car,index) => (
+          <div key={index} className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer">
       {/* Image Section with Badges */}
       <div className="relative aspect-video w-full bg-gray-100 overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}

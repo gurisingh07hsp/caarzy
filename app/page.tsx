@@ -19,16 +19,32 @@ import ElectricCars from '@/components/ElectricCars';
 
 export default function HomePage() {
   const [models, setModels] = useState<Model[]>([]);
+  const [popularCars, setPopularCars] = useState<Model[]>([]);
+  const [upcomingCars, setUpcomingCars] = useState<Model[]>([]);
+  const [electricCars, setElectricCars] = useState<Model[]>([]);
   const [comparisons, setComparisons] = useState<any>([]);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   // Load cars from localStorage on component mount
-  const getModels = async() => {
+  const getModels = async(category: string) => {
     try{
-      const response = await axios.get('/api/managemodels');
+      const response = await axios.get('/api/managemodels',{
+      params: {
+        category: category,
+        limit: 12
+      }
+    });
       if(response.status === 200){
-        setModels(response.data.models);
+        if(category === 'Popular Cars'){
+          setPopularCars(response.data.models);
+        }
+        if(category === 'Upcoming Cars'){
+          setUpcomingCars(response.data.models);
+        }
+        if(category === 'Electric Cars'){
+          setElectricCars(response.data.models);
+        }
       }
     }catch(error){
       console.error('Error fetching popular cars: ', error);
@@ -55,7 +71,9 @@ export default function HomePage() {
     }
   }
   useEffect(() => {
-    getModels();
+    getModels('Popular Cars');
+    getModels('Upcoming Cars');
+    getModels('Electric Cars');
     getComparisons();
     getBlogs();
   }, []);
@@ -68,9 +86,9 @@ export default function HomePage() {
           <HeroSection searchTerm={searchTerm} onSearchChange={setSearchTerm} />
           <HomeFilter/>
           <BrandShowcase brands={mockBrands} />
-          <PopularCars cars={models}/>
-          <ElectricCars cars={models}/>
-          <UpcomingCars cars={models}/>
+          <PopularCars cars={popularCars}/>
+          <ElectricCars cars={electricCars}/>
+          <UpcomingCars cars={upcomingCars}/>
           <Testimonials />
           <PopularQuestions/>
           <CompareSection comparisons={comparisons} />
