@@ -67,9 +67,9 @@ const VariantDetails = () => {
       useEffect(()=> {
     const fetchPopularCars = async() => {
       if(model && model.bodyType){
-        const response = await axios.get(`/api/managemodels`, {params: {bodyType: model.bodyType?.toString().replace('-', ' ')}});
+        const response = await axios.get(`/api/managemodels`, {params: {bodyType: model.bodyType?.toString().replace('-', ' '), category: 'Popular Cars', limit: 5}});
         if(response.status == 200){
-            setPopularCars(response.data.models.slice(0,8));
+            setPopularCars(response.data.models);
         }
       }
     }
@@ -188,7 +188,7 @@ const VariantDetails = () => {
           <div className="rounded-2xl overflow-hidden">
             <div className="grid gap-0">
               <div className="p-4">
-                <p className="lg:text-2xl text-xl font-bold main-text-color">₹{(carVariant.price as any /100000).toFixed(2)}Lakh</p>
+                <p className="lg:text-2xl text-xl font-bold main-text-color">₹{(carVariant?.price as any /100000).toFixed(2)}Lakh</p>
                 <p className="text-xs text-gray-600 mb-1">On-Road Price</p>
                 <div className="mt-3 flex items-center gap-3">
                   {/* <button onClick={() => setEmiOpen(true)} className="text-blue-600 hover:underline">EMI Calculator</button> */}
@@ -691,7 +691,7 @@ const VariantDetails = () => {
                   </div>
                   <div>
                     <h2>{pmodel.modelName}</h2>
-                    <p className='main-text-color'>₹{(pmodel.variant[0].price as any /100000).toFixed(2)}L</p>
+                    <p className='main-text-color'>₹{(pmodel.variant[0]?.price as any /100000).toFixed(2)}L</p>
                   </div>
                 </div>
               ))}
@@ -720,7 +720,7 @@ const VariantDetails = () => {
                   </div>
                   <div>
                     <h2>{pmodel.modelName}</h2>
-                    <p className='main-text-color'>₹{(pmodel.variant[0].price as any /100000).toFixed(2)}L</p>
+                    <p className='main-text-color'>₹{(pmodel.variant[0]?.price as any /100000).toFixed(2)}L</p>
                   </div>
                 </div>
               ))}

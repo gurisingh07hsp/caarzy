@@ -18,7 +18,7 @@ import PopularQuestions from '@/components/PopularQuestions';
 import ElectricCars from '@/components/ElectricCars';
 
 export default function HomePage() {
-  const [models, setModels] = useState<Model[]>([]);
+  const [bodyTypeCounts, setBodyTypeCounts] = useState<Model[]>([]);
   const [popularCars, setPopularCars] = useState<Model[]>([]);
   const [upcomingCars, setUpcomingCars] = useState<Model[]>([]);
   const [electricCars, setElectricCars] = useState<Model[]>([]);
@@ -50,6 +50,18 @@ export default function HomePage() {
       console.error('Error fetching popular cars: ', error);
     }
   };
+  const getBodyTypeCounts = async () => {
+  try {
+    const response = await axios.get('/api/managemodels/bodytypecounts');
+
+    if (response.status === 200) {
+      // console.log('Body Type Counts:', response.data.bodyTypeCounts);
+      setBodyTypeCounts(response.data.bodyTypeCounts);
+    }
+  } catch (error) {
+    console.error('Error fetching bodyType counts:', error);
+  }
+};
   const getBlogs = async() => {
     try{
       const response = await axios.get('/api/manageblogs');
@@ -74,6 +86,7 @@ export default function HomePage() {
     getModels('Popular Cars');
     getModels('Upcoming Cars');
     getModels('Electric Cars');
+    getBodyTypeCounts();
     getComparisons();
     getBlogs();
   }, []);
@@ -92,7 +105,7 @@ export default function HomePage() {
           <Testimonials />
           <PopularQuestions/>
           <CompareSection comparisons={comparisons} />
-          <PopularBrands cars={models}/>
+          <PopularBrands bodyTypeCounts={bodyTypeCounts}/>
           <BlogSection blogs={blogs} />
         </div>
     </div>

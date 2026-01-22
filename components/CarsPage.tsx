@@ -7,13 +7,15 @@ import { useParams } from 'next/navigation';
 import CarLoadingComponent from './CarLoadingComponent';
 const CarsPage = () => {
     const [cars, setCars] = useState<Model[]>([]);
+    const [UpcomingCars, setUpcomingCars] = useState<Model[]>([]);
     const {bodyType} = useParams();
     const [loading, setLoading] = useState(true);
     useEffect(()=> {
         const fetchcars = async() => {
             const response = await axios.get(`/api/managemodels`, {params: {bodyType: bodyType?.toString().replace('-', ' ')}});
             if(response.status == 200){
-                setCars(response.data.models);
+                setCars(response.data.models.filter((car: Model) => car.category !== 'Upcoming Cars'));
+                setUpcomingCars(response.data.models.filter((car : Model)=> car.category === 'Upcoming Cars'));
                 setLoading(false);
             }
         }
@@ -39,7 +41,20 @@ const CarsPage = () => {
         ) : (
             <div>No Car Found</div>
         )}
-
+        <div className='mt-14'>
+            <h2 className="text-2xl font-bold text-slate-900 font-sans">Upcoming Cars</h2>
+            {UpcomingCars.length > 0 ? (
+            <div className="grid grid-cols-1 mt-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {UpcomingCars.map((car) => (
+                    <CarCard key={car._id} car={car}/>
+                ))}
+            </div>
+            ) : (
+                <div>
+                    No Upcoming Car Found
+                </div>
+            )}
+        </div>
     </section>
   )
 }

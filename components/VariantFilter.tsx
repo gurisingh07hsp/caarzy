@@ -11,7 +11,7 @@ interface VariantFilterProps {
 
 export function VariantFilter({ selectedFuel, onFuelChange, selectedTransmission, onTransmissionChange }: VariantFilterProps) {
   const fuelOptions: VariantFilterProps['selectedFuel'][] = ['All','Petrol','Diesel','Electric','Hybrid','CNG'];
-  const transmissionOptions: VariantFilterProps['selectedTransmission'][] = ['All','Manual','Automatic','Automatic (AMT)'];
+  const transmissionOptions: VariantFilterProps['selectedTransmission'][] = ['All','Manual','Automatic'];
 
   return (
     <div className="bg-white rounded-xl p-4">
