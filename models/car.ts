@@ -7,6 +7,18 @@ export interface ICar extends Omit<mongoose.Document, 'model'> {
   originalPrice?: number;
   engineAndTransmission: {
     engineType: string;
+    batteryCapacity: string;
+    moterPower: string;
+    moterType: string;
+    Range: string;
+    batteryType: string;
+    charginTimeAC: string;
+    charginTimeDC: string;
+    regenerativeBraking: boolean;
+    regenerativeBrakingLevels: string;
+    chargingPort: string;
+    chargingOptions: string;
+    fastCharging: boolean;
     displacement: string;
     maxPower: string;
     maxTorque: string;
@@ -224,6 +236,18 @@ const carSchema = new mongoose.Schema<ICar>({
   description: {type: String},
   engineAndTransmission: {
     engineType: {type: String},
+    batteryCapacity: {type: String},
+    moterPower: {type: String},
+    moterType: {type: String},
+    Range: {type: String},
+    batteryType: {type: String},
+    charginTimeAC: {type: String},
+    charginTimeDC: {type: String},
+    regenerativeBraking: {type: Boolean},
+    regenerativeBrakingLevels: {type: String},
+    chargingPort: {type: String},
+    chargingOptions: {type: String},
+    fastCharging: {type: Boolean},
     displacement: {type: String},
     maxPower: {type: String},
     maxTorque: {type: String},

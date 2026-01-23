@@ -26,6 +26,18 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     originalPrice: '',
     engineAndTransmission: {
       engineType: '',
+      batteryCapacity: '',
+      moterPower: '',
+      moterType: '',
+      Range: '',
+      batteryType: '',
+      charginTimeAC: '',
+      charginTimeDC: '',
+      regenerativeBraking: false,
+      regenerativeBrakingLevels: '',
+      chargingPort: '',
+      chargingOptions: '',
+      fastCharging: false,
       displacement: '',
       maxPower: '',
       maxTorque: '',
@@ -305,6 +317,18 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     originalPrice: '',
     engineAndTransmission: {
       engineType: '',
+      batteryCapacity: '',
+      moterPower: '',
+      moterType: '',
+      Range: '',
+      batteryType: '',
+      charginTimeAC: '',
+      charginTimeDC: '',
+      regenerativeBraking: false,
+      regenerativeBrakingLevels: '',
+      chargingPort: '',
+      chargingOptions: '',
+      fastCharging: false,
       displacement: '',
       maxPower: '',
       maxTorque: '',
@@ -727,7 +751,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
         expandedSections={expandedSections}
         toggleSection={toggleSection}>
           <div className="grid lg:grid-cols-4 gap-3">
-            {(["engineType", "displacement", "maxPower", "maxTorque", "NumOfCylinders", "valvesPerCylinder", "fuelSupplySystem", "transmissionType", "gearbox", "driveType",] as const).map((key) => (
+            {(["engineType", "batteryCapacity", "moterPower", "moterType", "Range", "batteryType", "charginTimeAC", "charginTimeDC", "regenerativeBrakingLevels", "chargingPort", "chargingOptions", "displacement", "maxPower", "maxTorque", "NumOfCylinders", "valvesPerCylinder", "fuelSupplySystem", "transmissionType", "gearbox", "driveType"] as const).map((key) => (
               <input
                 key={key}
                 value={carForm.engineAndTransmission[key]}
@@ -743,6 +767,22 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
                 onChange={(e) => updateCarField("engineAndTransmission.turboCharger", e.target.checked)}
               />
               Turbo Charger
+            </label>
+            <label className="flex items-center gap-2 col-span-2">
+              <input
+                type="checkbox"
+                checked={carForm.engineAndTransmission.regenerativeBraking}
+                onChange={(e) => updateCarField("engineAndTransmission.regenerativeBraking", e.target.checked)}
+              />
+              Regenerative Breaking
+            </label>
+            <label className="flex items-center gap-2 col-span-2">
+              <input
+                type="checkbox"
+                checked={carForm.engineAndTransmission.fastCharging}
+                onChange={(e) => updateCarField("engineAndTransmission.fastCharging", e.target.checked)}
+              />
+              Fast Charging
             </label>
           </div>
         </Section>

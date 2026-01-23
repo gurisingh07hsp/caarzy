@@ -346,6 +346,17 @@ const VariantDetails = () => {
               <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
                     {[
                       ["Engine Type", carVariant.engineAndTransmission.engineType],
+                      ["Battery Capacity", carVariant.engineAndTransmission.batteryCapacity],
+                      ["Motor Power", carVariant.engineAndTransmission.moterPower],
+                      ["Motor Type", carVariant.engineAndTransmission.moterType],
+                      ["Range", carVariant.engineAndTransmission.Range],
+                      ["Battery Type", carVariant.engineAndTransmission.batteryType],
+                      ["Charging Time (A.C)", carVariant.engineAndTransmission.charginTimeAC],
+                      ["Charging Time (D.C)", carVariant.engineAndTransmission.charginTimeDC],
+                      ["Regenerative Braking", carVariant.engineAndTransmission.regenerativeBraking],
+                      ["Regenerative Braking Levels", carVariant.engineAndTransmission.regenerativeBrakingLevels],
+                      ["Charging Port", carVariant.engineAndTransmission.chargingPort],
+                      ["Charging Options", carVariant.engineAndTransmission.chargingOptions],
                       ["Displacement", carVariant.engineAndTransmission.displacement],
                       ["Max Power", carVariant.engineAndTransmission.maxPower],
                       ["Max Torque", carVariant.engineAndTransmission.maxTorque],
@@ -357,7 +368,7 @@ const VariantDetails = () => {
                       ["Gearbox", carVariant.engineAndTransmission.gearbox],
                       ["Drive Type", carVariant.engineAndTransmission.driveType],
                     ].map(([label, value], idx) => (
-                      <div key={idx} className='border p-2 rounded-md'>
+                      <div key={idx} className={`${value as any == '' ? 'hidden' : 'block'} border p-2 rounded-md`}>
                         <p className='text-[#696665] text-sm'>{label}:</p>
                         <div className="text-sm pt-1">{(value as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value}</div>
                       </div>

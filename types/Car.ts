@@ -23,6 +23,18 @@ export interface Car {
    originalPrice?: string;
    engineAndTransmission: {
      engineType: string;
+     batteryCapacity?: string;
+     moterPower?: string;
+     moterType?: string;
+     Range?: string;
+     batteryType?: string;
+     charginTimeAC?: string;
+     charginTimeDC?: string;
+     regenerativeBraking?: boolean;
+     regenerativeBrakingLevels?: string;
+     chargingPort?: string;
+     chargingOptions?: string;
+     fastCharging?: boolean;
      displacement: string;
      maxPower: string;
      maxTorque: string;
