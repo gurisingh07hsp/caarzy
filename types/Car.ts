@@ -28,12 +28,13 @@ export interface Car {
      moterType?: string;
      Range?: string;
      batteryType?: string;
-     charginTimeAC?: string;
-     charginTimeDC?: string;
+     chargingTimeAC?: string;
+     chargingTimeDC?: string;
      regenerativeBraking?: boolean;
      regenerativeBrakingLevels?: string;
      chargingPort?: string;
      chargingOptions?: string;
+     chargerType?: string;
      fastCharging?: boolean;
      displacement: string;
      maxPower: string;

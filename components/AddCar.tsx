@@ -31,12 +31,13 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       moterType: '',
       Range: '',
       batteryType: '',
-      charginTimeAC: '',
-      charginTimeDC: '',
+      chargingTimeAC: '',
+      chargingTimeDC: '',
       regenerativeBraking: false,
       regenerativeBrakingLevels: '',
       chargingPort: '',
       chargingOptions: '',
+      chargerType: '',
       fastCharging: false,
       displacement: '',
       maxPower: '',
@@ -322,12 +323,13 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
       moterType: '',
       Range: '',
       batteryType: '',
-      charginTimeAC: '',
-      charginTimeDC: '',
+      chargingTimeAC: '',
+      chargingTimeDC: '',
       regenerativeBraking: false,
       regenerativeBrakingLevels: '',
       chargingPort: '',
       chargingOptions: '',
+      chargerType: '',
       fastCharging: false,
       displacement: '',
       maxPower: '',
@@ -528,10 +530,8 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
     },
     isLatest: false,
     isFeatured: false,
-    reviews: [{rating: 0, username: '', title: '', experience: '', postedAt: new Date()}],
     launchDate: new Date(),
   });
-  // setCarForm({ ...carForm, description: '' });
   setOperation('add');
   }
 
@@ -751,7 +751,7 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
         expandedSections={expandedSections}
         toggleSection={toggleSection}>
           <div className="grid lg:grid-cols-4 gap-3">
-            {(["engineType", "batteryCapacity", "moterPower", "moterType", "Range", "batteryType", "charginTimeAC", "charginTimeDC", "regenerativeBrakingLevels", "chargingPort", "chargingOptions", "displacement", "maxPower", "maxTorque", "NumOfCylinders", "valvesPerCylinder", "fuelSupplySystem", "transmissionType", "gearbox", "driveType"] as const).map((key) => (
+            {(["engineType", "batteryCapacity", "moterPower", "moterType", "Range", "batteryType", "chargingTimeAC", "chargingTimeDC", "regenerativeBrakingLevels", "chargingPort", "chargingOptions", "chargerType", "displacement", "maxPower", "maxTorque", "NumOfCylinders", "valvesPerCylinder", "fuelSupplySystem", "transmissionType", "gearbox", "driveType"] as const).map((key) => (
               <input
                 key={key}
                 value={carForm.engineAndTransmission[key]}
