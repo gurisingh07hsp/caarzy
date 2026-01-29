@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-
+import { Youtube } from 'lucide-react';
 export function Footer() {
   return (
     <footer className="bg-gray-800 text-gray-300">
@@ -143,16 +143,16 @@ export function Footer() {
 
             {/* Social Media Icons */}
             <div className="flex items-center space-x-4">
-              <Link href="#" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
+              <Link href="https://www.facebook.com/caarzyofficial/" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
                 <span className="text-white text-sm font-bold">f</span>
               </Link>
-              <Link href="#" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
+              <Link href="https://www.linkedin.com/company/caarzyofficial/" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
                 <span className="text-white text-sm font-bold">in</span>
               </Link>
-              <Link href="#" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
-                <span className="text-white text-sm font-bold">X</span>
+              <Link href="https://www.youtube.com/@Caarzyofficial" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
+                <Youtube size={18} />
               </Link>
-              <Link href="#" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
+              <Link href="https://www.instagram.com/caarzyofficial/" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors">
                 <span className="text-white text-sm">📷</span>
               </Link>
             </div>
