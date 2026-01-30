@@ -2,7 +2,7 @@
 import { Model } from '@/types/Car';
 import { useRouter } from 'next/navigation';
 import { Image } from 'lucide-react';
-import {capitalizeString} from '../hook/utils';
+import {capitalizeString, PriceFormatter} from '../hook/utils';
 
 interface CarCardProps {
   car: Model;
@@ -81,8 +81,8 @@ export function CarCard({car}: CarCardProps) {
         <div className="mb-4">
           {car?.variant.length > 1 && (
             <div className="flex items-center gap-2">
-              <span className="main-text-color font-bold text-xl">₹{(car?.variant[0]?.price as any / 100000).toFixed(2)}L</span>
-              <span className="text-gray-400 text-sm line-through">₹{(car?.variant[0]?.originalPrice as any / 100000).toFixed(2)}L</span>
+              <span className="main-text-color font-bold text-xl">₹{PriceFormatter(car?.variant[0]?.price)}</span>
+              <span className="text-gray-400 text-sm line-through">₹{PriceFormatter(car?.variant[0]?.originalPrice)}</span>
             </div>
           )}
         </div>
