@@ -133,7 +133,7 @@ export function Footer() {
           <div className="flex flex-col sm:flex-row items-center justify-between">
             {/* Logo */}
             <div className="flex items-center mb-4 sm:mb-0">
-              <Image src={'/caarzylogo.png'} alt='logo' width={150} height={50} className='md:w-[150px] md:h-[50px] w-[120px] h-[70px] object-contain' />
+              <Image src={'/caarzylogowhite.png'} alt='logo' width={150} height={50} className='md:w-[150px] md:h-[50px] w-[120px] h-[70px] object-contain' />
             </div>
 
             {/* Copyright */}

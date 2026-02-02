@@ -6,6 +6,7 @@ import axios from "axios";
 import { Car } from "@/types/Car";
 import { useRouter } from "next/navigation";
 import CarLoadingComponent from "./CarLoadingComponent";
+import { PriceFormatter } from "@/hook/utils";
 const ComparePageDetails = () => {
     const { slug } = useParams();
           type SectionId =
@@ -165,8 +166,8 @@ const ComparePageDetails = () => {
             {/* Price */}
             <div className="mb-4">
               <div className="flex items-center gap-2">
-                <span className="main-text-color font-bold text-xl">₹{(selectedVariant1.price as any / 100000).toFixed(2)}L</span>
-            <span className="text-gray-400 text-sm line-through">₹{(selectedVariant1.originalPrice as any / 100000).toFixed(2)}L</span>
+                <span className="main-text-color font-bold text-xl">₹{PriceFormatter(selectedVariant1?.price)}</span>
+            <span className="text-gray-400 text-sm line-through">₹{PriceFormatter(selectedVariant1?.originalPrice)}</span>
               </div>
             </div>
 
@@ -289,8 +290,8 @@ const ComparePageDetails = () => {
             {/* Price */}
             <div className="mb-4">
               <div className="flex items-center gap-2">
-                <span className="main-text-color font-bold text-xl">₹{(selectedVariant2.price as any / 100000).toFixed(2)}L</span>
-            <span className="text-gray-400 text-sm line-through">₹{(selectedVariant2.originalPrice as any / 100000).toFixed(2)}L</span>
+                <span className="main-text-color font-bold text-xl">₹{PriceFormatter(selectedVariant2?.price)}L</span>
+            <span className="text-gray-400 text-sm line-through">₹{PriceFormatter(selectedVariant2?.originalPrice)}</span>
               </div>
             </div>
 
