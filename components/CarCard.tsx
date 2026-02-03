@@ -79,7 +79,7 @@ export function CarCard({car}: CarCardProps) {
         
         {/* Price */}
         <div className="mb-4">
-          {car?.variant.length > 1 && (
+          {car?.variant.length > 0 && (
             <div className="flex items-center gap-2">
               <span className="main-text-color font-bold text-xl">₹{PriceFormatter(car?.variant[0]?.price)}</span>
               <span className="text-gray-400 text-sm line-through">₹{PriceFormatter(car?.variant[0]?.originalPrice)}</span>

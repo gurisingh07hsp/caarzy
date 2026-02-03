@@ -356,12 +356,14 @@ function removeColor(colorName: string) {
     }
   };
 
+    console.log('Form Data : ', form);
   // Edit Models
   const handleEditModel = (model: Model) => {
     const { colors, ...modelWithoutColors } = model;
-    setForm({...form, ...modelWithoutColors})
-    const pros = model.pros.join(',');
-    const cons = model.cons.join(',');
+    
+    setForm({...form, ...modelWithoutColors});
+    const pros = model.pros.join('\n');
+    const cons = model.cons.join('\n');
     setIsEditing(true);
     setPros(pros);
     setCons(cons);
@@ -369,6 +371,7 @@ function removeColor(colorName: string) {
       ? (model.colors as unknown as {colorCode: string, colorName: string}[])
       : [{colorCode: '', colorName: ''}];
     setColors(formattedColors);
+    setForm((prev) => ({...prev, colors: formattedColors}));
     setId(model._id as string);
   }
 

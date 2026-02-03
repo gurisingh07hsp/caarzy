@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 import { useRouter } from 'next/navigation';
 import CarLoadingComponent from './CarLoadingComponent';
 import Link from 'next/link';
-import {capitalizeString} from '../hook/utils';
+import {capitalizeString, PriceFormatter} from '../hook/utils';
 
 export function CarDetail() {
   const [selectedFuel, setSelectedFuel] = useState<'All' | 'Petrol' | 'Diesel' | 'Electric' | 'Hybrid' | 'CNG'>('All');
@@ -303,7 +303,7 @@ export function CarDetail() {
                 {(() => {
                   const min = Math.min(...car?.variant.map((v: any) => v.price));
                   const max = Math.max(...car?.variant.map((v: any) => v.price));
-                  return <p className="text-2xl font-bold main-text-color">₹{(min/100000).toFixed(2)} - {(max/100000).toFixed(2)} Lakh</p>;
+                  return <p className="text-2xl font-bold main-text-color">₹{PriceFormatter(min)} - {PriceFormatter(max)}</p>;
                 })()}
                 <p className="text-xs text-gray-600 mb-1">On-Road Price</p>
                 <div id='overview' className="mt-3 flex items-center gap-3">
@@ -343,8 +343,8 @@ export function CarDetail() {
             <div className='flex items-center gap-16'>
               <p className='text-[#696665] w-20'>Engine:</p>
               {(() => {
-                    const min = Math.min(...car?.variant.map((v: any) => v?.engineAndTransmission.displacement));
-                    const max = Math.max(...car?.variant.map((v: any) => v?.engineAndTransmission.displacement));
+                    const min = Math.min(...car?.variant.map((v: any) => v?.engineAndTransmission.displacement.split(' ')[0]));
+                    const max = Math.max(...car?.variant.map((v: any) => v?.engineAndTransmission.displacement.split(' ')[0]));
                     return <p>{min as any == 'Infinity' ?'N/A' : min} cc - {max as any == '-Infinity' ?'N/A' : max} cc</p>;
               })()}
             </div>
@@ -465,9 +465,9 @@ export function CarDetail() {
             <div key={v.name} className="grid grid-cols-12 items-center px-4 py-4 border-t text-sm">
               <div className="col-span-6">
                 <Link href={`${name}/${v.name.replace(/\s+/g, '-')}`} className="font-semibold text-gray-900">{v.name}</Link>
-                <p className="text-gray-600 text-xs">{v.engineAndTransmission.displacement} cc, {v.engineAndTransmission.transmissionType}, {v.fuelAndPerformance.fuelType}, {v.fuelAndPerformance.petrolMileageARAI.split(' ')[0]} kmpl</p>
+                <p className="text-gray-600 text-xs">{v.engineAndTransmission.displacement.split(' ')[0]} cc, {v.engineAndTransmission.transmissionType}, {v.fuelAndPerformance.fuelType}, {v.fuelAndPerformance.petrolMileageARAI.split(' ')[0]} kmpl</p>
               </div>
-              <div className="col-span-3 font-semibold">₹{(v.price/100000).toFixed(2)} Lakh</div>
+              <div className="col-span-3 font-semibold">₹{PriceFormatter(v.price)}</div>
               <div className="col-span-3 flex justify-end gap-4">
                 <button onClick={() => openBreakup(v.name, v.price)} className="main-text-color hover:underline">View Price Breakup</button>
                 <button onClick={() => {setEmiOpen(true); setIndex(index)}} className="text-blue-600 hover:underline">EMI Options</button>
@@ -494,7 +494,7 @@ export function CarDetail() {
                   </div>
                   <div>
                     <h2>{pcar.modelName}</h2>
-                    <p className='main-text-color'>₹{(pcar?.variant[0]?.price as any /100000).toFixed(2)}L</p>
+                    <p className='main-text-color'>₹{PriceFormatter(pcar?.variant[0]?.price)}</p>
                   </div>
                 </div>
               ))}
@@ -581,7 +581,7 @@ export function CarDetail() {
                   </div>
                   <div>
                     <h2>{pcar.modelName}</h2>
-                    <p className='text-[#FF7101]'>₹{(pcar?.variant[0]?.price as any /100000).toFixed(2)}L</p>
+                    <p className='text-[#FF7101]'>₹{PriceFormatter(pcar?.variant[0]?.price)}</p>
                   </div>
                 </div>
               ))}

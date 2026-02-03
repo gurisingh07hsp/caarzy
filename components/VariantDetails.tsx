@@ -7,6 +7,7 @@ import { CheckIcon, XIcon, ChevronUp, ChevronDown } from 'lucide-react';
 import { Reviews } from './Reviews';
 import { useRouter } from 'next/navigation';
 import CarLoadingComponent from './CarLoadingComponent';
+import { PriceFormatter } from '@/hook/utils';
 const VariantDetails = () => {
     const { variant } = useParams();
     const [carVariant, setCarVariant] = useState<Car | null>(null);
@@ -188,7 +189,7 @@ const VariantDetails = () => {
           <div className="rounded-2xl overflow-hidden">
             <div className="grid gap-0">
               <div className="p-4">
-                <p className="lg:text-2xl text-xl font-bold main-text-color">₹{(carVariant?.price as any /100000).toFixed(2)}Lakh</p>
+                <p className="lg:text-2xl text-xl font-bold main-text-color">₹{PriceFormatter(carVariant?.price)}</p>
                 <p className="text-xs text-gray-600 mb-1">On-Road Price</p>
                 <div className="mt-3 flex items-center gap-3">
                   {/* <button onClick={() => setEmiOpen(true)} className="text-blue-600 hover:underline">EMI Calculator</button> */}
@@ -991,7 +992,7 @@ const VariantDetails = () => {
                   </div>
                   <div>
                     <h2>{pmodel.modelName}</h2>
-                    <p className='main-text-color'>₹{(pmodel.variant[0]?.price as any /100000).toFixed(2)}L</p>
+                    <p className='main-text-color'>₹{PriceFormatter(pmodel.variant[0]?.price)}</p>
                   </div>
                 </div>
               ))}
@@ -1020,7 +1021,7 @@ const VariantDetails = () => {
                   </div>
                   <div>
                     <h2>{pmodel.modelName}</h2>
-                    <p className='main-text-color'>₹{(pmodel.variant[0]?.price as any /100000).toFixed(2)}L</p>
+                    <p className='main-text-color'>₹{PriceFormatter(pmodel.variant[0]?.price)}</p>
                   </div>
                 </div>
               ))}

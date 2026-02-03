@@ -99,11 +99,11 @@ const ComparePageDetails = () => {
               {/* )} */}
             </div>
 
-            <div className="absolute top-3 right-3 flex gap-2">
-              <span className="main-bg-color text-white text-xs font-semibold px-2 py-1 rounded-md">
-                {"2024"}
-              </span>
-            </div>
+          <div className="absolute top-3 right-3 flex gap-2">
+          <span className="main-bg-color text-white text-xs font-semibold px-2 py-1 rounded-md">
+            {car1 && car1.launchDate && new Date(car1.launchDate).getFullYear()}
+          </span>
+        </div>
           </div>
 
           {/* Content Section */}
@@ -222,10 +222,10 @@ const ComparePageDetails = () => {
               </span>
               {/* )} */}
             </div>
-
+            
             <div className="absolute top-3 right-3 flex gap-2">
               <span className="main-bg-color text-white text-xs font-semibold px-2 py-1 rounded-md">
-                {"2024"}
+                {car2 && car2.launchDate && new Date(car2.launchDate).getFullYear()}
               </span>
             </div>
           </div>
@@ -339,10 +339,22 @@ const ComparePageDetails = () => {
               <div className=''>
                     {[
                       ["Engine Type", selectedVariant1?.engineAndTransmission?.engineType, selectedVariant2.engineAndTransmission?.engineType],
+                      ["Battery Capacity", selectedVariant1?.engineAndTransmission?.batteryCapacity, selectedVariant2.engineAndTransmission?.batteryCapacity],
+                      ["Motor Power", selectedVariant1?.engineAndTransmission?.moterPower, selectedVariant2.engineAndTransmission?.moterPower],
+                      ["Motor Type", selectedVariant1?.engineAndTransmission?.moterType, selectedVariant2.engineAndTransmission?.moterType],
+                      ["Range", selectedVariant1?.engineAndTransmission?.Range, selectedVariant2.engineAndTransmission?.Range],
+                      ["Battery Type", selectedVariant1?.engineAndTransmission?.batteryType, selectedVariant2.engineAndTransmission?.batteryType],
+                      ["Charging Time (A.C)", selectedVariant1?.engineAndTransmission?.chargingTimeAC, selectedVariant2.engineAndTransmission.chargingTimeAC],
+                      ["Charging Time (D.C)", selectedVariant1?.engineAndTransmission?.chargingTimeDC, selectedVariant2.engineAndTransmission.chargingTimeDC],
+                      ["Regenerative Braking", selectedVariant1?.engineAndTransmission?.regenerativeBraking, selectedVariant2.engineAndTransmission.regenerativeBraking],
+                      ["Regenerative Braking Levels", selectedVariant1?.engineAndTransmission?.regenerativeBrakingLevels, selectedVariant2.engineAndTransmission.regenerativeBrakingLevels],
+                      ["Charging Port", selectedVariant1?.engineAndTransmission?.chargingPort, selectedVariant2.engineAndTransmission.chargingPort],
+                      ["Charging Options", selectedVariant1?.engineAndTransmission?.chargingOptions, selectedVariant2.engineAndTransmission.chargingOptions],
+                      ["Charger Type", selectedVariant1?.engineAndTransmission?.chargerType, selectedVariant2.engineAndTransmission.chargerType],
                       ["Displacement", selectedVariant1?.engineAndTransmission?.displacement, selectedVariant2.engineAndTransmission.displacement],
-                      ["Max Power", selectedVariant1?.engineAndTransmission?.maxPower, selectedVariant2?.engineAndTransmission?.maxPower],
-                      ["Max Torque", selectedVariant1?.engineAndTransmission?.maxTorque, selectedVariant2?.engineAndTransmission?.maxTorque],
-                      ["No. of Cylinders", selectedVariant1?.engineAndTransmission?.NumOfCylinders, selectedVariant2?.engineAndTransmission?.NumOfCylinders],
+                      ["Max Power", selectedVariant1?.engineAndTransmission?.maxPower, selectedVariant2.engineAndTransmission?.maxPower],
+                      ["Max Torque", selectedVariant1?.engineAndTransmission?.maxTorque, selectedVariant2.engineAndTransmission?.maxTorque],
+                      ["No. of Cylinders", selectedVariant1?.engineAndTransmission?.NumOfCylinders, selectedVariant2.engineAndTransmission.NumOfCylinders],
                       ["Valves Per Cylinder", selectedVariant1.engineAndTransmission.valvesPerCylinder, selectedVariant2.engineAndTransmission.valvesPerCylinder],
                       ["Fuel Supply System", selectedVariant1.engineAndTransmission.fuelSupplySystem, selectedVariant2.engineAndTransmission.fuelSupplySystem],
                       ["Turbo Charger", selectedVariant1.engineAndTransmission.turboCharger, selectedVariant2.engineAndTransmission.turboCharger],
@@ -350,6 +362,7 @@ const ComparePageDetails = () => {
                       ["Gearbox", selectedVariant1.engineAndTransmission.gearbox, selectedVariant2.engineAndTransmission.gearbox],
                       ["Drive Type", selectedVariant1.engineAndTransmission.driveType, selectedVariant2.engineAndTransmission.driveType],
                     ].map(([label, value1, value2], idx) => (
+                      (value1 !== null && value2 !== null) && (value1 !== undefined && value2 !== undefined) && (value1 !== "" || typeof value1 === "boolean") && (value2 !== "" || typeof value2 === "boolean") && (
                       <div key={idx} className="space-y-2 mb-4">
                         <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
                         <div className="px-4 py-2 border flex justify-around rounded-lg">
@@ -357,7 +370,9 @@ const ComparePageDetails = () => {
                             <div>{(value2 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value2 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value2}</div>
                         </div>
                       </div>
-                    ))}
+                      ))
+
+                    )}
                     </div>
               </Section>
         </div>
