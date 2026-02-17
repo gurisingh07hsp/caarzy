@@ -375,10 +375,6 @@ export function CarDetail() {
             </svg>
             <div className="flex items-center gap-16">
               <p className='text-[#696665] w-20'>Seats:</p>
-              {(() => {
-                const max = Math.max(...car.variant.map((v: any) => v?.dimensionsAndCapacity.seatingCapacity));
-                return <p>{max as any == '-Infinity' ? 'N/A' : max}</p>;
-              })()}
               {car?.variant[0]?.dimensionsAndCapacity?.seatingCapacity }
             </div>
           </div>
