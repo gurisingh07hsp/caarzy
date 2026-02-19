@@ -7,10 +7,10 @@ const CarLoadingComponent = () => {
         <div className="text-center">
           {/* Brand Text */}
           <div className="mb-12">
-            <h1 className="text-6xl font-black text-black tracking-tight mb-2">
+            <h1 className="md:text-6xl font-black text-black tracking-tight mb-2">
               CAARZY
             </h1>
-            <p className="text-red-600 font-semibold text-lg tracking-widest">
+            <p className="text-red-600 font-semibold md:text-lg tracking-widest">
               LOADING YOUR EXPERIENCE
             </p>
           </div>
@@ -47,9 +47,9 @@ const CarLoadingComponent = () => {
                 {/* Car Body */}
                 <div className="relative w-32 h-16">
                   {/* Main Body */}
-                  <div className="absolute bottom-0 w-28 h-10 bg-red-600 rounded-lg shadow-xl">
+                  <div className="absolute bottom-0 w-20 h-8 md:w-28 md:h-10 bg-red-600 rounded-lg shadow-xl">
                     {/* Window Area */}
-                    <div className="absolute -top-6 left-6 w-16 h-8 bg-black rounded-t-lg">
+                    <div className="absolute -top-6 left-6 w-10 md:w-16 h-8 bg-black rounded-t-lg">
                       <div className="absolute top-1 left-2 w-5 h-5 bg-white rounded-sm" />
                       <div className="absolute top-1 right-2 w-5 h-5 bg-white rounded-sm" />
                     </div>
