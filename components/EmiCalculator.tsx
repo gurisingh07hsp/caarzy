@@ -44,14 +44,14 @@ export function EmiCalculator({ price, open, onClose }: EmiCalculatorProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="relative bg-white w-full max-w-5xl mx-4 rounded-2xl shadow-xl overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-4 border-b">
+        <div className="flex items-center justify-between px-6 py-4 md:py-4 border-b">
           <h3 className="text-lg font-semibold">Choose your EMI options</h3>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">✕</button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x">
           {/* Left controls */}
-          <div className="p-6">
-            <div className="mb-6">
+          <div className="md:p-6 p-4">
+            <div className="md:mb-6 mb-4">
               <div className="flex items-center justify-between mb-2">
                 <p className="font-medium">Down Payment</p>
                 <p className="text-sm text-gray-600">{formatINR(downPayment)}</p>
@@ -60,7 +60,7 @@ export function EmiCalculator({ price, open, onClose }: EmiCalculatorProps) {
                      onChange={(e) => setDownPayment(Number(e.target.value))} className="w-full" />
               <input type="number" value={downPayment}
                      onChange={(e) => setDownPayment(Math.max(0, Number(e.target.value)))}
-                     className="mt-3 w-full border rounded-lg px-3 py-2" />
+                     className="mt-3 w-full border rounded-lg px-3 md:py-2 py-1" />
               <p className="text-sm text-gray-600 mt-2">Your loan amount will be: <span className="font-semibold">{formatINR(principal)}</span></p>
             </div>
 
@@ -72,7 +72,7 @@ export function EmiCalculator({ price, open, onClose }: EmiCalculatorProps) {
                 </div>
                 <input type="range" min={12} max={84} value={tenureMonths}
                        onChange={(e) => setTenureMonths(Number(e.target.value))} className="w-full" />
-                <div className="lg:mt-3 mt-1 flex items-center gap-3">
+                <div className="lg:mt-3 hidden mt-1 md:flex items-center gap-3">
                   <input type="number" min={1} value={Math.round(tenureMonths/12)} onChange={(e) => setTenureMonths(Math.min(84, Math.max(12, Number(e.target.value) * 12)))} className="border rounded-lg px-3 py-2 w-20" />
                   <span className="text-sm text-gray-600">years</span>
                 </div>
@@ -84,7 +84,7 @@ export function EmiCalculator({ price, open, onClose }: EmiCalculatorProps) {
                 </div>
                 <input type="range" min={6} max={20} step={0.1} value={interestRate}
                        onChange={(e) => setInterestRate(Number(e.target.value))} className="w-full" />
-                <input type="number" step="0.1" value={interestRate} onChange={(e) => setInterestRate(Number(e.target.value))} className="mt-3 w-28 border rounded-lg px-3 py-2" />
+                <input type="number" step="0.1" value={interestRate} onChange={(e) => setInterestRate(Number(e.target.value))} className="mt-3 md:block hidden w-28 border rounded-lg px-3 py-2" />
               </div>
             </div>
           </div>
@@ -93,7 +93,7 @@ export function EmiCalculator({ price, open, onClose }: EmiCalculatorProps) {
           <div className="lg:p-6 px-6 py-2">
             <div className="text-2xl font-bold">{formatINR(monthlyEmi)} <span className="text-base font-normal text-gray-600">EMI / month</span></div>
 
-            <div className="mt-6 flex items-center justify-center">
+            <div className="md:mt-6 mt-2 flex items-center justify-center">
               <svg className='lg:w-[200px] lg:h-[200px] w-[100px] h-[100px]' viewBox="0 0 200 200">
                 <circle cx="100" cy="100" r="72" stroke="#e2e8f0" strokeWidth="18" fill="none" />
                 <circle cx="100" cy="100" r="72" stroke="#10b981" strokeWidth="18" fill="none"
@@ -109,7 +109,7 @@ export function EmiCalculator({ price, open, onClose }: EmiCalculatorProps) {
               <div className="flex items-center justify-between border-t pt-2"><span>Total Amount Payable</span><span className="font-semibold">{formatINR(totalPayable)}</span></div>
             </div>
 
-            <button className="mt-6 w-full bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg px-4 py-3">Get EMI Offers</button>
+            <button className="mt-6 w-full main-bg-color text-white font-medium rounded-lg px-4 py-3">Get EMI Offers</button>
           </div>
         </div>
       </div>

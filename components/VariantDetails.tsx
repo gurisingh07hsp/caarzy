@@ -472,14 +472,18 @@ const VariantDetails = () => {
                         <p>Ex-Showroom price</p>
                         <p>₹{carVariant.priceBreakup.exShowroom}</p>
                     </div>
+                    {carVariant.priceBreakup.registration && (
                     <div className='flex justify-between'>
                         <p>Registration</p>
                         <p>₹{carVariant.priceBreakup.registration}</p>
                     </div>
+                    )}
+                    {carVariant.priceBreakup.insurance && (
                     <div className='flex justify-between'>
                         <p>Insurance</p>
                         <p>₹{carVariant.priceBreakup.insurance}</p>
                     </div>
+                    )}
                     {carVariant?.priceBreakup.other && (
                       <div className='flex justify-between'>
                         <p>Other</p>

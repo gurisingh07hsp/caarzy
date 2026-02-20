@@ -577,7 +577,7 @@ export function CarDetail() {
                   </div>
                   <div>
                     <h2>{pcar.modelName}</h2>
-                    <p className='text-[#FF7101]'>₹{PriceFormatter(pcar?.variant[0]?.price)}</p>
+                    <p className='main-text-color'>₹{PriceFormatter(pcar?.variant[0]?.price)}</p>
                   </div>
                 </div>
               ))}
