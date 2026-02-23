@@ -8,10 +8,12 @@ import { Reviews } from './Reviews';
 import { useRouter } from 'next/navigation';
 import CarLoadingComponent from './CarLoadingComponent';
 import { PriceFormatter } from '@/hook/utils';
+import OfferForm from './OfferForm';
 const VariantDetails = () => {
     const { variant } = useParams();
     const [carVariant, setCarVariant] = useState<Car | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [offerOpen, setOfferOpen] = useState(false);
     const [selectedtab, setSelectedTab] = useState<'description' | 'overview' | 'images' | 'features' | 'reviews'>('description');
     const [model, setModel] = useState<any>(null);
     const [loading, setLoading] = useState(true);
@@ -88,6 +90,7 @@ const VariantDetails = () => {
   };
   return (
     <div>
+      {offerOpen && <OfferForm open={offerOpen} setOpen={setOfferOpen}/>}
         {carVariant && model ? (
             <div className='max-w-7xl flex lg:flex-row flex-col justify-between mx-2 lg:mx-auto'>
               <div className='lg:w-[800px]'>
@@ -192,6 +195,7 @@ const VariantDetails = () => {
                 <p className="lg:text-2xl text-xl font-bold main-text-color">₹{PriceFormatter(carVariant?.price)}</p>
                 <p className="text-xs text-gray-600 mb-1">On-Road Price</p>
                 <div className="mt-3 flex items-center gap-3">
+                  <button onClick={()=> setOfferOpen(true)} className="px-3 py-2 rounded-lg main-bg-color text-white">Get Offers</button>
                   {/* <button onClick={() => setEmiOpen(true)} className="text-blue-600 hover:underline">EMI Calculator</button> */}
                   {/* <button className="px-3 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600">Get Offers</button> */}
                 </div>

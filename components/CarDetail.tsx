@@ -10,11 +10,13 @@ import { useRouter } from 'next/navigation';
 import CarLoadingComponent from './CarLoadingComponent';
 import Link from 'next/link';
 import {capitalizeString, PriceFormatter} from '../hook/utils';
+import OfferForm from './OfferForm';
 
 export function CarDetail() {
   const [selectedFuel, setSelectedFuel] = useState<'All' | 'Petrol' | 'Diesel' | 'Electric' | 'Hybrid' | 'CNG'>('All');
   const [selectedTransmission, setSelectedTransmission] = useState<'All' | 'Manual' | 'Automatic' | 'Automatic (AMT)'>('All');
   const [emiOpen, setEmiOpen] = useState(false);
+  const [offerOpen, setOfferOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [variants, setVariants] = useState<any>([]);
   const [car, setCar] = useState<any>(null);
@@ -151,7 +153,7 @@ export function CarDetail() {
           </div>
           <div className="px-6 py-4 border-t bg-gray-50 flex items-center justify-end gap-3">
             <button onClick={() => setBreakupOpen(false)} className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100">Close</button>
-            <button onClick={() => { setEmiOpen(true); setBreakupOpen(false); }} className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600">Check EMI</button>
+            <button onClick={() => { setEmiOpen(true); setBreakupOpen(false); }} className="px-4 py-2 rounded-lg main-bg-color text-white">Check EMI</button>
           </div>
         </div>
       </div>
@@ -160,6 +162,7 @@ export function CarDetail() {
 
   return (
     <div className="lg:max-w-7xl mx-auto lg:px-4 px-2">
+      {offerOpen && <OfferForm open={offerOpen} setOpen={setOfferOpen}/>}
       {loading ? (
         <CarLoadingComponent/>
         // <div className='h-[100vh] w-[100%] flex justify-center items-center'></div>
@@ -273,8 +276,8 @@ export function CarDetail() {
             </svg>
             {car.variant.length > 0 ? (
               <div>{(() => {
-                const min = Math.min(...car.variant.map((v: any) => v?.fuelAndPerformance?.petrolMileageARAI.split(' ')[0] || 0));
-                const max = Math.max(...car.variant.map((v: any) => v?.fuelAndPerformance.petrolMileageARAI.split(' ')[0]));
+                const min = Math.min(...car.variant.map((v: any) => v?.fuelAndPerformance?.petrolMileageARAI?.split(' ')[0] || 0));
+                const max = Math.max(...car.variant.map((v: any) => v?.fuelAndPerformance?.petrolMileageARAI?.split(' ')[0]));
                 return <p>{min} - {max} km</p>;
               })()}</div>
             ) : (
@@ -308,7 +311,7 @@ export function CarDetail() {
                 <p className="text-xs text-gray-600 mb-1">On-Road Price</p>
                 <div id='overview' className="mt-3 flex items-center gap-3">
                   <button onClick={() => setEmiOpen(true)} className="text-blue-600 hover:underline">EMI Calculator</button>
-                  <button className="px-3 py-2 rounded-lg main-bg-color text-white">Get Offers</button>
+                  <button onClick={()=> setOfferOpen(true)} className="px-3 py-2 rounded-lg main-bg-color text-white">Get Offers</button>
                 </div>
               </div>
             </div>
@@ -418,8 +421,8 @@ export function CarDetail() {
             <div className="flex items-center gap-16">
               <p className='text-[#696665] w-20'>Mileage:</p>
               {(() => {
-                const min = Math.min(...car.variant.map((v: any) => v.fuelAndPerformance.petrolMileageARAI.split(' ')[0]));
-                const max = Math.max(...car.variant.map((v: any) => v.fuelAndPerformance.petrolMileageARAI.split(' ')[0]));
+                const min = Math.min(...car.variant.map((v: any) => v.fuelAndPerformance.petrolMileageARAI?.split(' ')[0]));
+                const max = Math.max(...car.variant.map((v: any) => v.fuelAndPerformance.petrolMileageARAI?.split(' ')[0]));
                 return <p>{min as any == 'Infinity' ? 'N/A' : min} - {max as any == '-Infinity' ? 'N/A' : max} kmpl</p>;
                 })()}
             </div>
@@ -461,7 +464,7 @@ export function CarDetail() {
             <div key={v.name} className="grid grid-cols-12 items-center px-4 py-4 border-t text-sm">
               <div className="col-span-6">
                 <Link href={`${name}/${v.name.replace(/\s+/g, '-')}`} className="font-semibold text-gray-900">{v.name}</Link>
-                <p className="text-gray-600 text-xs">{v.engineAndTransmission.displacement.split(' ')[0]} cc, {v.engineAndTransmission.transmissionType}, {v.fuelAndPerformance.fuelType}, {v.fuelAndPerformance.petrolMileageARAI.split(' ')[0]} kmpl</p>
+                <p className="text-gray-600 text-xs">{v.engineAndTransmission?.displacement?.split(' ')[0]} cc, {v.engineAndTransmission.transmissionType}, {v.fuelAndPerformance?.fuelType}, {v.fuelAndPerformance?.petrolMileageARAI?.split(' ')[0]} kmpl</p>
               </div>
               <div className="col-span-3 font-semibold">₹{PriceFormatter(v.price)}</div>
               <div className="col-span-3 flex justify-end gap-4">
