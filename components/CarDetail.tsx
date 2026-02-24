@@ -192,10 +192,6 @@ export function CarDetail() {
                 </div>
               )}
               </>
-            {/* <div className="absolute bottom-3 left-3 flex gap-3">
-              <button onClick={() => setShowVideo(true)} className={`px-3 py-1.5 rounded-lg text-sm shadow ${showVideo ? 'bg-gray-900 text-white' : 'bg-white/90 text-gray-900'}`}>Video</button>
-              <button onClick={() => setShowVideo(false)} className={`px-3 py-1.5 rounded-lg text-sm shadow ${!showVideo ? 'bg-gray-900 text-white' : 'bg-white/90 text-gray-900'}`}>All Image</button>
-            </div> */}
           </div>
           {/* Thumbnails strip */}
           <div className="mt-3 overflow-x-auto">
@@ -306,12 +302,12 @@ export function CarDetail() {
                 {(() => {
                   const min = Math.min(...car?.variant.map((v: any) => v.price));
                   const max = Math.max(...car?.variant.map((v: any) => v.price));
-                  return <p className="text-2xl font-bold main-text-color">₹{PriceFormatter(min)} - {PriceFormatter(max)}</p>;
+                  return <p className="md:text-2xl text-lg font-bold main-text-color">₹{PriceFormatter(min)} - {PriceFormatter(max)}</p>;
                 })()}
                 <p className="text-xs text-gray-600 mb-1">On-Road Price</p>
                 <div id='overview' className="mt-3 flex items-center gap-3">
-                  <button onClick={() => setEmiOpen(true)} className="text-blue-600 hover:underline">EMI Calculator</button>
-                  <button onClick={()=> setOfferOpen(true)} className="px-3 py-2 rounded-lg main-bg-color text-white">Get Offers</button>
+                  <button onClick={() => setEmiOpen(true)} className="text-blue-600 text-sm md:text-[16px] hover:underline">EMI Calculator</button>
+                  <button onClick={()=> setOfferOpen(true)} className="md:px-3 md:py-2 px-2 py-1 text-sm md:text-[16px] rounded-lg main-bg-color text-white">Get Offers</button>
                 </div>
               </div>
             </div>
@@ -454,22 +450,22 @@ export function CarDetail() {
 
         {/* Variant list */}
         <div className='overflow-x-auto max-h-96'>
-        <div className="mt-6 overflow-hidden w-[665px] rounded-xl border border-gray-200">
+        <div className="mt-6 overflow-hidden lg:w-[665px] rounded-xl border border-gray-200">
           <div className="grid grid-cols-12 bg-gray-50 text-gray-600 text-sm font-medium px-4 py-3">
-            <div className="col-span-6">Variants</div>
-            <div className="col-span-3">On-Road Price</div>
-            <div className="col-span-3 text-right">Actions</div>
+            <div className="lg:col-span-6 col-span-8">Variants</div>
+            <div className="lg:col-span-3 col-span-4">On-Road Price</div>
+            <div className="lg:col-span-3 col-span-4 lg:block hidden text-right">Actions</div>
           </div>
           {variants?.map((v: any, index: number) => (
-            <div key={v.name} className="grid grid-cols-12 items-center px-4 py-4 border-t text-sm">
+            <div key={v.name} className="grid grid-cols-12 gap-2 items-center px-4 py-4 border-t text-sm">
               <div className="col-span-6">
-                <Link href={`${name}/${v.name.replace(/\s+/g, '-')}`} className="font-semibold text-gray-900">{v.name}</Link>
+                <Link href={`${name}/${v.name.replace(/\s+/g, '-')}`} className="font-semibold text-gray-900 py-2">{v.name}</Link>
                 <p className="text-gray-600 text-xs">{v.engineAndTransmission?.displacement?.split(' ')[0]} cc, {v.engineAndTransmission.transmissionType}, {v.fuelAndPerformance?.fuelType}, {v.fuelAndPerformance?.petrolMileageARAI?.split(' ')[0]} kmpl</p>
               </div>
-              <div className="col-span-3 font-semibold">₹{PriceFormatter(v.price)}</div>
-              <div className="col-span-3 flex justify-end gap-4">
-                <button onClick={() => openBreakup(v.name, v.price)} className="main-text-color hover:underline">View Price Breakup</button>
-                <button onClick={() => {setEmiOpen(true); setIndex(index)}} className="text-blue-600 hover:underline">EMI Options</button>
+              <div className="lg:col-span-2 col-span-6 text-right lg:text-center font-semibold">₹{PriceFormatter(v.price)}</div>
+              <div className="lg:col-span-4 col-span-8 lg:flex justify-end mt-1 gap-2">
+                <button onClick={() => openBreakup(v.name, v.price)} className="main-text-color lg:w-20 hover:underline">View Price Breakup</button>
+                <button onClick={() => {setEmiOpen(true); setIndex(index)}} className="text-blue-600 md:ps-2 lg:w-20 hover:underline">EMI Options</button>
               </div>
             </div>
           ))}
