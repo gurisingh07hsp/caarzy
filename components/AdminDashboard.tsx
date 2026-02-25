@@ -125,7 +125,7 @@ export function AdminDashboard({
                   className={cn(
                     "w-full flex items-center px-4 py-3 text-left rounded-lg transition-all duration-200",
                     currentPage === item.id
-                      ? "bg-orange-500 text-white shadow-lg"
+                      ? "main-bg-color text-white shadow-lg"
                       : "text-gray-300 hover:bg-gray-700 hover:text-white"
                   )}
                 >
@@ -167,7 +167,7 @@ export function AdminDashboard({
                   className={cn(
                     "w-full flex items-center px-4 py-3 text-left rounded-lg transition-all duration-200",
                     currentPage === item.id
-                      ? "bg-orange-500 text-white shadow-lg"
+                      ? "main-bg-color text-white shadow-lg"
                       : "text-gray-300 hover:bg-gray-700 hover:text-white"
                   )}
                 >

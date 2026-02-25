@@ -75,7 +75,7 @@ const HomeFilter = () => {
 
       {/* Dropdown */}
       {open && (
-        <ul className="absolute w-full bg-white border rounded mt-1 shadow-md z-50 max-h-96 md:max-h-72 overflow-y-auto">
+        <ul className="absolute w-32 md:w-full bg-white border rounded mt-1 shadow-md z-50 max-h-96 md:max-h-72 overflow-y-auto">
           {mockBrands.map((item, index) => (
             <li
               key={index}
@@ -108,7 +108,7 @@ const HomeFilter = () => {
 
       {/* Dropdown */}
       {openModel && (
-        <ul className="absolute w-full bg-white border rounded mt-1 shadow-md z-50 max-h-96 md:max-h-72 overflow-y-auto">
+        <ul className="absolute w-32 md:w-full bg-white border rounded mt-1 shadow-md z-50 max-h-96 md:max-h-72 overflow-y-auto">
           {models.length > 0 ? (models.map((item, index) => (
             <li
               key={index}

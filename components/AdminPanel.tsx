@@ -650,7 +650,7 @@ function removeColor(colorName: string) {
         <div className="flex lg:flex-row flex-col lg:items-center gap-2">
           <input type="text" value={newColor.colorCode} onChange={(e) => setNewColor({...newColor, colorCode: e.target.value})} className="py-2 px-2 border rounded-lg" />
           <input type="text" value={newColor.colorName} onChange={(e) => setNewColor({...newColor, colorName: e.target.value})} className="py-2 px-2 border rounded-lg" />
-          <button type="button" onClick={addColor} className="px-3 py-2 rounded bg-orange-500 text-white hover:bg-orange-600">Add Color</button>
+          <button type="button" onClick={addColor} className="px-3 py-2 rounded main-bg-color text-white">Add Color</button>
         </div>
         <div className="flex flex-wrap gap-2 mt-3">
           {colors.map((c: any) => (
