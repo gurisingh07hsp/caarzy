@@ -538,6 +538,41 @@ const AddCar = ({selectedCar, operation, setOperation}: AddCarProps) => {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
+    if (!carForm.name || !carForm.price || !carForm.model) {
+      toast.error("Name, Price and Model are required fields");
+      setLoading(false);
+      return ;
+    }
+    if (carForm.price.includes(',')) {
+      toast.error("Price must be a valid number");
+      setLoading(false);
+      return ;
+    }
+    if (carForm?.originalPrice?.includes(',')) {
+      toast.error("Original Price must be a valid number");
+      setLoading(false);
+      return ;
+    }
+    if (carForm?.priceBreakup?.exShowroom?.includes(',')) {
+      toast.error("Ex Showroom Price must be a valid number");
+      setLoading(false);
+      return ;
+    }
+    if (carForm?.priceBreakup?.registration?.includes(',')) {
+      toast.error("Registration Price must be a valid number");
+      setLoading(false);
+      return ;
+    }
+    if (carForm?.priceBreakup?.insurance?.includes(',')) {
+      toast.error("Insurance Price must be a valid number");
+      setLoading(false);
+      return ;
+    }
+    if (carForm?.priceBreakup?.other?.includes(',')) {
+      toast.error("Other Price must be a valid number");
+      setLoading(false);
+      return ;
+    }
     if(operation == 'add'){
       try{
         const response = await axios.post('/api/managecars', {carForm}, {withCredentials:true});

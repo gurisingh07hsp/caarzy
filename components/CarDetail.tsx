@@ -454,7 +454,7 @@ export function CarDetail() {
           <div className="grid grid-cols-12 bg-gray-50 text-gray-600 text-sm font-medium px-4 py-3">
             <div className="lg:col-span-6 col-span-8">Variants</div>
             <div className="lg:col-span-3 col-span-4">On-Road Price</div>
-            <div className="lg:col-span-3 col-span-4 lg:block hidden text-right">Actions</div>
+            <div className="lg:col-span-3 col-span-4 lg:block hidden text-center">Actions</div>
           </div>
           {variants?.map((v: any, index: number) => (
             <div key={v.name} className="grid grid-cols-12 gap-2 items-center px-4 py-4 border-t text-sm">
@@ -463,9 +463,9 @@ export function CarDetail() {
                 <p className="text-gray-600 text-xs">{v.engineAndTransmission?.displacement?.split(' ')[0]} cc, {v.engineAndTransmission.transmissionType}, {v.fuelAndPerformance?.fuelType}, {v.fuelAndPerformance?.petrolMileageARAI?.split(' ')[0]} kmpl</p>
               </div>
               <div className="lg:col-span-2 col-span-6 text-right lg:text-center font-semibold">₹{PriceFormatter(v.price)}</div>
-              <div className="lg:col-span-4 col-span-8 lg:flex justify-end mt-1 gap-2">
+              <div className="lg:col-span-4 col-span-9 lg:flex justify-end mt-1 gap-2">
                 <button onClick={() => openBreakup(v.name, v.price)} className="main-text-color lg:w-20 hover:underline">View Price Breakup</button>
-                <button onClick={() => {setEmiOpen(true); setIndex(index)}} className="text-blue-600 md:ps-2 lg:w-20 hover:underline">EMI Options</button>
+                <button onClick={() => {setEmiOpen(true); setIndex(index)}} className="text-blue-600 ps-2 lg:w-20 hover:underline">EMI Options</button>
               </div>
             </div>
           ))}

@@ -1,3 +1,9 @@
+import districts from 'cities.json';
+
+export const districtArray = districts.map(d => d.city);
+
+// console.log("districts : ", JSON.stringify(districtArray, null, 2));
+
 export const capitalizeString = (str: string) => {
       return str
       .split(" ")
