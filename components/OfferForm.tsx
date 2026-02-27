@@ -1,6 +1,8 @@
 import { Mail, Phone } from 'lucide-react'
 import React, { useState, useEffect, useRef } from 'react'
-import { districtArray } from '../hook/utils';
+import { districtArray,capitalizeString } from '../hook/utils';
+import { useRouter } from 'next/navigation';
+import { useParams } from "next/navigation";
 
 interface FormData {
   email: string
@@ -9,6 +11,8 @@ interface FormData {
 }
 const OfferForm = ({open, setOpen}: {open: boolean, setOpen: (open: boolean) => void}) => {
   const locationRef = useRef<HTMLDivElement>(null);
+  const { name } = useParams();
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     email: '',
     phone: '',
@@ -38,6 +42,8 @@ const OfferForm = ({open, setOpen}: {open: boolean, setOpen: (open: boolean) => 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    localStorage.setItem('caarzyLocation', capitalizeString(formData.location).replace(/\s+/g, ''));
+    router.push(`${name}/${'price-in-'+capitalizeString(formData.location).replace(/\s+/g, '')}`)
     console.log(formData)
     setOpen(false)
   }
@@ -164,7 +170,7 @@ const OfferForm = ({open, setOpen}: {open: boolean, setOpen: (open: boolean) => 
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="you@example.com"
-                    required
+                    // required
                     className="w-full border focus:border-red-500  rounded-xl pl-9 pr-4 py-3 placeholder text-sm outline-none"
                   />
                 </div>
@@ -185,7 +191,7 @@ const OfferForm = ({open, setOpen}: {open: boolean, setOpen: (open: boolean) => 
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="+91 00000-00000"
-                    required
+                    // required
                     className="w-full border focus:border-red-500 rounded-xl pl-9 pr-4 py-3 placeholder text-sm outline-none"
                   />
                 </div>

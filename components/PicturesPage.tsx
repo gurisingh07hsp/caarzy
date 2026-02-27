@@ -85,8 +85,8 @@ const PicturesPage = () => {
             </svg>
             {car.variant.length > 0 ? (
               <div>{(() => {
-                const min = Math.min(...car.variant.map((v: any) => v?.fuelAndPerformance?.petrolMileageARAI.split(' ')[0] || 0));
-                const max = Math.max(...car.variant.map((v: any) => v?.fuelAndPerformance.petrolMileageARAI.split(' ')[0]));
+                const min = Math.min(...car.variant.map((v: any) => v?.fuelAndPerformance?.petrolMileageARAI?.split(' ')[0] || 0));
+                const max = Math.max(...car.variant.map((v: any) => v?.fuelAndPerformance?.petrolMileageARAI?.split(' ')[0]));
                 return <p>{min} - {max} km</p>;
               })()}</div>
             ) : (
