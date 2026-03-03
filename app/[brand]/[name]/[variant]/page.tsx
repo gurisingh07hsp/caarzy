@@ -19,6 +19,9 @@ export async function generateMetadata({ params }: BrandPageProps) {
   return {
     title: `${capitalizeString(formattedBrand)} ${variant} on-road Price, Mileage & Features`,
     description: `View ${formattedBrand} ${variant} price, mileage, engine specs, features and on-road price. Check images and compare variants easily.`,
+      alternates:{
+      canonical: `/${formattedBrand}/${variant}`
+    } 
   };
 }
 const variantPage = async({ params }: BrandPageProps) => {

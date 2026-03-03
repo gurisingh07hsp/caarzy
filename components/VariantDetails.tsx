@@ -55,7 +55,6 @@ const VariantDetails = () => {
         try{
             const response = await axios.get(`/api/managecars/${variant?.toString().replace(/-/g, ' ')}`);
             if(response.status === 200){
-                console.log(response.data);
                 setCarVariant(response.data.car);
                 setModel(response.data.model);
             }
@@ -117,27 +116,27 @@ const VariantDetails = () => {
         <div className='flex gap-2 my-4 overflow-x-auto scrollbar-hide snap-x snap-mandatorypb-2'>
           <button 
             onClick={() => {setSelectedTab('description'); router.push('#description')}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'description' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-3 md:min-w-[144px] text-xs md:text-[16px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'description' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Description
           </button>
           
           <button 
             onClick={() => {setSelectedTab('overview'); router.push('#overview')}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'overview' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-3 md:min-w-[144px] text-xs md:text-[16px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'overview' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Overview
           </button>
           
           <button 
             onClick={() => {setSelectedTab('features'); router.push('#features')}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'features' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-3 md:min-w-[144px] text-xs md:text-[16px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'features' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Features
           </button>
           <button 
             onClick={() => {setSelectedTab('images'); router.push(`pictures`)}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'images' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-3 md:min-w-[144px] text-xs md:text-[16px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'images' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Images
           </button>
@@ -145,7 +144,7 @@ const VariantDetails = () => {
           
           <button 
             onClick={() => {setSelectedTab('reviews'); router.push('#reviews')}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'reviews' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-3 md:min-w-[144px] text-xs md:text-[16px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'reviews' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Reviews
           </button>

@@ -1,8 +1,6 @@
 'use client';
-
-import React from 'react';
-import { Car } from '@/types/Car';
 import { useRouter } from 'next/navigation';
+import { capitalizeString } from '@/hook/utils';
 
 // interface ComparisonPair {
 //   leftCar: Car;
@@ -62,7 +60,7 @@ export function CompareSection({ comparisons }: CompareSectionProps) {
                 <div>
                   <p className="text-sm text-gray-500 mb-1">{comparison.car1.brand}</p>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    {comparison.car1.modelName}
+                    {capitalizeString(comparison.car1.modelName)}
                   </h3>
                   {/* <p className="text-lg font-semibold text-gray-900">
                     ₹{(comparison.car1.price as any / 100000).toFixed(2)}L
@@ -73,7 +71,7 @@ export function CompareSection({ comparisons }: CompareSectionProps) {
                 <div className='text-end'>
                   <p className="text-sm text-gray-500 mb-1">{comparison.car2.brand}</p>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    {comparison.car2.modelName}
+                    {capitalizeString(comparison.car2.modelName)}
                   </h3>
                   {/* <p className="text-lg font-semibold text-gray-900">
                     ₹{(comparison.car2.price as any / 100000).toFixed(2)}L
@@ -85,7 +83,7 @@ export function CompareSection({ comparisons }: CompareSectionProps) {
               <button
                 onClick={()=> router.push(`/compare/${comparison.car1.modelName.replace(/\s+/, '-')}-and-${comparison.car2.modelName}`)}
                className="w-full mt-6 bg-white border-2 border-[#e8151f] main-text-color font-semibold py-3 px-4 rounded-lg hover:bg-red-50 transition-colors">
-                {comparison.car1.modelName} Vs {comparison.car2.modelName}
+                {capitalizeString(comparison.car1.modelName)} Vs {capitalizeString(comparison.car2.modelName)}
               </button>
             </div>
           </div>

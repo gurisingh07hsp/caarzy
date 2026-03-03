@@ -21,6 +21,9 @@ export async function generateMetadata({ params }: BrandPageProps) {
   return {
     title: `${capitalizeString(formattedBrand)} ${capitalizeString(formattedName)} Images – Interior, Exterior & Gallery`,
     description: `View ${formattedBrand} ${formattedName} images including interior, exterior and dashboard photos. Explore full HD gallery of all variants and design details.`,
+      alternates:{
+      canonical: `/${formattedBrand}/${formattedName}/pictures`
+    } 
   };
 }
 

@@ -27,8 +27,6 @@ const HomeFilter = () => {
     fetchModels();
   },[brand]);
 
-  console.log("models new : ", models);
-
     useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (

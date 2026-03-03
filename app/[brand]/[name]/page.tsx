@@ -21,6 +21,9 @@ export async function generateMetadata({ params }: BrandPageProps) {
   return {
     title: `${capitalizeString(formattedBrand)} ${capitalizeString(formattedName)} Price, Mileage, Images, Specs & Reviews`,
     description: `Explore ${formattedBrand} ${formattedName} price in India, mileage, specifications, features, variants and images. Compare with similar cars and find best deals.`,
+    alternates:{
+      canonical: `/${formattedBrand}/${formattedName}`
+    } 
   };
 }
 const CarDetails = () => {

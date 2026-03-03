@@ -93,15 +93,9 @@ const OfferForm = ({open, setOpen}: {open: boolean, setOpen: (open: boolean) => 
 
             {/* Header */}
             <div className="mb-8">
-              <p className="main-text-color text-xs font-semibold tracking-widest uppercase mb-2">
-                Exclusive Access
-              </p>
               <h2 className="text-2xl font-bold tracking-tight">
-                Claim Your Offer
+                Select Your Location
               </h2>
-              <p className="text-sm mt-1">
-                Fill in your details to get started.
-              </p>
             </div>
 
             {/* Form */}
@@ -151,49 +145,6 @@ const OfferForm = ({open, setOpen}: {open: boolean, setOpen: (open: boolean) => 
                   )}
                 </div>
               )}
-                </div>
-              </div>
-
-
-              {/* Email */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium uppercase tracking-widest">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm">
-                    <Mail size={16}/>
-                  </span>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="you@example.com"
-                    // required
-                    className="w-full border focus:border-red-500  rounded-xl pl-9 pr-4 py-3 placeholder text-sm outline-none"
-                  />
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium uppercase tracking-widest">
-                  Phone Number
-                </label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm">
-                    <Phone size={16}/>
-                  </span>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="+91 00000-00000"
-                    // required
-                    className="w-full border focus:border-red-500 rounded-xl pl-9 pr-4 py-3 placeholder text-sm outline-none"
-                  />
                 </div>
               </div>
 

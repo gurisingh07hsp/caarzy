@@ -27,23 +27,46 @@ export function CarDetail() {
   const [sort, setSort] = useState<'latest' | 'top'>('latest');
   const [popularCars, setPopularCars] = useState([]);
   const { brand, name } = useParams();
+  const [blogs, setBlogs] = useState<any>([]);
   const [selectedtab, setSelectedTab] = useState<'description' | 'overview' | 'images' | 'pros&cons' | 'reviews'>('description');
   const router = useRouter();
+
+  const getBlogs = async() => {
+    try{
+      const response = await axios.get('/api/manageblogs');
+      if(response.status === 200){
+        console.log(response.data.blogs);
+        setBlogs(response.data.blogs.filter((b: any)=> b.title.toLowerCase().includes(car?.modelName.toLowerCase())).slice(0,3));
+      }
+    }catch(error){
+      console.error('Error fetching popular cars: ', error);
+    }
+  }
+
   const getCars = async()=> {
     try{
       const response = await axios.get(`/api/managemodels/${brand?.toString().replace(/-/g, ' ')}/${name?.toString().replace(/-/g, ' ')}`);
       if(response.status === 200){
         setCar(response.data.car);
-        console.log(response.data.car);
       }
     }catch(error){
       console.error(error);
     }
+      console.log("location : ",localStorage.getItem('caarzyLocation'));
+      const res = await fetch("https://ipapi.co/json/");
+      const data = await res.json();
+      if(localStorage.getItem('caarzyLocation') == null){
+        localStorage.setItem('caarzyLocation', capitalizeString(data.city).replace(/\s+/g, ''));
+      }
       setLoading(false);
   }
   useEffect(() => {
     getCars();
   }, []);
+
+  useEffect(()=> {
+    getBlogs();
+  },[car])
 
   useEffect(()=> {
     const fetchPopularCars = async() => {
@@ -82,7 +105,6 @@ export function CarDetail() {
       filterVariats = filterVariats.filter((v: any)=> v.engineAndTransmission.transmissionType === selectedTransmission);
     }
     setVariants(filterVariats);
-    console.log("variants : ",filterVariats);
     
   },[car, selectedFuel, selectedTransmission]);
 
@@ -212,35 +234,35 @@ export function CarDetail() {
         <div className='flex gap-2 my-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2'>
           <button 
             onClick={() => {setSelectedTab('description'); router.push('#description')}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'description' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-3 md:min-w-[144px] text-xs md:text-[16px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'description' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Description
           </button>
           
           <button 
             onClick={() => {setSelectedTab('overview'); router.push('#overview')}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'overview' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-3 md:min-w-[144px] text-xs md:text-[16px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'overview' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Overview
           </button>
           
           <button 
             onClick={() => {setSelectedTab('images'); router.push(`${car.modelName}/pictures`)}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'images' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-3 md:min-w-[144px] text-xs md:text-[16px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'images' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Images
           </button>
           
           <button 
             onClick={() => {setSelectedTab('pros&cons'); router.push('#pros&cons')}} 
-            className={`lg:px-4 px-2 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'pros&cons' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-3 md:min-w-[144px] text-xs md:text-[16px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'pros&cons' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Pros & Cons
           </button>
           
           <button 
             onClick={() => {setSelectedTab('reviews'); router.push('#reviews')}} 
-            className={`lg:px-4 min-w-[144px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'reviews' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
+            className={`lg:px-4 px-3 md:min-w-[144px] text-xs md:text-[16px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'reviews' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Reviews
           </button>
@@ -305,7 +327,7 @@ export function CarDetail() {
             })()}
             <div className='flex items-center gap-2'>
               <p className="text-xs text-gray-600">On-Road Price</p>
-              <button className='text-blue-600 hover:underline' onClick={()=> setOfferOpen(true)}>{localStorage.getItem('caarzyLocation') || 'Select Location'}</button>
+              <button className='text-blue-600 bg-white hover:border-blue-600 border py-1 px-2 rounded-lg' onClick={()=> setOfferOpen(true)}>{localStorage.getItem('caarzyLocation') || 'Select Location'}</button>
             </div>
             <p className="text-xs text-muted-foreground flex items-center gap-1 mt-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
@@ -314,7 +336,7 @@ export function CarDetail() {
           </div>
         )}
         <div id='overview' className="my-2 ms-2 flex items-center gap-3">
-          <button onClick={() => setEmiOpen(true)} className="text-blue-600 text-sm md:text-[16px] hover:underline">EMI Calculator</button>
+          <button onClick={() => setEmiOpen(true)} className="text-blue-600 border border-blue-600 md:py-2 py-1 px-2 rounded-lg text-sm md:text-[16px]">EMI Calculator</button>
           <button onClick={()=> setOfferOpen(true)} className="md:px-3 md:py-2 px-2 py-1 text-sm md:text-[16px] rounded-lg main-bg-color text-white">Get Offers</button>
         </div>
 
@@ -584,7 +606,7 @@ export function CarDetail() {
             <div key={v.name} className="grid grid-cols-12 gap-2 items-center px-4 py-4 border-t text-sm">
               <div className="col-span-6">
                 <Link href={`${name}/${v.name.replace(/\s+/g, '-')}`} className="font-semibold text-gray-900 py-2">{v.name}</Link>
-                <p className="text-gray-600 text-xs">{v.engineAndTransmission?.displacement?.split(' ')[0]} cc, {v.engineAndTransmission.transmissionType}, {v.fuelAndPerformance?.fuelType}, {v.fuelAndPerformance?.petrolMileageARAI?.split(' ')[0]} kmpl</p>
+                <p className="text-gray-600 text-xs">{car.category != 'Electric Cars' &&  `${v.engineAndTransmission?.displacement?.split(' ')[0]} cc,`} {v.engineAndTransmission.transmissionType}, {v.fuelAndPerformance?.fuelType}, {car.category != 'Electric Cars' ? `${v.fuelAndPerformance?.petrolMileageARAI?.split(' ')[0]} Kmpl` : v.engineAndTransmission.Range}</p>
               </div>
               <div className="lg:col-span-2 col-span-6 text-right lg:text-center font-semibold">₹{PriceFormatter(v.price)}</div>
               <div className="lg:col-span-4 col-span-9 lg:flex justify-end mt-1 gap-2">
@@ -607,7 +629,7 @@ export function CarDetail() {
 
             <div className='mt-8 space-y-2'>
               {popularCars.map((pcar: any)=>(
-                <div key={pcar._id} onClick={()=>router.push(`/${pcar.brand}/${pcar.modelName}`)} className={`flex gap-4 cursor-pointer hover:text-[#FF7101] ${car._id == pcar._id ? 'hidden' : 'block'}`}>
+                <div key={pcar._id} onClick={()=>router.push(`/${pcar.brand}/${pcar.modelName}`)} className={`flex gap-4 cursor-pointer ${car._id == pcar._id ? 'hidden' : 'block'}`}>
                   <div>
                     <img src={pcar.images[0]} alt={pcar.modelName} className='w-28 h-20 rounded-lg' />
                   </div>
@@ -681,6 +703,38 @@ export function CarDetail() {
       ))}
     </div>
   </div>
+  )}
+
+  {blogs.length > 0 && (
+    <div className='border mt-8 rounded-2xl p-4'>
+      <h2 className='lg:text-xl text-lg font-medium'>Latest Articles & Reviews</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
+        {blogs.map((blog: any, index: number) => (
+          <div key={index} className='lg:w-[400px] h-[436px]'>
+            <div className='w-full h-[250px] relative rounded-2xl overflow-hidden'>
+              <div className='main-bg-color text-white absolute top-2 left-2 rounded-full px-2 py-1'>{new Date(blog.publishDate).toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+              })}</div>
+              <img src={blog.featuredImage} alt={blog.title} className='rounded-2xl w-full h-full' />
+            </div>
+            <div className='space-y-2 mt-4'>
+              <div className='flex gap-1 text-sm'>
+                <p className='font-semibold'>{blog.author}</p>
+                <p className='text-gray-300'> | </p>
+                <p className='main-text-color font-semibold'>{blog.category}</p>
+              </div>
+              <p onClick={()=> router.push(`/blog/${blog.slug}`)} className='text-xl font-bold hover:text-[#e8151f] transition-colors duration-300 cursor-pointer'>{blog.title.length > 100 ? blog.title.slice(0,100) + '...' : blog.title}</p>
+              <div className=' text-sm'>{blog.excerpt.slice(0,110)}</div>
+              <div>
+                <Link href={`/blog/${blog.slug}`} className='font-semibold hover:text-[#e8151f] transition-colors duration-300'>Read more</Link>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   )}
 
 

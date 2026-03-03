@@ -19,7 +19,7 @@ export function UpcomingCars({ cars}: UpcomingCarsProps) {
         <h2 className="md:text-2xl text-lg font-bold text-slate-900 font-sans">Upcoming Cars</h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {list.map((car,index) => (
+        {list.map((car) => (
 
           <div key={car.modelName}
             onClick={(e) => { e.stopPropagation(); router.push(`/${car.brand.replace(/\s+/g, '-')}/${car.modelName.replace(/\s+/g, '-')}`)}}

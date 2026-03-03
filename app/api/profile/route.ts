@@ -23,7 +23,7 @@ export async function GET(req: Request) {
 
         let user = null;
         if (typeof decoded !== "string" && decoded && (decoded as any)._id) {
-            user = await User.findById((decoded as any)._id);
+            user = await User.findById((decoded as any)._id).select('-password');
         }
 
         if (user) {

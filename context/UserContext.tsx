@@ -50,7 +50,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
             const response = await axios.get('/api/profile', {withCredentials: true});
             if(response.status === 200){
                 const data = response.data;
-                console.log(data);
                 setIsLoggedIn(true);
                 setUser(data.user);
             }

@@ -10,7 +10,7 @@ import Link from 'next/link';
 import {capitalizeString, PriceFormatter} from '../hook/utils';
 import { EmiCalculator } from './EmiCalculator';
 import OfferForm from './OfferForm';
-import { CarIcon } from 'lucide-react';
+import { CarIcon, CheckCircle2 } from 'lucide-react';
 const PricePage = () => {
   const [selectedFuel, setSelectedFuel] = useState<'All' | 'Petrol' | 'Diesel' | 'Electric' | 'Hybrid' | 'CNG'>('All');
   const [selectedTransmission, setSelectedTransmission] = useState<'All' | 'Manual' | 'Automatic' | 'Automatic (AMT)'>('All');
@@ -258,23 +258,26 @@ const PricePage = () => {
 
         {/* Quick actions panel after description */}
         {car?.variant?.length > 0 && (
-          <div className="rounded-2xl overflow-hidden">
-            <div className="grid gap-0">
-              <div className="p-4">
-                {(() => {
-                  const min = Math.min(...car?.variant.map((v: any) => v.price));
-                  const max = Math.max(...car?.variant.map((v: any) => v.price));
-                  return <p className="md:text-2xl text-lg font-bold main-text-color">₹{PriceFormatter(min)} - {PriceFormatter(max)}</p>;
-                })()}
-                <p className="text-xs text-gray-600 mb-1">On-Road Price</p>
-                <div id='overview' className="mt-3 flex items-center gap-3">
-                  <button onClick={() => setEmiOpen(true)} className="text-blue-600 text-sm md:text-[16px] hover:underline">EMI Calculator</button>
-                  <button onClick={()=> setOfferOpen(true)} className="md:px-3 md:py-2 px-2 py-1 text-sm md:text-[16px] rounded-lg main-bg-color text-white">Get Offers</button>
-                </div>
-              </div>
+          <div className="p-4 mt-2 bg-[#f6f7f9] border rounded-2xl">
+            {(() => {
+              const min = Math.min(...car?.variant.map((v: any) => v.price));
+              const max = Math.max(...car?.variant.map((v: any) => v.price));
+              return <p className="md:text-2xl text-lg font-bold main-text-color">₹{PriceFormatter(min)} - {PriceFormatter(max)}</p>;
+            })()}
+            <div className='flex items-center gap-2'>
+              <p className="text-xs text-gray-600">On-Road Price</p>
+              {/* <button className='text-blue-600 bg-white hover:border-blue-600 border py-1 px-2 rounded-lg' onClick={()=> setOfferOpen(true)}>{localStorage.getItem('caarzyLocation') || 'Select Location'}</button> */}
             </div>
+            <p className="text-xs text-muted-foreground flex items-center gap-1 mt-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
+                Inclusive of road tax, insurance & registration
+            </p>
           </div>
         )}
+        <div id='overview' className="my-3 flex items-center gap-3">
+          <button onClick={() => setEmiOpen(true)} className="text-blue-600 text-sm md:text-[16px] hover:underline">EMI Calculator</button>
+          <button onClick={()=> setOfferOpen(true)} className="md:px-3 md:py-2 px-2 py-1 text-sm md:text-[16px] rounded-lg main-bg-color text-white">Get Offers</button>
+        </div>
 
         <hr />
 

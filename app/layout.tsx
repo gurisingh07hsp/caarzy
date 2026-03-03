@@ -12,6 +12,9 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'AutoDeal - Car Marketplace',
   description: 'Find your perfect car with AutoDeal - the ultimate car marketplace platform',
+  alternates:{
+    canonical: '/'
+  }
 }
 
 export default function RootLayout({

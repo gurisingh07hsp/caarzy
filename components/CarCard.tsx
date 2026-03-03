@@ -9,7 +9,6 @@ interface CarCardProps {
 }
 
 export function CarCard({car}: CarCardProps) {
-  console.log('car : ', car);
   const router = useRouter();
 
     return (

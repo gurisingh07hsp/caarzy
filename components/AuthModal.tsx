@@ -113,7 +113,7 @@ const AuthModal = ({closeModal}:PageProps) => {
                 required 
                 placeholder='Password' className='border w-[90%] px-4 py-2 rounded-lg'></input>
                 {message && <p className=''>{message}</p>}
-                <input type='submit' value={`${tab === 'login' ? 'Login' : 'Register'}`} className='bg-orange-500 text-white w-[90%] py-2 rounded-lg cursor-pointer'></input> 
+                <input type='submit' value={`${tab === 'login' ? 'Login' : 'Register'}`} className='main-bg-color text-white w-[90%] py-2 rounded-lg cursor-pointer'></input> 
             </form>
             {tab === "login" && (
                 <button
@@ -167,7 +167,7 @@ const AuthModal = ({closeModal}:PageProps) => {
 
               <input
                 type="submit"
-                className="w-full bg-orange-500 py-2 text-white rounded-md cursor-pointer"
+                className="w-full main-bg-color py-2 text-white rounded-md cursor-pointer"
                 value={`${loading ? "Sending..." : "Send OTP"}`}
               />
             </div>
