@@ -7,16 +7,20 @@ import { CheckIcon, XIcon, ChevronUp, ChevronDown, CheckCircle2 } from 'lucide-r
 import { Reviews } from './Reviews';
 import { useRouter } from 'next/navigation';
 import CarLoadingComponent from './CarLoadingComponent';
-import { PriceFormatter } from '@/hook/utils';
+import { capitalizeString, PriceFormatter } from '@/hook/utils';
 import OfferForm from './OfferForm';
 import IncorrectSpecsForm from './IncorrectSpecsForm';
+import LocationForm from './LocationForm';
+import { EmiCalculator } from './EmiCalculator';
 const VariantDetails = () => {
     const { variant } = useParams();
     const [carVariant, setCarVariant] = useState<Car | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [emiOpen, setEmiOpen] = useState(false);
     const [offerOpen, setOfferOpen] = useState(false);
+    const [locationOpen, setLocationOpen] = useState(false);
     const [incorrectSpecsOpen, setIncorrectSpecsOpen] = useState(false);
-    const [selectedtab, setSelectedTab] = useState<'description' | 'overview' | 'images' | 'features' | 'reviews'>('description');
+    const [selectedtab, setSelectedTab] = useState<'description' | 'overview' | 'price' | 'images' | 'features' | 'reviews'>('description');
     const [model, setModel] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [popularCars, setPopularCars] = useState([]);
@@ -92,26 +96,46 @@ const VariantDetails = () => {
   return (
     <div>
       {offerOpen && <OfferForm open={offerOpen} setOpen={setOfferOpen}/>}
+      {locationOpen && <LocationForm open={locationOpen} setOpen={setLocationOpen} page={`variant`}/>}
       {incorrectSpecsOpen && <IncorrectSpecsForm open={incorrectSpecsOpen} setOpen={setIncorrectSpecsOpen}/>}
+      <EmiCalculator open={emiOpen} onClose={() => setEmiOpen(false)} price={Number(carVariant?.price)} />
         {carVariant && model ? (
             <div className='max-w-7xl flex lg:flex-row flex-col justify-between mx-2 lg:mx-auto'>
               <div className='lg:w-[800px]'>
-                <div className='md:h-[460px]'>
+
+            <div>
+            <div className="relative rounded-2xl overflow-hidden bg-secondary aspect-[4/3]">
+              <img src={`${model.images[activeIndex]}`} alt="XUV700" className="w-full h-full object-cover transition-all duration-500" />
+              <div className="absolute top-3 left-3 flex gap-1.5">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-accent text-accent-foreground">{capitalizeString(model.brand)}</span>
+              </div>
+
+            </div>
+            <div className="flex gap-2 mt-2">
+              {model?.images.map((img: string, i: number) => (
+                <button key={i} onClick={() => setActiveIndex(i)} className={`flex-1 rounded-xl overflow-hidden border-2 transition-all ${activeIndex === i ? "border-primary" : "border-transparent opacity-60 hover:opacity-80"}`}>
+                  <img src={img} alt="" className="w-full aspect-video object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+                {/* <div className='md:h-[460px]'>
                     <img src={`${model.images[activeIndex]}`} alt="model" className='w-[100%] h-[100%] object-cover rounded-lg' />
                 </div>
             <div className="mt-3 overflow-x-auto mb-8">
-            <div className="flex gap-3 w-max">
+            <div className="flex gap-2 w-max">
               {model?.images?.map((src: string, idx: number) => (
                 <button
                   key={src + idx}
                   onClick={() => setActiveIndex(idx)}
                   className={`relative rounded-xl overflow-hidden border ${activeIndex===idx ? 'border-gray-900' : 'border-transparent'}`}
                 >
-                    <img src={src} alt={`thumb ${idx+1}`} className="h-28 w-48 object-cover" />
+                    <img src={src} alt={`thumb ${idx+1}`} className="h-24 w-40 object-cover" />
                 </button>
               ))}
             </div>
-          </div>
+          </div> */}
 
         <div className='flex gap-2 my-4 overflow-x-auto scrollbar-hide snap-x snap-mandatorypb-2'>
           <button 
@@ -127,6 +151,13 @@ const VariantDetails = () => {
           >
             Overview
           </button>
+
+          <button 
+            onClick={() => {setSelectedTab('price'); router.push(`${'price-in-'+capitalizeString(localStorage.getItem('caarzyLocation') || '').replace(/\s+/g, '')}`)}} 
+            className={`lg:px-4 px-3 md:min-w-[144px] text-xs md:text-[16px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'price' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
+          >
+            Price
+          </button>
           
           <button 
             onClick={() => {setSelectedTab('features'); router.push('#features')}} 
@@ -135,7 +166,7 @@ const VariantDetails = () => {
             Features
           </button>
           <button 
-            onClick={() => {setSelectedTab('images'); router.push(`pictures`)}} 
+            onClick={() => {setSelectedTab('images'); router.push(`images`)}} 
             className={`lg:px-4 px-3 md:min-w-[144px] text-xs md:text-[16px] lg:py-3 py-1 whitespace-nowrap snap-start flex-shrink-0 ${selectedtab === 'images' ? 'main-bg-color text-white' : 'border border-gray-300 text-gray-700'} rounded-full hover:bg-[#e8151f] hover:text-white transition-colors duration-200`}
           >
             Images
@@ -151,9 +182,9 @@ const VariantDetails = () => {
         </div>
 
         <p className="text-slate-600 mb-2 px-4">{model?.brand?.charAt(0).toUpperCase() + model?.brand?.slice(1)} • {model.bodyType == 'suv' ? 'SUV' : model?.bodyType?.charAt(0).toUpperCase() + model?.bodyType?.slice(1)}</p>
-        <h1 className="lg:text-3xl text-xl font-bold text-slate-900 mb-2 px-4">{carVariant?.name?.charAt(0).toUpperCase() + carVariant?.name?.slice(1)}</h1>
+        <h1 className="lg:text-3xl text-xl font-bold text-slate-900 mb-2 px-4">{carVariant.name}</h1>
 
-        <div className='flex items-center gap-4 px-4'>
+        <div className='flex text-sm text-muted-foreground items-center gap-4 px-4'>
           <div className='flex items-center gap-1'>
             <svg width="17" height="17" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M7.14629 9.64624L13.1463 3.64624C13.1927 3.59979 13.2479 3.56294 13.3086 3.5378C13.3693 3.51265 13.4343 3.49971 13.5 3.49971C13.5657 3.49971 13.6308 3.51265 13.6915 3.5378C13.7522 3.56294 13.8073 3.59979 13.8538 3.64624C13.9002 3.6927 13.9371 3.74785 13.9622 3.80854C13.9874 3.86924 14.0003 3.93429 14.0003 3.99999C14.0003 4.06569 13.9874 4.13074 13.9622 4.19144C13.9371 4.25214 13.9002 4.30729 13.8538 4.35374L7.85379 10.3537C7.80733 10.4002 7.75218 10.437 7.69148 10.4622C7.63079 10.4873 7.56573 10.5003 7.50004 10.5003C7.43434 10.5003 7.36928 10.4873 7.30859 10.4622C7.24789 10.437 7.19274 10.4002 7.14629 10.3537C7.09983 10.3073 7.06298 10.2521 7.03784 10.1914C7.0127 10.1307 6.99976 10.0657 6.99976 9.99999C6.99976 9.93429 7.0127 9.86924 7.03784 9.80854C7.06298 9.74785 7.09983 9.6927 7.14629 9.64624ZM8.00004 5.49999C8.43435 5.49944 8.86585 5.56974 9.27754 5.70812C9.34004 5.73028 9.40633 5.73978 9.47254 5.73608C9.53876 5.73237 9.60357 5.71553 9.66322 5.68654C9.72286 5.65755 9.77614 5.61698 9.81995 5.56719C9.86377 5.51741 9.89724 5.45941 9.91842 5.39657C9.9396 5.33372 9.94807 5.26729 9.94334 5.20114C9.9386 5.135 9.92075 5.07045 9.89083 5.01127C9.86091 4.95208 9.81951 4.89944 9.76905 4.85641C9.71859 4.81338 9.66008 4.78082 9.59691 4.76062C8.80011 4.492 7.94844 4.42866 7.12067 4.57647C6.2929 4.72429 5.51579 5.07847 4.8612 5.60626C4.20662 6.13406 3.69571 6.81841 3.37575 7.59601C3.05578 8.37361 2.93709 9.21935 3.03066 10.055C3.04419 10.1772 3.10227 10.2902 3.19382 10.3722C3.28536 10.4543 3.40395 10.4998 3.52691 10.5C3.54504 10.5 3.56379 10.5 3.58254 10.4969C3.7143 10.4823 3.83488 10.4159 3.91774 10.3124C4.0006 10.2089 4.03897 10.0768 4.02441 9.94499C4.00814 9.79722 4 9.64866 4.00004 9.49999C4.00119 8.43948 4.42299 7.42274 5.17289 6.67284C5.92278 5.92295 6.93952 5.50115 8.00004 5.49999ZM14.2338 6.31249C14.2038 6.25405 14.1627 6.20209 14.1126 6.15956C14.0626 6.11704 14.0046 6.08478 13.9421 6.06465C13.8796 6.04451 13.8138 6.03688 13.7483 6.04219C13.6829 6.04751 13.6191 6.06566 13.5607 6.09562C13.5022 6.12557 13.4503 6.16675 13.4077 6.21679C13.3652 6.26683 13.333 6.32476 13.3128 6.38726C13.2927 6.44977 13.285 6.51563 13.2904 6.58108C13.2957 6.64654 13.3138 6.7103 13.3438 6.76874C13.7137 7.49516 13.9321 8.28918 13.9859 9.10259C14.0396 9.91601 13.9275 10.7319 13.6563 11.5006L2.33754 11.4962C2.02174 10.591 1.9269 9.6234 2.06093 8.67408C2.19496 7.72476 2.55397 6.82123 3.10804 6.03881C3.66211 5.25639 4.39518 4.61775 5.24614 4.17612C6.0971 3.73449 7.0413 3.50267 8.00004 3.49999H8.05504C8.98624 3.50585 9.90301 3.73065 10.7313 4.15624C10.7899 4.18849 10.8544 4.20866 10.9209 4.21554C10.9874 4.22243 11.0547 4.2159 11.1186 4.19633C11.1826 4.17677 11.242 4.14457 11.2933 4.10164C11.3446 4.05872 11.3867 4.00593 11.4172 3.94642C11.4478 3.88691 11.4661 3.82188 11.471 3.75517C11.4759 3.68847 11.4675 3.62145 11.446 3.55809C11.4246 3.49472 11.3907 3.4363 11.3463 3.38628C11.3019 3.33626 11.2479 3.29565 11.1875 3.26687C9.94064 2.62819 8.53078 2.37836 7.14035 2.54967C5.74991 2.72099 4.44286 3.30557 3.38828 4.22781C2.3337 5.15005 1.58011 6.3675 1.22498 7.72269C0.869846 9.07788 0.929523 10.5085 1.39629 11.8294C1.46523 12.0251 1.5931 12.1946 1.76232 12.3147C1.93154 12.4348 2.13379 12.4995 2.34129 12.5H13.6582C13.8655 12.5001 14.0678 12.4358 14.237 12.3158C14.4062 12.1959 14.534 12.0263 14.6025 11.8306C14.9179 10.9337 15.0478 9.98205 14.9844 9.03341C14.921 8.08476 14.6657 7.15887 14.2338 6.31187V6.31249Z" fill="#696665"/>
@@ -193,7 +224,10 @@ const VariantDetails = () => {
 
         <div className="p-4 mt-2 bg-[#f6f7f9] border rounded-2xl">
           <p className="lg:text-2xl text-xl font-bold main-text-color">₹{PriceFormatter(carVariant?.price)}</p>
-          <p className="text-xs text-gray-600 mb-1">On-Road Price</p>
+          <div className='flex items-center gap-2'>
+            <p className="text-xs text-gray-600 mb-1">On-Road Price</p>
+            <button className='text-blue-600 bg-white hover:border-blue-600 border py-1 px-2 rounded-lg' onClick={()=> setLocationOpen(true)}>{localStorage.getItem('caarzyLocation') || 'Select Location'}</button>
+          </div>
           <p className="text-xs text-muted-foreground flex items-center gap-1 mt-2">
             <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
             Inclusive of road tax, insurance & registration
@@ -201,8 +235,8 @@ const VariantDetails = () => {
         </div>
 
         <div className="my-2 flex items-center gap-3">
-          {/* <button onClick={() => setEmiOpen(true)} className="text-blue-600 hover:underline">EMI Calculator</button> */}
-          <button onClick={()=> setOfferOpen(true)} className="lg:px-3 px-2 py-2 text-sm lg:text-[16px] rounded-lg main-bg-color text-white">Get Offers</button>
+          <button onClick={() => setEmiOpen(true)} className="text-blue-600 w-36 border border-blue-600 md:py-2 py-1 px-2 rounded-lg text-sm md:text-[16px]">EMI Calculator</button>
+          <button onClick={()=> setOfferOpen(true)} className="md:px-3 md:py-2 px-2 py-1 w-36 text-sm md:text-[16px] rounded-lg main-bg-color text-white">Get Offers</button>
         </div>
 
         <hr id='overview'/>

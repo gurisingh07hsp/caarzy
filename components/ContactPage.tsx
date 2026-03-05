@@ -34,7 +34,7 @@ export function ContactPage() {
             <textarea className='border w-full h-28 rounded-lg'></textarea>
           </div>
 
-          <button className='bg-[#FF7101] text-white px-6 py-3 rounded-2xl mt-2'>Send Message</button>
+          <button className='main-bg-color text-white px-6 py-3 rounded-2xl mt-2'>Send Message</button>
         </div>
         <div className='border rounded-2xl shadow-md p-7'>
           <h2 className='text-2xl font-medium'>Contact Us</h2>

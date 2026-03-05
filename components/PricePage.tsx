@@ -274,9 +274,14 @@ const PricePage = () => {
             </p>
           </div>
         )}
-        <div id='overview' className="my-3 flex items-center gap-3">
+        {/* <div id='overview' className="my-3 flex items-center gap-3">
           <button onClick={() => setEmiOpen(true)} className="text-blue-600 text-sm md:text-[16px] hover:underline">EMI Calculator</button>
           <button onClick={()=> setOfferOpen(true)} className="md:px-3 md:py-2 px-2 py-1 text-sm md:text-[16px] rounded-lg main-bg-color text-white">Get Offers</button>
+        </div> */}
+
+        <div id='overview' className="my-2 flex items-center gap-3">
+          <button onClick={() => setEmiOpen(true)} className="text-blue-600 w-36 border border-blue-600 md:py-2 py-1 px-2 rounded-lg text-sm md:text-[16px]">EMI Calculator</button>
+          <button onClick={()=> setOfferOpen(true)} className="md:px-3 md:py-2 px-2 py-1 w-36 text-sm md:text-[16px] rounded-lg main-bg-color text-white">Get Offers</button>
         </div>
 
         <hr />

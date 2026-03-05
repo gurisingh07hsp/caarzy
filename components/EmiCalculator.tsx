@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 interface EmiCalculatorProps {
-  price: number; // car price in INR
+  price: number // car price in INR
   open: boolean;
   onClose: () => void;
 }

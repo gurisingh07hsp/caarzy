@@ -266,8 +266,8 @@ const ComparePageDetails = () => {
                     ].map(([label, value1, value2], idx) => (
                       (value1 !== null && value2 !== null) && (value1 !== undefined && value2 !== undefined) && (value1 !== "" || typeof value1 === "boolean") && (value2 !== "" || typeof value2 === "boolean") && (
                       <div key={idx} className="space-y-2 mb-4">
-                        <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
-                        <div className="px-4 py-2 border flex justify-around rounded-lg">
+                        <p className="text-center py-1 text-sm md:text-[16px] rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
+                        <div className="px-4 py-2 text-xs md:text-[16px] border flex justify-around gap-2 rounded-lg">
                             <div>{(value1 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value1 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value1}</div>
                             <div>{(value2 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value2 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value2}</div>
                         </div>
@@ -291,8 +291,8 @@ const ComparePageDetails = () => {
                     ["Emission Norm Compliance", selectedVariant1.fuelAndPerformance.emissionNormCompliance, selectedVariant2.fuelAndPerformance.emissionNormCompliance],
                   ].map(([label, value1, value2], idx) => (
                       <div key={idx} className="space-y-2 mb-4">
-                      <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
-                      <div className="px-4 py-2 border flex justify-around rounded-lg">
+                      <p className="text-center text-sm md:text-[16px] py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
+                      <div className="px-4 py-2 text-xs md:text-[16px] gap-2 border flex justify-around rounded-lg">
                           <div>{(value1 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value1 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value1}</div>
                           <div>{(value2 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value2 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value2}</div>
                       </div>
@@ -349,8 +349,8 @@ const ComparePageDetails = () => {
                     ],
                   ].map(([label, value1, value2], idx) => (
                       <div key={idx} className="space-y-2 mb-4">
-                      <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
-                      <div className="px-4 py-2 border flex justify-around rounded-lg">
+                      <p className="text-center text-sm md:text-[16px] py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
+                      <div className="px-4 py-2 text-xs md:text-[16px] gap-2 border flex justify-around rounded-lg">
                           <div>{(value1 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value1 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value1}</div>
                           <div>{(value2 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value2 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value2}</div>
                       </div>
@@ -409,8 +409,8 @@ const ComparePageDetails = () => {
                     ]
                   ].map(([label, value1, value2], idx) => (
                       <div key={idx} className="space-y-2 mb-4">
-                      <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
-                      <div className="px-4 py-2 border flex justify-around rounded-lg">
+                      <p className="text-center text-sm md:text-[16px] py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
+                      <div className="px-4 py-2 text-xs md:text-[16px] gap-2 border flex justify-around rounded-lg">
                           <div>{(value1 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value1 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value1}</div>
                           <div>{(value2 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value2 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value2}</div>
                       </div>
@@ -628,8 +628,8 @@ const ComparePageDetails = () => {
                   ]
                   .map(([label, value1, value2], idx) => (
                       <div key={idx} className="space-y-2 mb-4">
-                      <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
-                      <div className="px-4 py-2 border flex justify-around rounded-lg">
+                      <p className="text-center text-sm md:text-[16px] py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
+                      <div className="px-4 py-2 text-xs md:text-[16px] gap-2 border flex justify-around rounded-lg">
                           <div>{(value1 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value1 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value1}</div>
                           <div>{(value2 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value2 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value2}</div>
                       </div>
@@ -682,8 +682,8 @@ const ComparePageDetails = () => {
                     ]
                   ].map(([label, value1, value2], idx) => (
                       <div key={idx} className="space-y-2 mb-4">
-                      <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
-                      <div className="px-4 py-2 border flex justify-around rounded-lg">
+                      <p className="text-center text-sm md:text-[16px] py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
+                      <div className="px-4 py-2 text-xs md:text-[16px] gap-2 border flex justify-around rounded-lg">
                           <div>{(value1 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value1 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value1}</div>
                           <div>{(value2 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value2 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value2}</div>
                       </div>
@@ -862,8 +862,8 @@ const ComparePageDetails = () => {
                   ]
                   .map(([label, value1, value2], idx) => (
                       <div key={idx} className="space-y-2 mb-4">
-                      <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
-                      <div className="px-4 py-2 border flex justify-around rounded-lg">
+                      <p className="text-center text-sm md:text-[16px] py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
+                      <div className="px-4 py-2 text-xs md:text-[16px] gap-2 border flex justify-around rounded-lg">
                           <div>{(value1 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value1 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value1}</div>
                           <div>{(value2 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value2 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value2}</div>
                       </div>
@@ -1048,8 +1048,8 @@ const ComparePageDetails = () => {
                     ]
                   ].map(([label, value1, value2], idx) => (
                       <div key={idx} className="space-y-2 mb-4">
-                      <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
-                      <div className="px-4 py-2 border flex justify-around rounded-lg">
+                      <p className="text-center py-1 text-sm md:text-[16px] rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
+                      <div className="px-4 py-2 text-xs md:text-[16px] gap-2 border flex justify-around rounded-lg">
                           <div>{(value1 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value1 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value1}</div>
                           <div>{(value2 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value2 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value2}</div>
                       </div>
@@ -1127,8 +1127,8 @@ const ComparePageDetails = () => {
                     ]
                   ].map(([label, value1, value2], idx) => (
                       <div key={idx} className="space-y-2 mb-4">
-                      <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
-                      <div className="px-4 py-2 border flex justify-around rounded-lg">
+                      <p className="text-center text-sm md:text-[16px] py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
+                      <div className="px-4 py-2 text-xs md:text-[16px] gap-2 border flex justify-around rounded-lg">
                           <div>{(value1 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value1 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value1}</div>
                           <div>{(value2 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value2 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value2}</div>
                       </div>
@@ -1202,8 +1202,8 @@ const ComparePageDetails = () => {
                     ],
                   ].map(([label, value1, value2], idx) => (
                     <div key={idx} className="space-y-2 mb-4">
-                    <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
-                    <div className="px-4 py-2 border flex justify-around rounded-lg">
+                    <p className="text-center text-sm md:text-[16px] py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
+                    <div className="px-4 py-2 text-xs md:text-[16px] gap-2 border flex justify-around rounded-lg">
                         <div>{(value1 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value1 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value1}</div>
                         <div>{(value2 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value2 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value2}</div>
                     </div>
@@ -1256,8 +1256,8 @@ const ComparePageDetails = () => {
                     ],
                   ].map(([label, value1, value2], idx) => (
                     <div key={idx} className="space-y-2 mb-4">
-                    <p className="text-center py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
-                    <div className="px-4 py-2 border flex justify-around rounded-lg">
+                    <p className="text-center text-sm md:text-[16px] py-1 rounded-lg bg-[#F8F8F9] font-medium">{label}</p>
+                    <div className="px-4 py-2 text-xs md:text-[16px] gap-2 border flex justify-around rounded-lg">
                         <div>{(value1 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value1 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value1}</div>
                         <div>{(value2 as any) == true ? <div className='bg-green-600 rounded-full flex justify-center items-center w-5 h-5'><CheckIcon className='text-white' size={13}/></div> : (value2 as any) == false ? <div className='bg-red-600 rounded-full flex justify-center items-center w-5 h-5'><XIcon className='text-white' size={13}/></div> : value2}</div>
                     </div>
@@ -1370,7 +1370,7 @@ const Section: React.FC<SectionProps> = ({ title, id, children, expandedSections
       onClick={() => toggleSection(id)}
       className="w-full border-b px-4 py-3 flex justify-between items-center"
     >
-      <h3 className="font-semibold text-left">{title}</h3>
+      <h3 className="text-sm md:text-[16px] font-semibold text-left">{title}</h3>
       {expandedSections[id] ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
     </button>
     {expandedSections[id] && <div className="p-4">{children}</div>}

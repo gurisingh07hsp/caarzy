@@ -1,15 +1,15 @@
-import { Mail, MapPin, Phone } from 'lucide-react'
 import React, { useState, useEffect, useRef } from 'react'
 import { districtArray,capitalizeString } from '../hook/utils';
 import { useRouter } from 'next/navigation';
 import { useParams } from "next/navigation";
+import { MapPin } from 'lucide-react';
 
 interface FormData {
   email: string
   phone: string
   location: string
 }
-const OfferForm = ({open, setOpen}: {open: boolean, setOpen: (open: boolean) => void}) => {
+const LocationForm = ({open, setOpen, page}: {open: boolean, setOpen: (open: boolean) => void, page: string}) => {
   const locationRef = useRef<HTMLDivElement>(null);
   const { name } = useParams();
   const router = useRouter();
@@ -42,8 +42,13 @@ const OfferForm = ({open, setOpen}: {open: boolean, setOpen: (open: boolean) => 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // localStorage.setItem('caarzyLocation', capitalizeString(formData.location).replace(/\s+/g, ''));
-    // router.push(`${name}/${'price-in-'+capitalizeString(formData.location).replace(/\s+/g, '')}`)
+    localStorage.setItem('caarzyLocation', capitalizeString(formData.location).replace(/\s+/g, ''));
+    if(page == 'variant'){
+        router.push(`${'price-in-'+capitalizeString(formData.location).replace(/\s+/g, '')}`)
+    }
+    else{
+        router.push(`${name}/${'price-in-'+capitalizeString(formData.location).replace(/\s+/g, '')}`)
+    }
     console.log(formData)
     setOpen(false)
   }
@@ -148,46 +153,6 @@ const OfferForm = ({open, setOpen}: {open: boolean, setOpen: (open: boolean) => 
                 </div>
               </div>
 
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium uppercase tracking-widest">
-                  Email
-                </label>
-                <div className="relative" ref={locationRef}>
-                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm">
-                   <Mail size={16}/>
-                   </span>
-                  <input
-                    type="text"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Email"
-                    required
-                    className="w-full border focus:border-red-500 rounded-xl pl-9 pr-4 py-3 placeholder text-sm outline-none"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium uppercase tracking-widest">
-                  Phone
-                </label>
-                <div className="relative" ref={locationRef}>
-                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm">
-                   <Phone size={16}/>
-                   </span>
-                  <input
-                    type='tel'
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="+91 00000-00000"
-                    required
-                    className="w-full border focus:border-red-500 rounded-xl pl-9 pr-4 py-3 placeholder text-sm outline-none"
-                  />
-                </div>
-              </div>
-
               {/* Submit */}
               <button
                 type="submit"
@@ -203,4 +168,4 @@ const OfferForm = ({open, setOpen}: {open: boolean, setOpen: (open: boolean) => 
   )
 }
 
-export default OfferForm
+export default LocationForm
