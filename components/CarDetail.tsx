@@ -213,7 +213,6 @@ export function CarDetail() {
               <img src={(car?.images[activeIndex] || car?.images[0])} alt="XUV700" className="w-full h-full object-cover transition-all duration-500" />
               <div className="absolute top-3 left-3 flex gap-1.5">
                 <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-accent text-accent-foreground">{capitalizeString(car.brand)}</span>
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-foreground/80 text-background">SUV</span>
               </div>
               {/* <div className="absolute top-3 right-3 flex gap-1.5">
                 <button className="w-8 h-8 rounded-full bg-card/80 backdrop-blur flex items-center justify-center shadow-sm hover:text-accent transition-colors"><Heart className="w-4 h-4" /></button>
