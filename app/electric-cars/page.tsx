@@ -2,12 +2,16 @@
 import { CarCard } from '@/components/CarCard';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { mockBrands } from '@/data/mockBrands';
 
 const page = () => {
   const [activeBrand, setActiveBrand] = useState<string>("All");
-  const [activeTab, setActiveTab] = useState<"launched" | "upcoming">("launched");
+  const [blogs, setBlogs] = useState<any>([]);
   const [electricCars, setElectricCars] = useState([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const router = useRouter();
 
     const getElectricCars = async() => {
     try{
@@ -25,12 +29,25 @@ const page = () => {
     }
   };
 
+    const getBlogs = async() => {
+    try{
+      const response = await axios.get('/api/manageblogs');
+      if(response.status === 200){
+        console.log(response.data.blogs);
+        setBlogs(response.data.blogs.filter((b: any)=> b.category == 'Electric Vehicles').slice(0,3));
+      }
+    }catch(error){
+      console.error('Error fetching popular cars: ', error);
+    }
+  }
+
   useEffect(()=> {
     getElectricCars();
+    getBlogs();
   },[]);
 
   const filteredCars = electricCars.filter((c: any) => {
-    const brandMatch = activeBrand === "All" || c.brand === activeBrand;
+    const brandMatch = activeBrand === "All" || c.brand === activeBrand.toLowerCase();
     const searchMatch = c.modelName.toLowerCase().includes(searchQuery.toLowerCase());
     return brandMatch && searchMatch;
   });
@@ -104,6 +121,31 @@ const page = () => {
         </div>
       </div>
 
+
+      <div className="max-w-7xl mx-auto px-4 py-8">
+      
+        <div className="mb-6">
+          <h2 className="text-lg font-black text-slate-800 mb-3">Browse by Brand</h2>
+          <div className="flex flex-wrap gap-2">
+            {mockBrands.map((brand) => (
+              <button
+                key={brand.name}
+                onClick={() => setActiveBrand(brand.name)}
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                  activeBrand === brand.name
+                    ? "bg-emerald-600 text-white shadow-lg shadow-emerald-200"
+                    : "bg-white text-slate-600 border border-slate-200 hover:border-emerald-400 hover:text-emerald-600"
+                }`}
+              >
+                {brand.name}
+              </button>
+            ))}
+          </div>
+        </div>
+        </div>
+
+
+
       <h1 className='max-w-6xl mx-auto text-3xl font-bold mt-2'>Electric Cars</h1>
       <div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4 max-w-6xl mx-auto my-4'>
         {filteredCars.map((car, index)=> (
@@ -111,28 +153,38 @@ const page = () => {
         ))}
       </div>
 
-
-
-        {/* <div className="max-w-7xl mx-auto px-4 py-8">
-      
-        <div className="mb-6">
-          <h2 className="text-lg font-black text-slate-800 mb-3">Browse by Brand</h2>
-          <div className="flex flex-wrap gap-2">
-            {brands.map((brand) => (
-              <button
-                key={brand}
-                onClick={() => setActiveBrand(brand)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-                  activeBrand === brand
-                    ? "bg-emerald-600 text-white shadow-lg shadow-emerald-200"
-                    : "bg-white text-slate-600 border border-slate-200 hover:border-emerald-400 hover:text-emerald-600"
-                }`}
-              >
-                {brand}
-              </button>
-            ))}
+  {blogs.length > 0 && (
+    <div className='border mt-8 max-w-7xl mb-4 mx-auto rounded-2xl p-4'>
+      <h2 className='lg:text-xl text-lg font-medium'>Latest Articles & Reviews</h2>
+      <div className="grid mt-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
+        {blogs.map((blog: any, index: number) => (
+          <div key={index} className='lg:w-[330px] h-[400px]'>
+            <div className='w-full md:h-[200px] h-[200px] relative rounded-2xl overflow-hidden'>
+              <div className='main-bg-color text-white absolute top-2 left-2 rounded-full px-2 py-1'>{new Date(blog.publishDate).toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+              })}</div>
+              <img src={blog.featuredImage} alt={blog.title} className='rounded-2xl w-full h-full' />
+            </div>
+            <div className='space-y-2 mt-4'>
+              <div className='flex gap-1 text-sm'>
+                <p className='font-semibold'>{blog.author}</p>
+                <p className='text-gray-300'> | </p>
+                <p className='main-text-color font-semibold'>{blog.category}</p>
+              </div>
+              <p onClick={()=> router.push(`/blog/${blog.slug}`)} className='text-xl font-bold hover:text-[#e8151f] transition-colors duration-300 cursor-pointer'>{blog.title.length > 100 ? blog.title.slice(0,100) + '...' : blog.title}</p>
+              <div className=' text-sm'>{blog.excerpt.slice(0,110)}</div>
+              <div>
+                <Link href={`/blog/${blog.slug}`} className='font-semibold hover:text-[#e8151f] transition-colors duration-300'>Read more</Link>
+              </div>
+            </div>
           </div>
-        </div> */}
+        ))}
+      </div>
+    </div>
+  )}
+
 
 
 
