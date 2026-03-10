@@ -338,7 +338,7 @@ const PricePage = () => {
           {variants?.map((v: any, index: number) => (
             <div key={v.name} className="grid grid-cols-12 gap-2 items-center px-4 py-4 border-t text-sm">
               <div className="col-span-6">
-                <Link href={`${name}/${v.name.replace(/\s+/g, '-')}`} className="font-semibold text-gray-900 py-2">{v.name}</Link>
+                <Link href={`${v.name.replace(/\s+/g, '-')}`} className="font-semibold text-gray-900 py-2">{v.name}</Link>
                 <p className="text-gray-600 text-xs">{v.engineAndTransmission?.displacement?.split(' ')[0]} cc, {v.engineAndTransmission.transmissionType}, {v.fuelAndPerformance?.fuelType}, {v.fuelAndPerformance?.petrolMileageARAI?.split(' ')[0]} kmpl</p>
               </div>
               <div className="lg:col-span-2 col-span-6 text-right lg:text-center font-semibold">₹{PriceFormatter(v.price)}</div>
