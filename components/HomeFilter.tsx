@@ -146,7 +146,7 @@ const HomeFilter = () => {
     </div>
       </div>
       <div className='lg:ms-8 ms-4'>
-        <button className='w-full h-full main-bg-color rounded-r-2xl text-white'
+        <button className='w-full h-full font-semibold main-bg-color rounded-r-2xl text-white'
         onClick={()=> router.push(`/${brand.toLowerCase().replace(/\s+/g, '-')}/${modelName.toLowerCase().replace(/\s+/g, '-')}`)}>Search Car</button>
       </div>
     </div>

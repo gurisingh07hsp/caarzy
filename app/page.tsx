@@ -32,7 +32,7 @@ export default function HomePage() {
       const response = await axios.get('/api/managemodels',{
       params: {
         category: category,
-        limit: 12
+        limit: 4
       }
     });
       if(response.status === 200){
@@ -97,7 +97,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-white">
         <div>
           <HeroSection searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-          <HomeFilter/>
+          {/* <HomeFilter/> */}
           <BrandShowcase brands={mockBrands} />
           <PopularCars cars={popularCars}/>
           <ElectricCars cars={electricCars}/>
