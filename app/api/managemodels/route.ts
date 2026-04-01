@@ -8,15 +8,18 @@ export async function GET(req: Request){
     try{
 
         const { searchParams } = new URL(req.url);
+        const modelName = searchParams.get('modelName');
         const bodyType = searchParams.get('bodyType');
         const brand = searchParams.get('brand');
         const category = searchParams.get('category');
         const limit = Number(searchParams.get('limit'));
 
         let filter: any = {};
+
         if (bodyType) filter.bodyType = bodyType;
         if (brand) filter.brand = brand;
         if (category) filter.category = category;
+        if (modelName) filter.modelName = { $regex: modelName, $options: 'i' };
 
         const models = await Model.find(filter).populate('variant').sort({ launchDate: -1 }).limit(limit); ;
         if(models){

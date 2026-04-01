@@ -1,14 +1,43 @@
 "use client";
 
 import { ArrowRight, CarIcon } from "lucide-react";
-import HomeFilter from "./HomeFilter";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { Model } from "@/types/Car";
+import { useRouter } from "next/navigation";
 
-interface HeroSectionProps {
-  searchTerm: string;
-  onSearchChange: (term: string) => void;
-}
+export function HeroSection() {
+  const [searchInput, setSearchInput] = useState('');
+  const [models, setModels] = useState<Model[]>([]);
+  const [brand, setBrand] = useState('');
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-export function HeroSection({ searchTerm, onSearchChange }: HeroSectionProps) {
+  useEffect(()=> {
+    const handleSearch = async () => {
+      const response = await axios.get(`/api/managemodels`, {params: {modelName: searchInput?.toString().toLowerCase(),limit: 8}});
+      if(response.status == 200){
+        console.log("search Models : ", response.data.models);
+        setModels(response.data.models);
+      }
+    }
+    handleSearch();
+  },[searchInput]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     // <div className="bg-white max-w-7xl lg:px-0 px-2 mx-auto mt-2">
     //   <div className='relative h-[530px] w-full'>
@@ -82,24 +111,47 @@ export function HeroSection({ searchTerm, onSearchChange }: HeroSectionProps) {
           </h1>
         </div>
 
-        {/* <div className="w-full glass-panel p-2 rounded-2xl border border-neutral-200 shadow-xl">
+        <div className="w-full glass-panel p-2 rounded-2xl border border-neutral-200 shadow-xl">
           <div className="flex flex-col md:flex-row items-stretch gap-2">
-            <div className="flex-grow flex items-center bg-neutral-50 rounded-xl px-6 py-4 focus-within:ring-2 ring-primary/20 transition-all border border-neutral-100">
+            <div className="flex-grow flex items-center bg-neutral-50 rounded-xl px-6 py-4 focus-within:ring-2 ring-[#F80A1D]/20 transition-all border border-neutral-100">
               <span
-                className="material-symbols-outlined text-primary mr-4"
+                className="material-symbols-outlined mr-4"
                 data-icon="directions_car"
               >
                 <CarIcon className="text-[#F80A1D]"/>
               </span>
+              <div ref={dropdownRef} className="relative w-full">
               <input
-                className="w-full bg-transparent border-none focus:ring-0 text-lg font-medium placeholder:text-neutral-400 text-on-background"
-                placeholder="Search car models, specs, or average prices..."
+                className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-lg font-medium placeholder:text-neutral-400 text-on-background"
+                placeholder="Search car models"
                 type="text"
+                value={searchInput}
+                onChange={(e)=> setSearchInput(e.target.value)}
+                onFocus={()=> setOpen(true)}
               />
+              {open && (
+                <ul className="absolute w-full bg-white border rounded mt-1 shadow-md z-50 max-h-96 md:max-h-72 overflow-y-auto">
+                  {models.map((item, index) => (
+                    <li
+                      key={index}
+                      onClick={() => {
+                        setSearchInput(item.modelName);
+                        setBrand(item.brand);
+                        setOpen(false); // ✅ Close after selecting
+                      }}
+                      className="text-sm md:text-base p-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      {item.modelName}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              </div>
             </div>
          
-            <button className="bg-[#F80A1D] hover:brightness-110 text-white font-headline font-bold px-10 py-4 rounded-xl transition-all flex items-center justify-center gap-2 group">
-              ANALYZE
+            <button onClick={()=> router.push(`/${brand.toLowerCase().replace(/\s+/g, '-')}/${searchInput.toLowerCase().replace(/\s+/g, '-')}`)} className="bg-[#F80A1D] hover:brightness-110 text-white font-headline font-bold px-10 py-4 rounded-xl transition-all flex items-center justify-center gap-2 group">
+              SEARCH
               <span
                 className="material-symbols-outlined group-hover:translate-x-1 transition-transform"
                 data-icon="arrow_forward"
@@ -108,33 +160,7 @@ export function HeroSection({ searchTerm, onSearchChange }: HeroSectionProps) {
               </span>
             </button>
           </div>
-        </div> */}
-
-             <HomeFilter/>
-
-        {/* <div className="flex flex-wrap justify-center gap-6 pt-4">
-          <span className="text-neutral-400 text-xs font-bold uppercase tracking-widest">
-            Trending:
-          </span>
-          <a
-            className="text-on-background hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest border-b border-transparent hover:border-primary pb-0.5"
-            href="#"
-          >
-            Porsche 911 GT3 RS
-          </a>
-          <a
-            className="text-on-background hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest border-b border-transparent hover:border-primary pb-0.5"
-            href="#"
-          >
-            Tesla Model S Plaid
-          </a>
-          <a
-            className="text-on-background hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest border-b border-transparent hover:border-primary pb-0.5"
-            href="#"
-          >
-            BMW M4 Competition
-          </a>
-        </div> */}
+        </div>
       </div>
 
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">

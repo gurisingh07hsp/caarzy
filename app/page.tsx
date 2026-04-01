@@ -96,7 +96,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
         <div>
-          <HeroSection searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+          <HeroSection />
           {/* <HomeFilter/> */}
           <BrandShowcase brands={mockBrands} />
           <PopularCars cars={popularCars}/>
