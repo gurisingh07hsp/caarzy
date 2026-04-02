@@ -105,7 +105,7 @@ export function HeroSection() {
           <span className="inline-block px-4 py-1 rounded-full bg-[#F80A1D]/10 border border-[#F80A1D]/20 text-[#F80A1D] font-headline text-xs font-bold tracking-[0.2em] uppercase">
             The Precision Redline
           </span>
-          <h1 className="text-6xl md:text-8xl font-headline font-bold tracking-tighter leading-[0.9] text-on-background">
+          <h1 className="text-4xl md:text-6xl font-headline font-bold tracking-tighter leading-2 md:leading-1 text-on-background">
             Car Intelligence <br />
             <span className="text-neutral-400">at Your Fingertips</span>
           </h1>
