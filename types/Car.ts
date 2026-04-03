@@ -10,6 +10,7 @@ export interface Model {
   colors: string[];
   pros: string[];
   cons: string[];
+  faq?: {question: string, answer: string}[];
   isFeatured: boolean;
   isLatest: boolean;
   launchDate: Date;

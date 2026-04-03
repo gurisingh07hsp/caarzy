@@ -12,6 +12,7 @@ export interface IModel extends mongoose.Document {
   colors: {colorCode: string, colorName: string}[];
   pros: string[];
   cons: string[];
+  faq: {question: string, answer: string}[];
   isFeatured: boolean;
   isLatest: boolean;
   launchDate: Date;
@@ -30,6 +31,7 @@ const modelSchema = new mongoose.Schema<IModel>({
     colors: [{colorCode:{type: String}, colorName:{type: String}}],
     pros: {type: [String]},
     cons: {type: [String]},
+    faq: [{question: {type: String}, answer: {type: String}}],
     isFeatured: {type: Boolean},
     isLatest: {type: Boolean},
     launchDate: {type: Date}

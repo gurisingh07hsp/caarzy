@@ -33,6 +33,12 @@ export function CarDetail() {
   const [selectedtab, setSelectedTab] = useState<'description' | 'overview' | 'price' | 'images' | 'pros&cons' | 'reviews'>('description');
   const router = useRouter();
 
+  const [activeFaqIndex, setActiveFaqIndex] = useState<number | null>(null);
+
+  const toggleFAQ = (index: number) => {
+    setActiveFaqIndex(activeFaqIndex === index ? null : index);
+  };
+
   const getBlogs = async() => {
     try{
       const response = await axios.get('/api/manageblogs');
@@ -740,6 +746,42 @@ export function CarDetail() {
       ))}
     </div>
   </div>
+  )}
+  {car?.faq && car?.faq.length > 0 && (
+      <div className="lg:max-w-2xl border mt-8 rounded-2xl p-5 shadow-sm">
+      <h2 className="lg:text-xl text-lg font-semibold mb-4">FAQ</h2>
+
+      <div className="space-y-3">
+        {car.faq.map((f:any, index:number) => (
+          <div
+            key={index}
+            className="border rounded-xl overflow-hidden transition-all"
+          >
+            {/* Question */}
+            <button
+              onClick={() => toggleFAQ(index)}
+              className="w-full flex justify-between items-center px-4 py-3 text-left font-medium hover:bg-gray-50"
+            >
+              <span>{f.question}</span>
+              <span className="text-xl">
+                {activeFaqIndex === index ? "-" : "+"}
+              </span>
+            </button>
+
+            {/* Answer */}
+            <div
+              className={`px-4 transition-all duration-300 ease-in-out ${
+                activeFaqIndex === index
+                  ? "max-h-40 py-3 opacity-100"
+                  : "max-h-0 overflow-hidden opacity-0"
+              }`}
+            >
+              <p className="text-gray-600 text-sm">{f.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   )}
 
   {blogs.length > 0 && (

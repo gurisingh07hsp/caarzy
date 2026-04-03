@@ -38,6 +38,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     colors: {colorCode: string, colorName: string}[];
     pros: string[];
     cons: string[];
+    faq?: {question: string, answer: string}[];
     isFeatured: boolean,
     isLatest: boolean,
     launchDate: Date
@@ -53,6 +54,7 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
     colors: [{colorCode: '', colorName: ''}],
     pros: [],
     cons: [],
+    faq: [{question: '', answer: ''}],
     isFeatured: false,
     isLatest: false,
     launchDate: new Date()
@@ -66,12 +68,17 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
   const [pros, setPros] = useState<string>('');
   const [cons, setCons] = useState<string>('');
   const [colors, setColors] = useState<{colorCode: string, colorName: string}[]>([]);
+  const [faqs, setFaqs] = useState<{question: string, answer: string}[]>([]);
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState<string>('');
   const [isEditing, setIsEditing] = useState(false);
   const [newColor, setNewColor] = useState({
     colorCode: '',
     colorName: '',
+  });
+  const [newFaq, setNewFaq] = useState({
+    question: '',
+    answer: '',
   });
   const [searchModelQuery, setSearchModelQuery] = useState('');
   const [searchCarQuery, setSearchCarQuery] = useState('');
@@ -91,6 +98,11 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
   },[colors]);
 
   useEffect(()=> {
+    setForm({...form, faq: faqs});
+    console.log(form);
+  },[faqs]);
+
+  useEffect(()=> {
     setForm({...form, pros: prosList});
   },[prosList]);
 
@@ -101,27 +113,47 @@ export function AdminPanel({cars,models}: AdminPanelProps) {
 function addColor() {
   // prevent empty values
   if (newColor.colorName == '' || newColor.colorCode == '') return;
-
   // check if color already exists
   const exists = colors.some(
     (color) =>
       color.colorName.toLowerCase() === newColor.colorName.toLowerCase()
   );
-
   if (!exists) {
     setColors((prev) => [...prev, newColor]);
   }
-
   // reset input
   setNewColor({
     colorCode: '',
     colorName: '',
   });
 }
+function addFaq() {
+  // prevent empty values
+  if (newFaq.question == '' || newFaq.answer == '') return;
+  // check if FAQ already exists
+  const exists = faqs.some(
+    (faq) =>
+      faq.question.toLowerCase() === newFaq.question.toLowerCase()
+  );
+  if (!exists) {
+    setFaqs((prev) => [...prev, newFaq]);
+  }
+  // reset input
+  setNewFaq({
+    question: '',
+    answer: '',
+  });
+}
 
 function removeColor(colorName: string) {
   setColors((prev) =>
     prev.filter((color) => color.colorName !== colorName)
+  );
+}
+
+function removeFaq(question: string) {
+  setFaqs((prev) =>
+    prev.filter((faq) => faq.question !== question)
   );
 }
 
@@ -138,6 +170,7 @@ function removeColor(colorName: string) {
       colors: [],
       pros: [],
       cons: [],
+      faq: [],
       isFeatured: false,
       isLatest: false,
       launchDate: new Date()
@@ -154,6 +187,11 @@ function removeColor(colorName: string) {
     setNewColor({
       colorCode: '',
       colorName: ''
+    });
+    setFaqs([]);
+    setNewFaq({
+      question: '',
+      answer: ''
     });
     setIsEditing(false);
     setId('');
@@ -372,6 +410,11 @@ function removeColor(colorName: string) {
       : [{colorCode: '', colorName: ''}];
     setColors(formattedColors);
     setForm((prev) => ({...prev, colors: formattedColors}));
+    const formattedFaqs = Array.isArray(model?.faq) && typeof model?.faq[0] === 'object' 
+      ? (model.faq as unknown as {question: string, answer: string}[])
+      : [{question: '', answer: ''}];
+    setFaqs(formattedFaqs);
+    setForm((prev) => ({...prev, faq: formattedFaqs}));
     setId(model._id as string);
   }
 
@@ -689,6 +732,22 @@ function removeColor(colorName: string) {
       </div>
       <textarea value={pros} onChange={(e)=> setPros(e.target.value)} placeholder="Pros" className="border mt-4 rounded-lg px-3 py-2 w-full min-h-24" />
       <textarea value={cons} onChange={(e)=> setCons(e.target.value)} placeholder="Cons" className="border mt-4 rounded-lg px-3 py-2 w-full min-h-24" />
+      <div>
+        <label className="block mt-4 text-sm font-medium text-gray-700 mb-2">FAQ</label>
+        <div className="flex lg:flex-row flex-col lg:items-center gap-2">
+          <input type="text" value={newFaq.question} onChange={(e) => setNewFaq({...newFaq, question: e.target.value})} className="py-2 px-2 border rounded-lg" />
+          <input type="text" value={newFaq.answer} onChange={(e) => setNewFaq({...newFaq, answer: e.target.value})} className="py-2 px-2 border rounded-lg" />
+          <button type="button" onClick={addFaq} className="px-3 py-2 rounded main-bg-color text-white">Add FAQ</button>
+        </div>
+        <div className="flex flex-wrap gap-2 mt-3">
+          {faqs.map((f: any) => (
+            <button key={f.question} type="button" onClick={() => removeFaq(f.question)} className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-sm">
+              {f.question}
+              <span className="text-gray-500">×</span>
+            </button>
+          ))}
+        </div>
+      </div>
       <div className='flex justify-end'>
         <input type="submit" value={loading ? isEditing ? 'Updating...' : 'Creating...' : isEditing ? 'Update' : 'Create'} className=' bg-black rounded-md text-white py-2 px-3 cursor-pointer' />
       </div>
