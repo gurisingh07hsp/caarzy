@@ -90,22 +90,22 @@ export function HeroSection() {
     //   </div>
     // </div>
 
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden bg-white">
-      <div className="absolute inset-0 z-0 opacity-[0.03]">
+    <section className="relative min-h-[80vh] mt-8 flex flex-col items-center justify-center px-6 overflow-hidden bg-white">
+      <div className="absolute inset-0 z-0 max-w-7xl md:mx-auto mx-2">
         <img
-          alt="Background Pattern"
-          className="w-full h-full object-cover grayscale"
+          alt="Background"
+          className="w-full h-full object-cover rounded-3xl"
           data-alt="Subtle architectural grid or automotive blueprint lines"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHOelQ75D9JdP20TCXd-EyKvVdm3VpiGUq8zOLMfKzd0m3yMuEZwMml_JN9EB3A8PKdT-ces4yONec-Q-Hfl79kN9XGHI8Eyx0JuGbNP-wIEtvINIeM_xteiG0qIatJ-0A-bFghwv1ntp66s8U6KIlmqUE8ssFdPgmVJUeZjqvbd_XAJ4AsYqcAYFCmvQ-gHTm3JHwDu-jiM19n8r-t55TH3exosxAWb85HKitGfxut8rrjvo9fc6QWMxeF2n7pqrwPlIYoYGB2hZ4"
+          src="/hero.jpg"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white"></div>
+        {/* <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white"></div> */}
       </div>
       <div className="relative z-10 w-full max-w-4xl space-y-12">
         <div className="space-y-4 text-center">
           <span className="inline-block px-4 py-1 rounded-full bg-[#F80A1D]/10 border border-[#F80A1D]/20 text-[#F80A1D] font-headline text-xs font-bold tracking-[0.2em] uppercase">
             The Precision Redline
           </span>
-          <h1 className="text-4xl md:text-6xl font-headline font-bold tracking-tighter leading-2 md:leading-1 text-on-background">
+          <h1 className="text-4xl md:text-6xl font-headline text-neutral-400 font-bold tracking-tighter leading-2 md:leading-1 text-on-background">
             Car Intelligence <br />
             <span className="text-neutral-400">at Your Fingertips</span>
           </h1>
