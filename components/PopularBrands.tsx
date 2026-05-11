@@ -31,7 +31,7 @@ const PopularBrands = ({bodyTypeCounts}: PageProps) => {
           <div
             key={index}
             onClick={() =>
-              router.push(`/cars/${type.key.replace(/\s+/g, '-')}`)
+              router.push(`/bodytype/${type.key.replace(/\s+/g, '-')}`)
             }
             className="rounded-xl bg-white border p-2 text-center hover:shadow-lg transition-shadow cursor-pointer"
           >

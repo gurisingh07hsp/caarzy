@@ -74,11 +74,8 @@ export function Footer() {
               <ul className="space-y-2 text-sm">
                 <li><Link href="/about" className="text-gray-400 hover:text-white">About us</Link></li>
                 <li><Link href="#" className="text-gray-400 hover:text-white">Compare Listings</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Dealer Listings</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Sale Agents</Link></li>
                 <li><Link href="/contact" className="text-gray-400 hover:text-white">Contact us</Link></li>
                 <li><Link href="/blog" className="text-gray-400 hover:text-white">Blog List</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">FAQs</Link></li>
               </ul>
             </div>
 
@@ -96,13 +93,11 @@ export function Footer() {
             <div>
               <h4 className="text-white font-bold text-lg mb-4">Other</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="#" className="text-gray-400 hover:text-white">How it work</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Terms and Conditions</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Privacy Policy</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Copyrights</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Help center</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Car sales trends</Link></li>
-                <li><Link href="#" className="text-gray-400 hover:text-white">Personal loan</Link></li>
+                <li><Link href="/how-it-works" className="text-gray-400 hover:text-white">How it work</Link></li>
+                <li><Link href="/terms" className="text-gray-400 hover:text-white">Terms and Conditions</Link></li>
+                <li><Link href="/privacy-policy" className="text-gray-400 hover:text-white">Privacy Policy</Link></li>
+                <li><Link href="/copyrights" className="text-gray-400 hover:text-white">Copyrights</Link></li>
+                <li><Link href="/car-sales-trends" className="text-gray-400 hover:text-white">Car sales trends</Link></li>
               </ul>
             </div>
 
@@ -138,7 +133,7 @@ export function Footer() {
 
             {/* Copyright */}
             <p className="text-gray-400 text-sm mb-4 sm:mb-0">
-              © 2024 Caarzy. All rights reserved
+              © {new Date().getFullYear()} Caarzy. All rights reserved
             </p>
 
             {/* Social Media Icons */}

@@ -42,6 +42,81 @@ export function Header() {
             >
               Contact
             </Link>
+            <div className="relative group">
+
+            <div
+              className="text-gray-700 cursor-pointer hover:text-[#e8151f] font-medium transition-colors"
+            >
+              Cars
+               {/* <img src="/dropdown.svg" className="w-6" alt="" /> */}
+            </div>
+
+                {/* Dropdown */}
+                <div className="absolute left-0 top-full mt-2 w-80 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <ul className="py-2">
+                    <li>
+                      <Link href="/cars/popular-cars" className="block px-4 py-2 hover:bg-gray-100">
+                        Popular Cars
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/cars/upcoming-cars" className="block px-4 py-2 hover:bg-gray-100">
+                        Upcoming Cars
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/cars/electric-cars" className="block px-4 py-2 hover:bg-gray-100">
+                        Electric Cars
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+          </div>
+              <div className="relative group">
+
+            <div
+              className="text-gray-700 cursor-pointer hover:text-[#e8151f] font-medium transition-colors"
+            >
+              Popular Brands
+               {/* <img src="/dropdown.svg" className="w-6" alt="" /> */}
+            </div>
+
+                {/* Dropdown */}
+                <div className="absolute left-0 top-full mt-2 w-80 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <ul className="py-2">
+                    <li>
+                      <Link href="/brand/maruti-suzuki" className="block px-4 py-2 hover:bg-gray-100">
+                        Maruti Suzuki
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/brand/toyota" className="block px-4 py-2 hover:bg-gray-100">
+                        Toyota
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/brand/hyundai" className="block px-4 py-2 hover:bg-gray-100">
+                        Hyundai
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/brand/kia" className="block px-4 py-2 hover:bg-gray-100">
+                        Kia
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/brand/tata" className="block px-4 py-2 hover:bg-gray-100">
+                        Tata
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/brand/mahindra" className="block px-4 py-2 hover:bg-gray-100">
+                        Mahindra
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+          </div>
             {isLoggedIn && user?.role === 'admin' && (
               <Link
                 href="/admin"
@@ -102,29 +177,104 @@ export function Header() {
             <div className="flex flex-col space-y-2">
               <Link
                 href="/"
-                className="px-4 py-2 text-left font-medium text-gray-700 hover:text-orange-500 transition-colors"
+                className="px-4 py-2 text-left font-medium text-gray-700 hover:text-[#e8151f] transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Home
               </Link>
               <Link
                 href="/blog"
-                className="px-4 py-2 text-left font-medium text-gray-700 hover:text-orange-500 transition-colors"
+                className="px-4 py-2 text-left font-medium text-gray-700 hover:text-[#e8151f] transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Blog
               </Link>
               <Link
                 href="/contact"
-                className="px-4 py-2 text-left font-medium text-gray-700 hover:text-orange-500 transition-colors"
+                className="px-4 py-2 text-left font-medium text-gray-700 hover:text-[#e8151f] transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Contact
               </Link>
+          <div className="relative group">
+
+            <div
+              className="px-4 py-2 text-gray-700 cursor-pointer hover:text-[#e8151f] font-medium transition-colors"
+            >
+              Cars
+               {/* <img src="/dropdown.svg" className="w-6" alt="" /> */}
+            </div>
+
+                {/* Dropdown */}
+                <div className="absolute left-0 top-full mt-2 w-80 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <ul className="py-2">
+                    <li onClick={() => setIsMobileMenuOpen(false)}>
+                      <Link href="/cars/popular-cars" className="block px-4 py-2 hover:bg-gray-100">
+                        Popular Cars
+                      </Link>
+                    </li>
+                    <li onClick={() => setIsMobileMenuOpen(false)}>
+                      <Link href="/cars/upcoming-cars" className="block px-4 py-2 hover:bg-gray-100">
+                        Upcoming Cars
+                      </Link>
+                    </li>
+                    <li onClick={() => setIsMobileMenuOpen(false)}>
+                      <Link href="/cars/electric-cars" className="block px-4 py-2 hover:bg-gray-100">
+                        Electric Cars
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+          </div>
+           <div className="relative group">
+
+            <div
+              className="px-4 py-2 text-gray-700 cursor-pointer hover:text-[#e8151f] font-medium transition-colors"
+            >
+              Popular Brands
+               {/* <img src="/dropdown.svg" className="w-6" alt="" /> */}
+            </div>
+
+                {/* Dropdown */}
+                <div className="absolute left-0 top-full mt-2 w-80 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <ul className="py-2">
+                    <li onClick={() => setIsMobileMenuOpen(false)}>
+                      <Link href="/brand/maruti-suzuki" className="block px-4 py-2 hover:bg-gray-100">
+                        Maruti Suzuki
+                      </Link>
+                    </li>
+                    <li onClick={() => setIsMobileMenuOpen(false)}>
+                      <Link href="/brand/toyota" className="block px-4 py-2 hover:bg-gray-100">
+                        Toyota
+                      </Link>
+                    </li>
+                    <li onClick={() => setIsMobileMenuOpen(false)}>
+                      <Link href="/brand/hyundai" className="block px-4 py-2 hover:bg-gray-100">
+                        Hyundai
+                      </Link>
+                    </li>
+                    <li onClick={() => setIsMobileMenuOpen(false)}>
+                      <Link href="/brand/kia" className="block px-4 py-2 hover:bg-gray-100">
+                        Kia
+                      </Link>
+                    </li>
+                    <li onClick={() => setIsMobileMenuOpen(false)}>
+                      <Link href="/brand/tata" className="block px-4 py-2 hover:bg-gray-100">
+                        Tata
+                      </Link>
+                    </li>
+                    <li onClick={() => setIsMobileMenuOpen(false)}>
+                      <Link href="/brand/mahindra" className="block px-4 py-2 hover:bg-gray-100">
+                        Mahindra
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+          </div>
               {isLoggedIn && user?.role === 'admin' && (
               <Link
                 href="/admin"
-                className="text-gray-700 hover:text-orange-500 font-medium transition-colors"
+                className="text-gray-700 hover:[#e8151f] font-medium transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Admin
