@@ -144,7 +144,7 @@ export default function TermsPage() {
               <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
               Effective: May 2025
             </div> */}
-            <h1 className="text-5xl md:text-6xl font-black leading-tight mb-4">
+            <h1 className="text-3xl md:text-6xl font-black leading-tight mb-4">
               Terms &<br />
               <span className="text-white/80">Conditions</span>
             </h1>
@@ -235,7 +235,7 @@ export default function TermsPage() {
                 </div>
  
                 {/* Card Body */}
-                <div className="px-8 py-6 text-gray-600 text-[15px] leading-relaxed space-y-4">
+                <div className="px-8 py-6 text-slate-700 leading-relaxed space-y-4">
                   {"paragraphs" in section && section.paragraphs && (
                     <div className="space-y-3">
                       {section.paragraphs.map((p, i) => (

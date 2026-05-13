@@ -143,7 +143,7 @@ export default function PrivacyPolicyPage() {
               <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
               Last updated: May 2025
             </div> */}
-            <h1 className="text-5xl md:text-6xl font-black leading-tight mb-4">
+            <h1 className="text-3xl md:text-6xl font-black leading-tight mb-4">
               Privacy
               <br />
               <span className="text-white/80">Policy</span>
@@ -234,7 +234,7 @@ export default function PrivacyPolicyPage() {
                               {sub.items.map((item, j) => (
                                 <li key={j} className="flex items-start gap-2.5">
                                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#e8151f] flex-shrink-0" />
-                                  <span>{item}</span>
+                                  <span className="text-slate-700 leading-relaxed">{item}</span>
                                 </li>
                               ))}
                             </ul>

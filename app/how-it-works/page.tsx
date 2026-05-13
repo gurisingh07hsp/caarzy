@@ -74,7 +74,7 @@ export default function HowItWorksPage() {
               <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
               Simple. Smart. Fast.
             </div>
-            <h1 className="text-5xl md:text-6xl font-black leading-tight mb-4">
+            <h1 className="text-3xl md:text-6xl font-black leading-tight mb-4">
               How It
               <br />
               <span className="text-white/80">Works</span>
@@ -157,7 +157,7 @@ export default function HowItWorksPage() {
                 <h2 className="text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-4">
                   {step.title}
                 </h2>
-                <p className="text-gray-500 text-lg leading-relaxed">
+                <p className="text-slate-700 leading-relaxed">
                   {step.desc}
                 </p>
 
