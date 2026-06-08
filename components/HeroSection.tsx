@@ -148,7 +148,7 @@ export function HeroSection() {
             </div>
          
             <motion.button
-              whileHover={{ scale: 1.02, brightness: 1.1 }}
+              whileHover={{ scale: 1.02, filter: "brightness(1.1)" }}
               whileTap={{ scale: 0.98 }}
               onClick={()=> router.push(`/${brand.toLowerCase().replace(/\s+/g, '-')}/${searchInput.toLowerCase().replace(/\s+/g, '-')}`)} 
               className="bg-[#F80A1D] text-white font-sans font-extrabold px-10 py-4 rounded-xl transition-all flex items-center justify-center gap-2 group shadow-lg shadow-[#F80A1D]/20"
