@@ -181,6 +181,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import axios from "axios";
 import { Model } from "@/types/Car";
 import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 
 const slides = [
   {
@@ -379,7 +380,24 @@ export function HeroSection() {
               <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
             </button>
           </div>
-        </div>
+      </div>
+
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.6 }}
+        transition={{ delay: 1, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+      >
+        <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-slate-900">
+          Scroll to Explore
+        </span>
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          className="w-px h-12 bg-gradient-to-b from-[#F80A1D] to-transparent"
+        />
+      </motion.div>
       </div>
     </section>
   );
