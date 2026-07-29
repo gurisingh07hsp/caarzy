@@ -21,7 +21,7 @@ export async function GET(req: Request){
         if (category) filter.category = category;
         if (modelName) filter.modelName = { $regex: modelName, $options: 'i' };
 
-        const models = await Model.find(filter).populate('variant').sort({ launchDate: -1 }).limit(limit); ;
+        const models = await Model.find(filter).populate('variant').sort({ launchDate: -1 }).limit(limit);
         if(models){
             return new Response(
             JSON.stringify({ success: true, models}),

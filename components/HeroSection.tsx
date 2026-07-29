@@ -328,8 +328,8 @@ export function HeroSection() {
         </div>
 
         {/* Heading — persistent across every slide */}
-        <h2 className="absolute z-20 bottom-32 md:bottom-36 left-1/2 -translate-x-1/2 text-2xl md:text-4xl font-headline font-bold text-white text-center whitespace-nowrap">
-          Find Your Dream Car or Bike
+        <h2 className="absolute z-20 bottom-48 md:bottom-36 left-1/2 -translate-x-1/2 text-2xl md:text-4xl font-headline font-bold text-white text-center whitespace-nowrap">
+          Find Your Dream Car
         </h2>
 
         <div className="absolute z-30 bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 w-[92%] md:w-[85%]">

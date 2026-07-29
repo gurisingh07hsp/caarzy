@@ -5,7 +5,6 @@ export async function GET(req: Request) {
     // Connect to the database
     await dbConnect();
 
-
     const cookieHeader = req.headers.get("cookie");
     const token = cookieHeader
         ?.split("; ")

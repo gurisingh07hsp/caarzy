@@ -19,7 +19,6 @@ export async function dbConnect() {
       bufferCommands: false,
     }).then((mongoose) => mongoose);
   }
-
   cached.conn = await cached.promise;
   return cached.conn;
 }

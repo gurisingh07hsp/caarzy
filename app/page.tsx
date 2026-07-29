@@ -26,30 +26,55 @@ export default function HomePage() {
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Load cars from localStorage on component mount
-  const getModels = async(category: string) => {
+  const getPopularModels = async() => {
     try{
       const response = await axios.get('/api/managemodels',{
       params: {
-        category: category,
+        category: 'Popular Cars',
         limit: 4
       }
     });
       if(response.status === 200){
-        if(category === 'Popular Cars'){
-          setPopularCars(response.data.models);
-        }
-        if(category === 'Upcoming Cars'){
-          setUpcomingCars(response.data.models);
-        }
-        if(category === 'Electric Cars'){
-          setElectricCars(response.data.models);
-        }
+        console.log('popular cars : ', response.data);
+        setPopularCars(response.data.models);
       }
     }catch(error){
       console.error('Error fetching popular cars: ', error);
     }
   };
+
+  const getUpcomingModels = async() => {
+    try{
+      const response = await axios.get('/api/managemodels',{
+      params: {
+        category: 'Upcoming Cars',
+        limit: 4
+      }
+    });
+      if(response.status === 200){
+        setUpcomingCars(response.data.models);
+      }
+    }catch(error){
+      console.error('Error fetching popular cars: ', error);
+    }
+  };
+
+  const getElectricModels = async() => {
+    try{
+      const response = await axios.get('/api/managemodels',{
+      params: {
+        category: 'Electric Cars',
+        limit: 4
+      }
+    });
+      if(response.status === 200){
+        setElectricCars(response.data.models);
+      }
+    }catch(error){
+      console.error('Error fetching popular cars: ', error);
+    }
+  };
+
   const getBodyTypeCounts = async () => {
   try {
     const response = await axios.get('/api/managemodels/bodytypecounts');
@@ -62,6 +87,7 @@ export default function HomePage() {
     console.error('Error fetching bodyType counts:', error);
   }
 };
+
   const getBlogs = async() => {
     try{
       const response = await axios.get('/api/manageblogs');
@@ -72,6 +98,7 @@ export default function HomePage() {
       console.error('Error fetching popular cars: ', error);
     }
   }
+
   const getComparisons = async() => {
     try{
       const response = await axios.get('/api/managecomparison');
@@ -82,10 +109,11 @@ export default function HomePage() {
       console.error('Error fetching popular cars: ', error);
     }
   }
+
   useEffect(() => {
-    getModels('Popular Cars');
-    getModels('Upcoming Cars');
-    getModels('Electric Cars');
+    getPopularModels();
+    getUpcomingModels();
+    getElectricModels();
     getBodyTypeCounts();
     getComparisons();
     getBlogs();
